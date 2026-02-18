@@ -1,0 +1,73 @@
+name: RFC Proposal
+description: Raise a direction or problem to start the AIDE RFC process.
+title: "[RFC] "
+labels: ["rfc", "proposal"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        This issue is the first step of the AIDE RFC process.
+        Focus on the problem or direction, not a fully formed solution.
+        For methodology changes beyond typo/grammar fixes, an RFC proposal is required before drafting.
+
+  - type: textarea
+    id: problem_or_direction
+    attributes:
+      label: Problem / direction description
+      description: |
+        Describe the gap, ambiguity, risk, or opportunity you want to address.
+        Focus on what is missing and why it matters.
+      placeholder: |
+        - What is the current problem or pain point?
+        - What impact is this causing for the project?
+        - Why now?
+      render: markdown
+    validations:
+      required: true
+
+  - type: textarea
+    id: agent_usage_plan
+    attributes:
+      label: Agent usage plan
+      description: |
+        Outline how AI agents will be used for this RFC.
+        Include models/tools, expected tasks, and verification steps.
+      placeholder: |
+        - Agent(s) and model(s) to use:
+        - Planned tasks:
+          - research
+          - draft
+          - consistency checks
+          - translation/revision
+        - Validation and review steps:
+          - human review criteria
+          - evidence checks
+      render: markdown
+    validations:
+      required: true
+
+  - type: textarea
+    id: impact_scope
+    attributes:
+      label: Scope of impact
+      description: |
+        Describe affected documents, sections, and expected downstream effects.
+        Include whether this is a typo-level, structural, process, or methodology-level change.
+      placeholder: |
+        - Files or folders affected:
+        - Expected influence on existing RFCs/README/community docs:
+        - Risk level and dependency impact:
+      render: markdown
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: rfc_readiness
+    attributes:
+      label: Readiness checks
+      description: Confirm before submitting
+      options:
+        - label: This is not a typo/grammar-only fix.
+          required: true
+        - label: I am proposing a direction or gap first, not just a final implementation plan.
+          required: true
