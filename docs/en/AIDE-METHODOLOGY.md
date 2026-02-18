@@ -1059,18 +1059,24 @@ DDD becomes **more important** in the AIDE era. However, the implementation appr
 
 ### Naming Convention Guide
 
-Apply the **Semantic Verbosity** principle from the Gemini report, while maintaining practical balance:
+Apply the **Semantic Verbosity** principle from the Gemini report, while maintaining practical balance.
 
-| Category | Convention | Example | Counter-Example |
-|----------|-----------|---------|-----------------|
-| File names | kebab-case | `user-auth.ts` | `ua.ts` |
-| Function names | snake_case, verb_object | `calculate_order_total_in_krw` | `calc(d)` |
-| Type names | PascalCase, nouns | `OrderItem` | `OI` |
-| Variable names | snake_case, include meaning | `active_user_id_list` | `ids` |
-| Constant names | UPPER_SNAKE, include source | `MAX_LOGIN_ATTEMPTS_PER_POLICY` | `MAX` |
-| Side-effect functions | Prefix to indicate side effect | `persist_user_to_database` | `save` |
+#### Core Rule: Language-Native Convention First
 
-**Core Principle**: Variable and function names are **inputs to the agent's reasoning**. The more specific a name is, the exponentially lower the probability of the agent misusing it. However, extreme verbosity like `calculated_total_price_with_discount_applied_in_krw` conflicts with line length limits, so maintain a practical range.
+AIDE does not prescribe a universal case style. **Always follow the target language's established naming convention** (e.g., PEP 8 for Python, ESLint camelcase for TypeScript, Kotlin Coding Conventions for Kotlin). Fighting the language ecosystem creates friction with linters, frameworks, and libraries — and confuses both human developers and AI agents whose training data reflects idiomatic code.
+
+**What AIDE does prescribe** is the *semantic content* of names, regardless of case style:
+
+| Rule | Description | Example (TS) | Example (Python) | Counter-Example |
+|------|-------------|--------------|-------------------|-----------------|
+| Verb-object for functions | Name describes action and target | `calculateOrderTotalInKrw()` | `calculate_order_total_in_krw()` | `calc(d)` |
+| Meaningful variables | Name conveys purpose | `activeUserIdList` | `active_user_id_list` | `ids` |
+| Explicit side effects | Prefix indicates side effect | `persistUserToDatabase()` | `persist_user_to_database()` | `save()` |
+| Nouns for types | Type names are descriptive nouns | `OrderItem` | `OrderItem` | `OI` |
+| Source in constants | Constant names include origin | `MAX_LOGIN_ATTEMPTS_PER_POLICY` | `MAX_LOGIN_ATTEMPTS_PER_POLICY` | `MAX` |
+| File names | Follow language convention | `user-auth.ts` | `user_auth.py` | `ua.ts` |
+
+**Core Principle**: Variable and function names are **inputs to the agent's reasoning**. The more specific a name is, the exponentially lower the probability of the agent misusing it. This principle applies identically across all case styles. However, extreme verbosity like `calculatedTotalPriceWithDiscountAppliedInKrw` conflicts with line length limits, so maintain a practical range.
 
 ### CLAUDE.md Writing Guide (Template)
 
@@ -1098,10 +1104,10 @@ evals/:    Evaluation datasets and scenarios
 .agents/:  Skill packages
 
 ## Code Style
-- Function names: snake_case, verb_object form
+- Naming: Follow language-native convention (e.g., camelCase for TS, snake_case for Python)
+- Naming content: verb_object for functions, meaningful nouns for variables, explicit side-effect prefixes
 - Type names: PascalCase
-- Variable names: snake_case, include meaning
-- Files: kebab-case
+- Files: kebab-case (or language convention, e.g., snake_case.py for Python)
 - Max file length: 300 lines (warning), 500 lines (prohibited)
 - Functions: within 50 lines
 
@@ -1120,6 +1126,72 @@ evals/:    Evaluation datasets and scenarios
 - Good pattern: src/features/user-auth/logic.ts
 - Anti-pattern: (omit if none)
 ```
+
+### Integrating AIDE-REFERENCE.md into Your Project
+
+[AIDE-REFERENCE.md](../../AIDE-REFERENCE.md) is a standalone quick reference (~240 lines) that summarizes the 10 core principles, feature architecture, code style, and workflow in a single file. Use it to ensure AI agents follow AIDE consistently.
+
+#### Option A: Dedicated Reference File (Recommended)
+
+Copy `AIDE-REFERENCE.md` to your project root and reference it from `CLAUDE.md`:
+
+```markdown
+# CLAUDE.md
+
+## Methodology
+This project follows the AIDE methodology. See AIDE-REFERENCE.md for the full reference.
+
+## Project-Specific Rules
+- [Your project's additional rules here]
+```
+
+**Why this works**: AI agents (Claude, Cursor, etc.) automatically load files referenced in CLAUDE.md. Keeping AIDE rules in a separate file preserves your CLAUDE.md budget for project-specific context. AIDE-REFERENCE.md (~240 lines) fits within the Tier 1 limit (300 lines) on its own.
+
+#### Option B: Inline in CLAUDE.md
+
+For smaller projects, copy the relevant sections directly into CLAUDE.md:
+
+```markdown
+# CLAUDE.md
+
+## Methodology: AIDE
+
+### Core Principles
+[Paste selected principles from AIDE-REFERENCE.md]
+
+### Code Style
+[Paste code style section from AIDE-REFERENCE.md]
+
+## Project-Specific Rules
+- [Your rules here]
+```
+
+**Trade-off**: Simpler setup, but consumes CLAUDE.md line budget. Best when you only need a subset of AIDE principles.
+
+#### Option C: Feature-Level AGENTS.md
+
+For large projects, reference AIDE at the root level and add feature-specific context in each feature's `AGENTS.md`:
+
+```
+project-root/
+  CLAUDE.md            → "Follow AIDE. See AIDE-REFERENCE.md."
+  AIDE-REFERENCE.md    → Full AIDE quick reference
+  src/features/
+    user-auth/
+      AGENTS.md        → Domain-specific rules for this feature
+    payment/
+      AGENTS.md        → Domain-specific rules for this feature
+```
+
+This leverages AIDE's **Progressive Disclosure (P6)**: Tier 1 (root CLAUDE.md + AIDE-REFERENCE.md) is always loaded, while Tier 2 (feature AGENTS.md) is loaded only when the agent works in that directory.
+
+#### Context Budget Considerations
+
+| Setup | CLAUDE.md | AIDE-REFERENCE.md | Total Tier 1 |
+|-------|-----------|-------------------|--------------|
+| Option A | ~60 lines (project rules) | ~240 lines | ~300 lines |
+| Option B | ~200-300 lines (merged) | N/A | ~200-300 lines |
+| Option C | ~60 lines (project rules) | ~240 lines | ~300 lines + Tier 2 per feature |
 
 ### AGENTS.md Writing Guide (Feature Tier 2 Template)
 
