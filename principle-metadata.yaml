@@ -1,0 +1,401 @@
+# AIDE v2.0 Adaptive Principles Metadata
+# This file defines the self-calibrating parameters for each AIDE principle.
+# The Evolution Engine automatically updates values based on benchmark data.
+#
+# Tier definitions:
+#   permanent - Core software engineering truth; independent of agent capability
+#   adaptive  - Parameters that auto-adjust based on agent benchmarks and metrics
+#
+# All numeric values use self-calibrating formulas rather than fixed constants.
+# Variables in formulas are measured from external benchmarks and recorded with timestamps.
+
+schema_version: "2.0"
+governance_mode: "autonomous"
+last_global_calibration: "2026-02-20T00:00:00Z"
+
+# ============================================================================
+# ADAPTIVE PRINCIPLES (auto-calibrated by Evolution Engine)
+# ============================================================================
+
+principles:
+  context-budget:
+    id: P1
+    tier: adaptive
+    display_name: "Context Budget Principle"
+    description: "The context budget is a first-class design constraint."
+    review_cycle_months: 6
+
+    current_values:
+      max_file_lines:
+        value: 500
+        unit: lines
+        formula: "round(effective_context_tokens / tokens_per_line * utilization_ratio)"
+        bounds:
+          min: 100
+          max: 5000
+        variables:
+          effective_context_tokens:
+            value: 800000
+            source: "RULER benchmark @ 95% accuracy threshold"
+            measured_at: "2026-02-15"
+          tokens_per_line:
+            value: 18
+            source: "Codebase average (TypeScript)"
+            measured_at: "2026-02-15"
+          utilization_ratio:
+            value: 0.03
+            rationale: "Single file should occupy <=3% of effective context for safe multi-file operations"
+
+      max_function_lines:
+        value: 50
+        unit: lines
+        formula: "round(single_turn_reasoning_depth * safety_margin)"
+        bounds:
+          min: 20
+          max: 500
+        variables:
+          single_turn_reasoning_depth:
+            value: 65
+            source: "HumanEval multi-step reasoning benchmark"
+            measured_at: "2026-02-15"
+          safety_margin:
+            value: 0.8
+            rationale: "20% safety margin below measured capability"
+
+      max_meta_file_lines:
+        value: 300
+        unit: lines
+        formula: "instruction_compliance_inflection_point"
+        bounds:
+          min: 100
+          max: 1000
+        variables:
+          instruction_compliance_inflection_point:
+            value: 300
+            source: "Internal eval: compliance rate drops below 90% beyond this point"
+            measured_at: "2026-02-15"
+
+    validity_conditions:
+      - id: "P1-VC1"
+        condition: "effective_context_at_95_accuracy < 10000000"
+        description: "Context window effective size is below 10M tokens"
+        status: true
+        last_checked: "2026-02-20"
+      - id: "P1-VC2"
+        condition: "lost_in_the_middle_severity > 0.3"
+        description: "Lost-in-the-Middle effect is still significant"
+        status: true
+        last_checked: "2026-02-20"
+      - id: "P1-VC3"
+        condition: "token_cost_per_million_input > 0.50"
+        description: "Token cost is non-trivial"
+        status: true
+        last_checked: "2026-02-20"
+
+    invalidation_triggers:
+      - id: "P1-T1"
+        type: benchmark
+        source: "RULER"
+        condition: "effective_context_at_95_accuracy > 5000000"
+        action: "recalibrate max_file_lines and max_function_lines upward"
+        severity: major
+      - id: "P1-T2"
+        type: market
+        source: "LLM provider pricing"
+        condition: "average_token_cost_per_million_input < 0.10"
+        action: "recalibrate utilization_ratio upward (relax budget constraint)"
+        severity: minor
+      - id: "P1-T3"
+        type: benchmark
+        source: "Lost-in-the-Middle studies"
+        condition: "litm_severity_index < 0.1"
+        action: "significantly increase max_file_lines bounds"
+        severity: major
+
+    evolution_history: []
+
+  locality-of-behavior:
+    id: P2
+    tier: adaptive
+    display_name: "Locality of Behavior"
+    description: "Locality of behavior takes priority over abstraction."
+    review_cycle_months: 6
+
+    current_values:
+      enforcement_strength:
+        value: 0.85
+        unit: ratio
+        formula: "max(0.0, 1.0 - multi_hop_reasoning_accuracy)"
+        bounds:
+          min: 0.0
+          max: 1.0
+        rationale: "As multi-hop reasoning improves toward 1.0, locality enforcement approaches 0.0"
+        variables:
+          multi_hop_reasoning_accuracy:
+            value: 0.15
+            source: "SWE-bench multi-file resolution rate"
+            measured_at: "2026-02-15"
+
+      max_files_per_feature_change:
+        value: 3
+        unit: files
+        formula: "max(2, ceil(5 * (1 - multi_hop_reasoning_accuracy)))"
+        bounds:
+          min: 2
+          max: 20
+
+      max_indirection_depth:
+        value: 2
+        unit: levels
+        formula: "max(1, ceil(3 * (1 - multi_hop_reasoning_accuracy)))"
+        bounds:
+          min: 1
+          max: 10
+
+    invalidation_triggers:
+      - id: "P2-T1"
+        type: benchmark
+        source: "SWE-bench"
+        condition: "multi_file_resolution_rate > 0.90"
+        action: "reduce enforcement_strength below 0.1; increase max_files and max_indirection"
+        severity: major
+      - id: "P2-T2"
+        type: benchmark
+        source: "Factory.ai or equivalent"
+        condition: "multi_hop_reasoning_accuracy > 0.80"
+        action: "relax locality constraints significantly"
+        severity: major
+
+    evolution_history: []
+
+  functional-core:
+    id: P3
+    tier: permanent
+    display_name: "Functional Core, Structural Shell"
+    description: "Business logic in pure functions, side effects at explicit boundaries."
+    review_cycle_months: 12
+    permanence_rationale: |
+      Pure functions produce the same output for the same input — this is a mathematical
+      property independent of agent capability. Immutable data eliminates hidden state
+      tracking. These advantages hold regardless of how advanced AI agents become.
+
+  knowledge-dry:
+    id: P4
+    tier: adaptive
+    display_name: "Knowledge DRY, Code WET-tolerant"
+    description: "Business rules DRY, utility code allows conscious duplication."
+    review_cycle_months: 6
+
+    current_values:
+      max_utility_duplication:
+        value: 3
+        unit: occurrences
+        formula: "max(2, ceil(context_budget_headroom / avg_utility_size))"
+        bounds:
+          min: 2
+          max: 10
+        variables:
+          context_budget_headroom:
+            value: 400000
+            source: "effective_context - typical_working_set_size"
+            measured_at: "2026-02-20"
+          avg_utility_size:
+            value: 150
+            source: "Average utility function token count in codebase"
+            measured_at: "2026-02-20"
+
+    invalidation_triggers:
+      - id: "P4-T1"
+        type: metric
+        source: "Codebase analysis"
+        condition: "context_budget_utilization < 0.3"
+        action: "increase max_utility_duplication (more headroom available)"
+        severity: minor
+
+    evolution_history: []
+
+  test-as-specification:
+    id: P5
+    tier: permanent
+    display_name: "Test as Specification"
+    description: "Tests are specification documents that communicate intent."
+    review_cycle_months: 12
+    permanence_rationale: |
+      Tests-as-specification is independent of who writes the tests.
+      The principle holds whether humans or agents author them.
+      PBT's superiority (48.9% vs 1.1% on Hard tasks) is a structural advantage.
+
+    v2_adaptations:
+      test_authoring:
+        v1: "Human spec -> AI implementation"
+        v2: "Agent A spec -> Agent B implementation -> Agent C verification (Axiom A2)"
+      pbt_properties:
+        v1: "Humans define properties"
+        v2: "Agents auto-infer properties from code patterns + harvest from production failures"
+      eval_suites:
+        v1: "Human-designed"
+        v2: "Eval Flywheel: production failures -> automatic eval case generation"
+      confirmation_bias_prevention:
+        v1: "Human reviews test specifications"
+        v2: "Different-vendor models for test vs implementation (Axiom A2)"
+
+  progressive-disclosure:
+    id: P6
+    tier: adaptive
+    display_name: "Progressive Disclosure"
+    description: "Progressive disclosure of information to manage agent attention."
+    review_cycle_months: 6
+
+    current_values:
+      disclosure_layers:
+        value: 3
+        formula: "max(1, ceil(3 * attention_diffusion_factor))"
+        variables:
+          attention_diffusion_factor:
+            value: 0.7
+            source: "Measured attention quality degradation in long contexts"
+            measured_at: "2026-02-15"
+
+    invalidation_triggers:
+      - id: "P6-T1"
+        type: benchmark
+        source: "Attention quality studies"
+        condition: "attention_diffusion_in_long_context < 0.1"
+        action: "reduce or eliminate disclosure layering requirements"
+        severity: major
+
+    evolution_history: []
+
+  deterministic-guardrails:
+    id: P7
+    tier: permanent
+    display_name: "Deterministic Guardrails"
+    description: "Deterministic guardrails for probabilistic generation."
+    review_cycle_months: 12
+    permanence_rationale: |
+      Deterministic verification of probabilistic output is a logical necessity
+      for system stability. As long as code generation is probabilistic,
+      deterministic checks (linters, type checkers, tests) remain essential.
+
+  observability:
+    id: P8
+    tier: permanent
+    display_name: "Observability as Structure"
+    description: "Observability is part of the system structure."
+    review_cycle_months: 12
+    permanence_rationale: |
+      Observability is the implementation of Axiom A5. The Evolution Engine
+      cannot function without continuous system state measurement.
+      This principle becomes MORE important in v2.0, not less.
+
+  security-by-structure:
+    id: P9
+    tier: permanent
+    display_name: "Security by Structure"
+    description: "Structural security validation, not ad-hoc checks."
+    review_cycle_months: 12
+    permanence_rationale: |
+      Security threats exist regardless of (and often proportional to)
+      agent capability improvements. AI-generated code has 45% security
+      flaw rate — this makes structural security non-negotiable.
+
+    v2_adaptations:
+      security_review:
+        v1: "Security team designs scenarios, automated execution"
+        v2: "Red Team Agent auto-generates attack vectors + auto-defends"
+
+  meta-code:
+    id: P10
+    tier: adaptive
+    display_name: "Meta-Code as First-Class"
+    description: "AGENTS.md, CLAUDE.md, Skills files are versioned and tested like code."
+    review_cycle_months: 6
+
+    v2_adaptations:
+      authoring:
+        v1: "Humans write and maintain CLAUDE.md, AGENTS.md, manifest.yaml"
+        v2: "Agents analyze codebase -> auto-generate -> adversarial validation (Axiom A2)"
+      governance:
+        v1: "Human PR review for meta-code changes"
+        v2: "Multi-Agent Review + Eval Suite auto-validation"
+      size_limits:
+        v1: "Fixed 300-line limit"
+        v2: "Self-calibrating via instruction_compliance_inflection_point"
+
+    evolution_history: []
+
+# ============================================================================
+# AGENT AUTONOMY LEVELS
+# ============================================================================
+
+autonomy_levels:
+  L1:
+    name: "Autocomplete"
+    human_role: "Design + Implement + Review"
+    agent_role: "Code autocomplete suggestions"
+    aide_recommendation: "Use existing methodologies; AIDE not required"
+
+  L2:
+    name: "Task Executor"
+    human_role: "Design + Review"
+    agent_role: "Task-level implementation"
+    aide_recommendation: "AIDE v1.0 sufficient"
+
+  L3:
+    name: "Feature Builder"
+    human_role: "Requirements + Final verification"
+    agent_role: "Feature-level autonomous implementation"
+    aide_recommendation: "AIDE v2.0 Adaptive"
+    principle_adjustments:
+      locality_enforcement: 0.7
+      meta_code_generation: "semi-auto"
+      review_model: "multi-agent"
+
+  L4:
+    name: "System Architect"
+    human_role: "Business goals only"
+    agent_role: "Architecture decisions + implementation + review"
+    aide_recommendation: "AIDE v2.0 Full"
+    principle_adjustments:
+      locality_enforcement: 0.4
+      meta_code_generation: "full-auto"
+      review_model: "multi-agent + empirical gate"
+
+  L5:
+    name: "Autonomous Developer"
+    human_role: "Output verification only"
+    agent_role: "Full SDLC autonomy"
+    aide_recommendation: "AIDE v2.0 + Self-Evolution"
+    principle_adjustments:
+      locality_enforcement: "formula-driven"
+      meta_code_generation: "full-auto + self-evolving"
+      review_model: "adversarial consensus only"
+
+# ============================================================================
+# CALIBRATION SCHEDULE
+# ============================================================================
+
+calibration:
+  monthly_scan:
+    schedule: "0 9 1 * *"  # 1st of every month, 09:00 UTC
+    data_sources:
+      - name: "SWE-bench"
+        url: "https://www.swebench.com"
+        metrics: ["resolution_rate", "multi_file_resolution_rate"]
+      - name: "RULER"
+        metrics: ["effective_context_at_95_accuracy"]
+      - name: "HumanEval / BigCodeBench"
+        metrics: ["pass_at_1", "multi_step_reasoning_depth"]
+      - name: "LLM Pricing"
+        metrics: ["token_cost_per_million_input", "token_cost_per_million_output"]
+      - name: "arXiv"
+        query: "LLM software engineering code generation"
+        metrics: ["relevant_paper_count", "key_findings"]
+
+  event_triggers:
+    - type: "model_release"
+      description: "Major model release from Anthropic, OpenAI, or Google"
+    - type: "benchmark_shift"
+      description: "Any tracked benchmark changes by more than 10%"
+    - type: "tool_change"
+      description: "Major version release of key agent development tools"

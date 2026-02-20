@@ -2,7 +2,7 @@
 
 *A Software Development Methodology for the Agentic Era*
 
-[![Version](https://img.shields.io/badge/version-v1.0.0-blue.svg)](https://github.com/jmk/aide/releases)
+[![Version](https://img.shields.io/badge/version-v2.0.0-blue.svg)](https://github.com/jmk/aide/releases)
 [![License: CC BY-SA 4.0](https://img.shields.io/badge/License-CC%20BY--SA%204.0-lightgrey.svg)](LICENSE)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
 
@@ -175,20 +175,53 @@ const handleAddToCart = async (req: Request): Promise<Response> => {
 
 ---
 
+## v2.0: Self-Evolving Methodology
+
+AIDE v2.0 introduces **autonomous self-evolution** — the methodology updates itself as AI agent capabilities change, with zero human management required.
+
+### 4-Layer Architecture
+
+| Layer | What | How |
+|-------|------|-----|
+| **Immutable Axioms** | 5 axioms no agent can change | Reversibility, Adversarial Separation, Empiricism, No Single Authority, Self-Observability |
+| **Adaptive Principles** | 10 principles with self-calibrating formulas | Numeric guidelines auto-adjust based on agent benchmarks |
+| **Evolution Engine** | Monthly autonomous pipeline | Sense → 3-Agent Deliberation → Empirical Validation → Auto-Apply |
+| **Execution** | Development pipeline | Multi-Agent Review replaces Human Review |
+
+### How It Works
+
+```
+Monthly (or on model release):
+
+  1. SENSE     — Collect SWE-bench, RULER, HumanEval, pricing data
+  2. DELIBERATE — Claude proposes → GPT challenges → Gemini synthesizes
+  3. VALIDATE  — Apply to sandbox project, compare metrics before/after
+  4. APPLY     — Auto-commit if metrics improve, auto-rollback if they don't
+```
+
+> See [RFC-0002](rfcs/0002-autonomous-self-evolving-methodology.md) for the full design.
+
+---
+
 ## Documentation
 
 - [Full Methodology (English)](docs/en/AIDE-METHODOLOGY.md)
 - [Full Methodology (Korean)](docs/ko/AIDE-METHODOLOGY.md)
+- [Immutable Axioms](axioms.yaml)
+- [Adaptive Principles Metadata](principle-metadata.yaml)
+- [Evolution Engine](evolution/README.md)
+- [RFC-0002: Autonomous Self-Evolving Methodology](rfcs/0002-autonomous-self-evolving-methodology.md)
 - [Research Background](research/)
 
 ---
 
 ## Contributing
 
-We follow an **Agent-First Contribution Model**:
+We follow an **Agent-Autonomous Contribution Model**:
 
 - **Typo fixes** — Direct PR is fine
-- **Everything else** — Must be authored or reviewed using an AI agent
+- **Methodology evolution** — Handled automatically by the [Evolution Engine](evolution/README.md)
+- **Structural improvements** — Must be authored or reviewed using an AI agent
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for full details.
 

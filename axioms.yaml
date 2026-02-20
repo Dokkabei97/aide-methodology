@@ -1,0 +1,86 @@
+# AIDE v2.0 Immutable Axioms
+# These axioms CANNOT be modified by any agent, including the Evolution Engine.
+# They are enforced as hard-coded CI gates (see .github/workflows/axiom-gate.yml).
+# All axioms are outcome-based: they define required states, not processes.
+
+schema_version: "2.0"
+last_reviewed: "2026-02-20"
+
+axioms:
+  A1:
+    name: "Reversibility"
+    statement: "All changes to the system must be automatically reversible to a previous known-good state."
+    rationale: |
+      Without human oversight, automated changes could cause irrecoverable damage.
+      Reversibility is the survival prerequisite for any autonomous system.
+    enforcement:
+      type: "ci_gate"
+      workflow: ".github/workflows/axiom-gate.yml"
+      checks:
+        - "Every commit can be reverted via git revert without conflicts"
+        - "principle-metadata.yaml maintains full evolution_history"
+        - "Canary deployments have automatic rollback triggers"
+    verification: "Simulate git revert on every commit in CI"
+
+  A2:
+    name: "Adversarial Separation"
+    statement: "The agent that authors code and the agent that validates that code must be different models or from different vendors."
+    rationale: |
+      When the same model writes and validates code, confirmation bias occurs.
+      In AIDE v1.0, human review was the final safety net against this.
+      With human review removed, adversarial separation becomes an axiom.
+    enforcement:
+      type: "ci_gate"
+      workflow: ".github/workflows/axiom-gate.yml"
+      checks:
+        - "PR metadata: author_model != reviewer_model"
+        - "At least 2 different vendor models participate in review"
+        - "Test specification model != code implementation model"
+    verification: "Check model IDs in PR metadata; block if same model authored and reviewed"
+
+  A3:
+    name: "Empiricism"
+    statement: "All decisions — including principle changes, numeric guideline adjustments, and architecture choices — must be grounded in measurable metrics. Agent opinions or reasoning alone cannot serve as decision evidence."
+    rationale: |
+      Agent reasoning is subject to hallucination. Without human expert intuition
+      as a fallback, only objective data (benchmarks, test pass rates, performance
+      metrics) can be trusted as decision evidence.
+    enforcement:
+      type: "ci_gate"
+      workflow: ".github/workflows/axiom-gate.yml"
+      checks:
+        - "Every principle change in evolution_history has a non-empty evidence field"
+        - "Evidence must contain quantitative data, not just qualitative descriptions"
+        - "Empirical Gate must pass before any methodology change is applied"
+    verification: "Validate evidence fields are present and contain numeric data"
+
+  A4:
+    name: "No Single Agent Authority"
+    statement: "No single agent may hold final decision authority over any system change. All decisions require consensus from at least 2 independent agents."
+    rationale: |
+      Prevents single point of failure and systematic bias from any one model.
+      A specific model's training bias could corrupt the entire methodology
+      if given unilateral decision power.
+    enforcement:
+      type: "ci_gate"
+      workflow: ".github/workflows/axiom-gate.yml"
+      checks:
+        - "Code review requires 2/3 supermajority from different-vendor models"
+        - "Evolution Engine deliberation requires 3 agents from different vendors"
+        - "All decision logs record participating agent IDs and individual verdicts"
+    verification: "Check decision logs for multi-agent participation"
+
+  A5:
+    name: "Self-Observability"
+    statement: "The system must be able to continuously measure and report its own state, including code quality, test coverage, security vulnerabilities, agent performance, and principle compliance rate."
+    rationale: |
+      If you cannot observe, you cannot adjust. The Evolution Engine requires
+      continuous system state measurement as a prerequisite for autonomous adaptation.
+    enforcement:
+      type: "ci_gate"
+      workflow: ".github/workflows/axiom-gate.yml"
+      checks:
+        - "Metrics collection pipeline is operational in every build"
+        - "Structured logging is enabled and parseable"
+        - "principle-metadata.yaml calibration inputs have measured_at timestamps"
+    verification: "Verify metrics endpoint returns valid data in CI"

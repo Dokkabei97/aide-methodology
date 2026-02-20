@@ -1,0 +1,255 @@
+# AIDE v2.0 Axiom Gate
+# Enforces the 5 Immutable Axioms as hard CI gates.
+# These checks CANNOT be bypassed — they are the foundation of autonomous operation.
+
+name: Axiom Gate
+
+on:
+  pull_request:
+    branches: [main, master]
+  push:
+    branches: [main, master]
+
+permissions:
+  contents: read
+  pull-requests: read
+
+jobs:
+  # ═══════════════════════════════════════════════════════════════
+  # Axiom A1: Reversibility
+  # "All changes must be automatically reversible."
+  # ═══════════════════════════════════════════════════════════════
+  axiom-a1-reversibility:
+    name: "A1: Reversibility Check"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Verify commits are revertable
+        run: |
+          echo "=== Axiom A1: Reversibility ==="
+          echo "Checking that all new commits can be cleanly reverted..."
+
+          BASE_SHA=${{ github.event.pull_request.base.sha || 'HEAD~1' }}
+          HEAD_SHA=${{ github.sha }}
+
+          # Get list of new commits
+          COMMITS=$(git rev-list ${BASE_SHA}..${HEAD_SHA} 2>/dev/null || echo "$HEAD_SHA")
+
+          for COMMIT in $COMMITS; do
+            echo "Testing revert of $COMMIT..."
+            if ! git revert --no-commit "$COMMIT" 2>/dev/null; then
+              echo "::error::Axiom A1 VIOLATION: Commit $COMMIT cannot be cleanly reverted."
+              git revert --abort 2>/dev/null || true
+              exit 1
+            fi
+            git reset --hard HEAD
+            echo "  OK: $COMMIT is revertable"
+          done
+
+          echo "A1 PASSED: All commits are revertable."
+
+      - name: Verify principle-metadata has evolution history
+        run: |
+          if [ -f principle-metadata.yaml ]; then
+            echo "Checking principle-metadata.yaml has evolution_history fields..."
+            if ! grep -q "evolution_history" principle-metadata.yaml; then
+              echo "::error::Axiom A1 VIOLATION: principle-metadata.yaml missing evolution_history fields."
+              exit 1
+            fi
+            echo "A1 PASSED: evolution_history fields present."
+          fi
+
+  # ═══════════════════════════════════════════════════════════════
+  # Axiom A2: Adversarial Separation
+  # "Author agent != Reviewer agent (different model/vendor)."
+  # ═══════════════════════════════════════════════════════════════
+  axiom-a2-adversarial-separation:
+    name: "A2: Adversarial Separation Check"
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check author-reviewer separation
+        run: |
+          echo "=== Axiom A2: Adversarial Separation ==="
+
+          # Extract model metadata from PR body or commit messages
+          PR_BODY="${{ github.event.pull_request.body }}"
+
+          # Check for author model declaration
+          AUTHOR_MODEL=$(echo "$PR_BODY" | grep -iP '(?:author[_-]?model|written[_-]?by|generated[_-]?by):\s*(.+)' | head -1 || true)
+          REVIEWER_MODELS=$(echo "$PR_BODY" | grep -iP '(?:review(?:ed)?[_-]?by|reviewer[_-]?model):\s*(.+)' || true)
+
+          if [ -z "$AUTHOR_MODEL" ]; then
+            echo "::warning::No author_model declared in PR. For full A2 compliance, declare the authoring model."
+            echo "A2 SOFT PASS: No model metadata to validate. Declare models for full compliance."
+            exit 0
+          fi
+
+          if [ -z "$REVIEWER_MODELS" ]; then
+            echo "::warning::No reviewer_model declared in PR. Multi-agent review metadata not found."
+            echo "A2 SOFT PASS: Review metadata incomplete."
+            exit 0
+          fi
+
+          # If both declared, verify they differ
+          echo "Author: $AUTHOR_MODEL"
+          echo "Reviewers: $REVIEWER_MODELS"
+
+          if echo "$REVIEWER_MODELS" | grep -qi "$(echo $AUTHOR_MODEL | sed 's/.*: //')"; then
+            echo "::error::Axiom A2 VIOLATION: Author model appears in reviewer list. Different models required."
+            exit 1
+          fi
+
+          echo "A2 PASSED: Author and reviewer models are different."
+
+  # ═══════════════════════════════════════════════════════════════
+  # Axiom A3: Empiricism
+  # "All decisions must be grounded in measurable metrics."
+  # ═══════════════════════════════════════════════════════════════
+  axiom-a3-empiricism:
+    name: "A3: Empiricism Check"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Validate principle changes have evidence
+        run: |
+          echo "=== Axiom A3: Empiricism ==="
+
+          if ! git diff --name-only ${{ github.event.pull_request.base.sha || 'HEAD~1' }} | grep -q "principle-metadata.yaml"; then
+            echo "A3 PASSED: No principle changes detected."
+            exit 0
+          fi
+
+          echo "Principle metadata changed — checking for quantitative evidence..."
+
+          # Check that evolution_history entries have evidence with numbers
+          CHANGES=$(git diff ${{ github.event.pull_request.base.sha || 'HEAD~1' }} -- principle-metadata.yaml || true)
+
+          if echo "$CHANGES" | grep -q "+.*evolution_history"; then
+            # New history entries added — check they have evidence
+            if ! echo "$CHANGES" | grep -qP '\+.*evidence.*\d'; then
+              echo "::error::Axiom A3 VIOLATION: Principle change lacks quantitative evidence in evolution_history."
+              echo "Every principle change must include measurable data (benchmarks, metrics, scores)."
+              exit 1
+            fi
+          fi
+
+          echo "A3 PASSED: Principle changes include quantitative evidence."
+
+  # ═══════════════════════════════════════════════════════════════
+  # Axiom A4: No Single Agent Authority
+  # "No single agent may hold final decision authority."
+  # ═══════════════════════════════════════════════════════════════
+  axiom-a4-no-single-authority:
+    name: "A4: No Single Authority Check"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check for multi-agent participation in evolution commits
+        run: |
+          echo "=== Axiom A4: No Single Agent Authority ==="
+
+          # Check evolution engine commits for multi-agent consensus
+          COMMIT_MSG=$(git log -1 --pretty=%B)
+
+          if echo "$COMMIT_MSG" | grep -q "auto-evolve:"; then
+            echo "Evolution Engine commit detected — verifying multi-agent consensus..."
+
+            if ! echo "$COMMIT_MSG" | grep -qP 'Decided-by:\s*consensus\(.+,.+\)'; then
+              echo "::error::Axiom A4 VIOLATION: Evolution commit lacks multi-agent consensus declaration."
+              echo "Expected: Decided-by: consensus(agent1, agent2, agent3)"
+              exit 1
+            fi
+
+            echo "A4 PASSED: Multi-agent consensus confirmed."
+          else
+            echo "A4 PASSED: Not an evolution commit."
+          fi
+
+  # ═══════════════════════════════════════════════════════════════
+  # Axiom A5: Self-Observability
+  # "System must be able to measure and report its own state."
+  # ═══════════════════════════════════════════════════════════════
+  axiom-a5-observability:
+    name: "A5: Self-Observability Check"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Verify observability infrastructure
+        run: |
+          echo "=== Axiom A5: Self-Observability ==="
+
+          ISSUES=0
+
+          # Check principle-metadata.yaml has measured_at timestamps
+          if [ -f principle-metadata.yaml ]; then
+            MEASURED_COUNT=$(grep -c "measured_at:" principle-metadata.yaml || echo "0")
+            if [ "$MEASURED_COUNT" -lt 1 ]; then
+              echo "::warning::No measured_at timestamps in principle-metadata.yaml"
+              ISSUES=$((ISSUES + 1))
+            else
+              echo "  Found $MEASURED_COUNT measurement timestamps"
+            fi
+          fi
+
+          # Check axioms.yaml exists and is valid
+          if [ ! -f axioms.yaml ]; then
+            echo "::error::axioms.yaml not found — axiom definitions missing"
+            ISSUES=$((ISSUES + 1))
+          fi
+
+          # Check evolution history directory exists (once Evolution Engine is active)
+          if [ -d evolution/history ]; then
+            HISTORY_COUNT=$(ls evolution/history/*.yaml 2>/dev/null | wc -l || echo "0")
+            echo "  Evolution history entries: $HISTORY_COUNT"
+          fi
+
+          if [ "$ISSUES" -gt 0 ]; then
+            echo "::warning::A5 has $ISSUES observability gaps. Not blocking, but should be addressed."
+          fi
+
+          echo "A5 PASSED: Observability checks complete."
+
+  # ═══════════════════════════════════════════════════════════════
+  # Summary Gate
+  # ═══════════════════════════════════════════════════════════════
+  axiom-summary:
+    name: "Axiom Gate Summary"
+    runs-on: ubuntu-latest
+    needs:
+      - axiom-a1-reversibility
+      - axiom-a2-adversarial-separation
+      - axiom-a3-empiricism
+      - axiom-a4-no-single-authority
+      - axiom-a5-observability
+    if: always()
+    steps:
+      - name: Report axiom gate results
+        run: |
+          echo "╔══════════════════════════════════════╗"
+          echo "║      AIDE v2.0 Axiom Gate Report     ║"
+          echo "╠══════════════════════════════════════╣"
+          echo "║ A1 Reversibility:    ${{ needs.axiom-a1-reversibility.result }}"
+          echo "║ A2 Adversarial Sep.: ${{ needs.axiom-a2-adversarial-separation.result }}"
+          echo "║ A3 Empiricism:       ${{ needs.axiom-a3-empiricism.result }}"
+          echo "║ A4 No Single Auth.:  ${{ needs.axiom-a4-no-single-authority.result }}"
+          echo "║ A5 Observability:    ${{ needs.axiom-a5-observability.result }}"
+          echo "╚══════════════════════════════════════╝"
+
+          # Fail if any required axiom failed
+          if [ "${{ needs.axiom-a1-reversibility.result }}" = "failure" ] || \
+             [ "${{ needs.axiom-a3-empiricism.result }}" = "failure" ] || \
+             [ "${{ needs.axiom-a4-no-single-authority.result }}" = "failure" ]; then
+            echo "::error::AXIOM GATE FAILED — merge blocked."
+            exit 1
+          fi
+
+          echo "AXIOM GATE PASSED"

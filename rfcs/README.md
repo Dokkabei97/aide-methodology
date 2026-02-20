@@ -28,4 +28,7 @@ Draft → Discussion (2 weeks min) → Accepted / Rejected / Revision Requested
 
 ## Current RFCs
 
-*No RFCs have been submitted yet. Be the first!*
+| RFC | Title | Status | Date |
+|-----|-------|--------|------|
+| [0001](0001-language-native-naming-convention.md) | Language-Native Naming Convention First | Draft | 2026-02-18 |
+| [0002](0002-autonomous-self-evolving-methodology.md) | Autonomous Self-Evolving Methodology (AIDE v2.0) | Draft | 2026-02-20 |

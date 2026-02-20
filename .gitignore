@@ -6,3 +6,18 @@
 *.iml
 out
 gen
+
+# Evolution Engine auto-generated artifacts (tracked selectively)
+evolution/benchmarks/*.yaml
+evolution/deliberation/*.yaml
+evolution/sandbox/*.yaml
+!evolution/benchmarks/.gitkeep
+!evolution/deliberation/.gitkeep
+!evolution/sandbox/.gitkeep
+
+# Flag files
+*.flag
+
+# Python
+__pycache__/
+*.pyc

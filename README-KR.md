@@ -175,20 +175,42 @@ const handleAddToCart = async (req: Request): Promise<Response> => {
 
 ---
 
+## v2.0: 자기진화 방법론
+
+AIDE v2.0은 **자율적 자기진화** 기능을 도입합니다 — AI 에이전트 능력이 변화하면 방법론이 스스로 업데이트되며, 인간의 관리가 필요 없습니다.
+
+### 4-Layer 아키텍처
+
+| 레이어 | 내용 | 방법 |
+|--------|------|------|
+| **불변 공리** | 어떤 에이전트도 변경 불가능한 5개 공리 | 되돌림 가능성, 적대적 분리, 경험주의, 단일 결정권 금지, 자기 관찰 가능성 |
+| **적응형 원칙** | 자동 캘리브레이션 공식이 있는 10대 원칙 | 에이전트 벤치마크 기반 수치 자동 조정 |
+| **진화 엔진** | 월간 자율 파이프라인 | 감지 → 3-에이전트 토론 → 경험적 검증 → 자동 적용 |
+| **실행** | 개발 파이프라인 | Multi-Agent Review가 Human Review를 대체 |
+
+> 전체 설계: [RFC-0002](rfcs/0002-autonomous-self-evolving-methodology.md) 참조
+
+---
+
 ## 문서
 
 - [전체 방법론 (한국어)](docs/ko/AIDE-METHODOLOGY.md)
 - [전체 방법론 (English)](docs/en/AIDE-METHODOLOGY.md)
+- [불변 공리](axioms.yaml)
+- [적응형 원칙 메타데이터](principle-metadata.yaml)
+- [진화 엔진](evolution/README.md)
+- [RFC-0002: 자율 자기진화 방법론](rfcs/0002-autonomous-self-evolving-methodology.md)
 - [연구 배경](research/)
 
 ---
 
 ## 기여하기
 
-**Agent-First 기여 모델**을 따릅니다:
+**Agent-Autonomous 기여 모델**을 따릅니다 (v2.0):
 
 - **오탈자 수정** — 직접 PR 가능
-- **그 외 모든 기여** — AI 에이전트를 사용하여 작성하거나 리뷰해야 함
+- **방법론 진화** — [Evolution Engine](evolution/README.md)이 자동으로 처리
+- **구조적 개선** — AI 에이전트를 사용하여 작성하거나 리뷰해야 함
 
 자세한 내용은 [CONTRIBUTING.md](CONTRIBUTING.md)를 참조하세요.
 

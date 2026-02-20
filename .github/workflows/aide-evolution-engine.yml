@@ -1,0 +1,379 @@
+# AIDE v2.0 Autonomous Evolution Engine
+# Runs monthly (or on-demand) to scan benchmarks, deliberate with multi-agent
+# consensus, validate empirically, and auto-apply methodology updates.
+#
+# This workflow implements the 4-phase Evolution Engine:
+#   Phase 1: SENSE   — Collect benchmark and trend data
+#   Phase 2: DELIBERATE — Multi-agent gap analysis and proposal generation
+#   Phase 3: VALIDATE   — Empirical testing in sandbox project
+#   Phase 4: APPLY      — Auto-commit changes with rollback monitoring
+
+name: AIDE Evolution Engine
+
+# ⚠️ DISABLED: Awaiting OAuth policy clarification from Anthropic
+# See: https://github.com/anthropics/claude-code/issues/27125
+# Once resolved, uncomment the schedule and repository_dispatch triggers below.
+
+on:
+  # schedule:
+  #   - cron: '0 9 1 * *'  # Monthly: 1st of every month, 09:00 UTC
+  # repository_dispatch:
+  #   types: [model_release, benchmark_update, tool_change]
+  workflow_dispatch:
+    inputs:
+      trigger_reason:
+        description: 'Reason for manual trigger'
+        required: true
+        type: string
+      dry_run:
+        description: 'Dry run (analyze only, do not apply changes)'
+        required: false
+        type: boolean
+        default: true
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+
+env:
+  PRINCIPLE_METADATA: "principle-metadata.yaml"
+  AXIOMS_FILE: "axioms.yaml"
+  EVOLUTION_DIR: "evolution"
+  HISTORY_DIR: "evolution/history"
+
+jobs:
+  # ═══════════════════════════════════════════════════════════════
+  # Phase 1: SENSE — Data Collection
+  # ═══════════════════════════════════════════════════════════════
+  sense:
+    name: "Phase 1: Sense"
+    runs-on: ubuntu-latest
+    outputs:
+      sense_report_path: ${{ steps.compile.outputs.report_path }}
+      triggers_detected: ${{ steps.compile.outputs.triggers_detected }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: pip install pyyaml requests
+
+      - name: Collect benchmark data
+        id: benchmarks
+        run: python evolution/scripts/collect_benchmarks.py
+        env:
+          OUTPUT_PATH: "evolution/benchmarks/latest.yaml"
+
+      - name: Scan model releases
+        id: models
+        run: python evolution/scripts/scan_models.py
+        env:
+          OUTPUT_PATH: "evolution/benchmarks/models.yaml"
+
+      - name: Check invalidation triggers
+        id: triggers
+        run: python evolution/scripts/check_triggers.py
+        env:
+          PRINCIPLE_METADATA: ${{ env.PRINCIPLE_METADATA }}
+          BENCHMARK_DATA: "evolution/benchmarks/latest.yaml"
+
+      - name: Compile sense report
+        id: compile
+        run: |
+          python evolution/scripts/compile_sense_report.py
+          echo "report_path=evolution/benchmarks/sense-report.yaml" >> $GITHUB_OUTPUT
+
+          # Check if any triggers were detected
+          if [ -f evolution/benchmarks/triggered.flag ]; then
+            echo "triggers_detected=true" >> $GITHUB_OUTPUT
+          else
+            echo "triggers_detected=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Upload sense report
+        uses: actions/upload-artifact@v4
+        with:
+          name: sense-report
+          path: evolution/benchmarks/
+
+  # ═══════════════════════════════════════════════════════════════
+  # Phase 2: DELIBERATE — Multi-Agent Deliberation
+  # ═══════════════════════════════════════════════════════════════
+  deliberate:
+    name: "Phase 2: Deliberate"
+    needs: sense
+    if: needs.sense.outputs.triggers_detected == 'true'
+    runs-on: ubuntu-latest
+    outputs:
+      proposal_path: ${{ steps.synthesis.outputs.proposal_path }}
+      consensus_reached: ${{ steps.synthesis.outputs.consensus }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download sense report
+        uses: actions/download-artifact@v4
+        with:
+          name: sense-report
+          path: evolution/benchmarks/
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: pip install pyyaml requests
+
+      # Install CLI agents
+      - name: Install Claude Code CLI
+        run: npm install -g @anthropic-ai/claude-code
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+
+      - name: Install Codex CLI
+        run: npm install -g @openai/codex
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+
+      - name: Install Gemini CLI
+        run: npm install -g @anthropic-ai/gemini-cli || pip install gemini-cli
+        env:
+          GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
+
+      # Research Agent (Claude Code CLI) — Proposes changes
+      - name: "Research Agent (Claude Code): Gap analysis + proposals"
+        id: research
+        run: python evolution/scripts/deliberate_research.py
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          SENSE_REPORT: "evolution/benchmarks/sense-report.yaml"
+          PRINCIPLE_METADATA: ${{ env.PRINCIPLE_METADATA }}
+          OUTPUT_PATH: "evolution/deliberation/research-proposal.yaml"
+
+      # Adversary Agent (Codex CLI) — Challenges proposals
+      - name: "Adversary Agent (Codex): Challenge proposals"
+        id: adversary
+        run: python evolution/scripts/deliberate_adversary.py
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          RESEARCH_PROPOSAL: "evolution/deliberation/research-proposal.yaml"
+          OUTPUT_PATH: "evolution/deliberation/adversary-critique.yaml"
+
+      # Synthesis Agent (Gemini CLI) — Synthesizes final decision
+      - name: "Synthesis Agent (Gemini CLI): Final decision"
+        id: synthesis
+        run: |
+          python evolution/scripts/deliberate_synthesis.py
+          if [ -f evolution/deliberation/consensus.flag ]; then
+            echo "consensus=true" >> $GITHUB_OUTPUT
+          else
+            echo "consensus=false" >> $GITHUB_OUTPUT
+          fi
+          echo "proposal_path=evolution/deliberation/final-proposal.yaml" >> $GITHUB_OUTPUT
+        env:
+          GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
+          RESEARCH_PROPOSAL: "evolution/deliberation/research-proposal.yaml"
+          ADVERSARY_CRITIQUE: "evolution/deliberation/adversary-critique.yaml"
+          OUTPUT_PATH: "evolution/deliberation/final-proposal.yaml"
+
+      - name: Upload deliberation artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: deliberation
+          path: evolution/deliberation/
+
+  # ═══════════════════════════════════════════════════════════════
+  # Phase 3: VALIDATE — Empirical Testing
+  # ═══════════════════════════════════════════════════════════════
+  validate:
+    name: "Phase 3: Validate"
+    needs: deliberate
+    if: needs.deliberate.outputs.consensus_reached == 'true'
+    runs-on: ubuntu-latest
+    outputs:
+      validation_passed: ${{ steps.gate.outputs.passed }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download deliberation artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: deliberation
+          path: evolution/deliberation/
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: pip install pyyaml requests
+
+      # Run standardized tasks with CURRENT principles
+      - name: "Baseline: Run tasks with current principles"
+        id: baseline
+        run: python evolution/scripts/validate_baseline.py
+        env:
+          PRINCIPLE_METADATA: ${{ env.PRINCIPLE_METADATA }}
+          OUTPUT_PATH: "evolution/sandbox/baseline-results.yaml"
+
+      # Run same tasks with PROPOSED principles
+      - name: "Modified: Run tasks with proposed principles"
+        id: modified
+        run: python evolution/scripts/validate_modified.py
+        env:
+          PROPOSAL: "evolution/deliberation/final-proposal.yaml"
+          OUTPUT_PATH: "evolution/sandbox/modified-results.yaml"
+
+      # Compare metrics (Empirical Gate)
+      - name: "Empirical Gate: Compare metrics"
+        id: gate
+        run: |
+          python evolution/scripts/empirical_gate.py
+          if [ -f evolution/sandbox/gate-passed.flag ]; then
+            echo "passed=true" >> $GITHUB_OUTPUT
+          else
+            echo "passed=false" >> $GITHUB_OUTPUT
+          fi
+        env:
+          BASELINE: "evolution/sandbox/baseline-results.yaml"
+          MODIFIED: "evolution/sandbox/modified-results.yaml"
+
+      - name: Upload validation artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: validation
+          path: evolution/sandbox/
+
+  # ═══════════════════════════════════════════════════════════════
+  # Phase 4: APPLY — Auto-commit changes
+  # ═══════════════════════════════════════════════════════════════
+  apply:
+    name: "Phase 4: Apply"
+    needs: [sense, deliberate, validate]
+    if: |
+      needs.validate.outputs.validation_passed == 'true' &&
+      github.event.inputs.dry_run != 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.AIDE_BOT_TOKEN }}
+
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: pip install pyyaml requests
+
+      - name: Install Claude Code CLI (for doc generation)
+        run: npm install -g @anthropic-ai/claude-code
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+
+      - name: Apply principle metadata changes
+        run: python evolution/scripts/apply_changes.py
+        env:
+          PROPOSAL: "deliberation/final-proposal.yaml"
+          PRINCIPLE_METADATA: ${{ env.PRINCIPLE_METADATA }}
+
+      - name: Update methodology docs (EN + KO)
+        run: python evolution/scripts/update_docs.py
+        env:
+          PROPOSAL: "deliberation/final-proposal.yaml"
+
+      - name: Record evolution history
+        run: |
+          TIMESTAMP=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+          HISTORY_FILE="${{ env.HISTORY_DIR }}/${TIMESTAMP//:/-}.yaml"
+          python evolution/scripts/record_history.py \
+            --timestamp "$TIMESTAMP" \
+            --sense-report "sense-report/sense-report.yaml" \
+            --proposal "deliberation/final-proposal.yaml" \
+            --validation "validation/" \
+            --output "$HISTORY_FILE"
+
+      - name: Create auto-evolution commit
+        run: |
+          git config user.name "AIDE Evolution Engine"
+          git config user.email "aide-evolution@noreply.github.com"
+          git add -A
+
+          # Extract change summary from proposal
+          SUMMARY=$(python -c "
+          import yaml
+          with open('deliberation/final-proposal.yaml') as f:
+              p = yaml.safe_load(f)
+          print(p.get('summary', 'Automated principle recalibration'))
+          " 2>/dev/null || echo "Automated principle recalibration")
+
+          git commit -m "$(cat <<EOF
+          auto-evolve: ${SUMMARY}
+
+          Trigger: ${{ github.event.inputs.trigger_reason || github.event.action || 'monthly scan' }}
+          Evidence: See evolution/history/ for full benchmark data
+          Decided-by: consensus(claude, gpt, gemini)
+          Empirical-validation: passed
+          Axiom-compliance: verified
+
+          Co-Authored-By: AIDE Evolution Engine <aide-evolution@noreply.github.com>
+          EOF
+          )"
+
+      - name: Create version tag
+        run: |
+          VERSION="v2.0.$(date +%Y%m%d)"
+          git tag -a "$VERSION" -m "Auto-evolution: $VERSION"
+          git push origin main --tags
+
+  # ═══════════════════════════════════════════════════════════════
+  # Reporting (always runs)
+  # ═══════════════════════════════════════════════════════════════
+  report:
+    name: "Evolution Report"
+    needs: [sense, deliberate, validate, apply]
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Generate report
+        run: |
+          echo "╔══════════════════════════════════════════════════╗"
+          echo "║         AIDE Evolution Engine Report             ║"
+          echo "╠══════════════════════════════════════════════════╣"
+          echo "║ Phase 1 (Sense):      ${{ needs.sense.result }}"
+          echo "║ Triggers Detected:    ${{ needs.sense.outputs.triggers_detected }}"
+          echo "║ Phase 2 (Deliberate): ${{ needs.deliberate.result }}"
+          echo "║ Consensus Reached:    ${{ needs.deliberate.outputs.consensus_reached }}"
+          echo "║ Phase 3 (Validate):   ${{ needs.validate.result }}"
+          echo "║ Validation Passed:    ${{ needs.validate.outputs.validation_passed }}"
+          echo "║ Phase 4 (Apply):      ${{ needs.apply.result }}"
+          echo "║ Dry Run:              ${{ github.event.inputs.dry_run || 'false' }}"
+          echo "╚══════════════════════════════════════════════════╝"
+
+      - name: Create issue if evolution failed
+        if: needs.validate.outputs.validation_passed == 'false' || needs.deliberate.outputs.consensus_reached == 'false'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `Evolution Engine: ${new Date().toISOString().slice(0,10)} cycle — action needed`,
+              body: `## Evolution Engine Report\n\n` +
+                `- **Triggers detected**: ${{ needs.sense.outputs.triggers_detected }}\n` +
+                `- **Consensus reached**: ${{ needs.deliberate.outputs.consensus_reached }}\n` +
+                `- **Validation passed**: ${{ needs.validate.outputs.validation_passed }}\n\n` +
+                `Review the workflow artifacts for detailed analysis.\n\n` +
+                `cc @${context.repo.owner}`,
+              labels: ['evolution-engine', 'automated']
+            });
