@@ -6,8 +6,8 @@ AIDE methodology aims to be accessible worldwide. Translations should be perform
 
 | Language | Status | File |
 |----------|--------|------|
-| English | Complete | [README.md](../README.md) |
-| Korean | Complete | [README-KR.md](../README-KR.md) |
+| English | Complete | [README.md](https://github.com/Dokkabei97/aide-methodology/blob/master/README.md) |
+| Korean | Complete | [README-KR.md](https://github.com/Dokkabei97/aide-methodology/blob/master/README-KR.md) |
 | Japanese | Not started | — |
 | Chinese (Simplified) | Not started | — |
 | Spanish | Not started | — |
@@ -17,7 +17,7 @@ AIDE methodology aims to be accessible worldwide. Translations should be perform
 
 ## How to Contribute a Translation
 
-Translations follow the [Agent-First contribution model](../CONTRIBUTING.md):
+Translations follow the [Agent-First contribution model](https://github.com/Dokkabei97/aide-methodology/blob/master/CONTRIBUTING.md):
 
 1. **Open an Issue** indicating the target language.
 2. **Use an AI agent** to perform the translation. Provide the agent with both the English source and any existing translations for reference.

@@ -21,3 +21,6 @@ evolution/sandbox/*.yaml
 # Python
 __pycache__/
 *.pyc
+
+# MkDocs build output
+site/

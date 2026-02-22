@@ -1129,7 +1129,7 @@ evals/:    Evaluation datasets and scenarios
 
 ### Integrating AIDE-REFERENCE.md into Your Project
 
-[AIDE-REFERENCE.md](../../AIDE-REFERENCE.md) is a standalone quick reference (~240 lines) that summarizes the 10 core principles, feature architecture, code style, and workflow in a single file. Use it to ensure AI agents follow AIDE consistently.
+[AIDE-REFERENCE.md](https://github.com/Dokkabei97/aide-methodology/blob/master/AIDE-REFERENCE.md) is a standalone quick reference (~240 lines) that summarizes the 10 core principles, feature architecture, code style, and workflow in a single file. Use it to ensure AI agents follow AIDE consistently.
 
 #### Option A: Dedicated Reference File (Recommended)
 
