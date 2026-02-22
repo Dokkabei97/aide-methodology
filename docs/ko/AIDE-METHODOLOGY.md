@@ -1129,7 +1129,7 @@ evals/:    평가 데이터셋 및 시나리오
 
 ### AIDE-REFERENCE.md 프로젝트 통합 가이드
 
-[AIDE-REFERENCE.md](../../AIDE-REFERENCE.md)는 10대 핵심 원칙, Feature 아키텍처, 코드 스타일, 워크플로우를 하나의 파일(~240줄)로 요약한 독립형 빠른 참조 문서다. AI 에이전트가 AIDE를 일관되게 따르도록 하는 데 활용한다.
+[AIDE-REFERENCE.md](https://github.com/Dokkabei97/aide-methodology/blob/master/AIDE-REFERENCE.md)는 10대 핵심 원칙, Feature 아키텍처, 코드 스타일, 워크플로우를 하나의 파일(~240줄)로 요약한 독립형 빠른 참조 문서다. AI 에이전트가 AIDE를 일관되게 따르도록 하는 데 활용한다.
 
 #### Option A: 별도 참조 파일 (권장)
 

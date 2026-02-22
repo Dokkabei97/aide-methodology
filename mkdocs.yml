@@ -1,0 +1,78 @@
+site_name: AIDE Methodology
+site_description: Agent-Informed Development Engineering
+site_url: https://Dokkabei97.github.io/aide-methodology/
+repo_url: https://github.com/Dokkabei97/aide-methodology
+repo_name: Dokkabei97/aide-methodology
+docs_dir: docs
+
+validation:
+  nav:
+    omitted_files: ignore
+
+
+theme:
+  name: material
+  font:
+    text: Roboto
+    code: Roboto Mono
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+
+nav:
+  - English:
+    - Overview: en/INDEX.md
+    - Full Methodology: en/AIDE-METHODOLOGY.md
+    - Preface: en/00-PREFACE.md
+    - Core Principles: en/01-CORE-PRINCIPLES.md
+    - Architecture Patterns: en/02-ARCHITECTURE-PATTERNS.md
+    - Existing Methodologies: en/03-EXISTING-METHODOLOGIES.md
+    - Practical Guide: en/04-PRACTICAL-GUIDE.md
+    - CI/CD Pipeline: en/05-CICD-PIPELINE.md
+    - Adoption Guide: en/06-ADOPTION-GUIDE.md
+    - Discussion Records: en/07-DISCUSSION-RECORDS.md
+    - Comparisons:
+      - AIDE vs Clean Architecture: en/comparisons/AIDE-vs-Clean-Architecture.md
+      - AIDE vs Hexagonal Architecture: en/comparisons/AIDE-vs-Hexagonal-Architecture.md
+  - 한국어:
+    - 개요: ko/INDEX.md
+    - 전체 방법론: ko/AIDE-METHODOLOGY.md
+    - 서문: ko/00-PREFACE.md
+    - 핵심 원칙: ko/01-CORE-PRINCIPLES.md
+    - 아키텍처 패턴: ko/02-ARCHITECTURE-PATTERNS.md
+    - 기존 방법론 비교: ko/03-EXISTING-METHODOLOGIES.md
+    - 실무 가이드: ko/04-PRACTICAL-GUIDE.md
+    - CI/CD 파이프라인: ko/05-CICD-PIPELINE.md
+    - 도입 가이드: ko/06-ADOPTION-GUIDE.md
+    - 토론 기록: ko/07-DISCUSSION-RECORDS.md
+    - 비교:
+      - AIDE vs Clean Architecture: ko/comparisons/AIDE-vs-Clean-Architecture.md
+      - AIDE vs Hexagonal Architecture: ko/comparisons/AIDE-vs-Hexagonal-Architecture.md
+
+markdown_extensions:
+  - toc:
+      permalink: true
+  - pymdownx.highlight:
+      anchor_linenums: true
+      use_pygments: true
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.tabbed:
+      alternate_style: true
+  - admonition
+  - pymdownx.details
