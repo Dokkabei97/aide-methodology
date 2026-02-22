@@ -40,7 +40,14 @@ jobs:
 
           for COMMIT in $COMMITS; do
             echo "Testing revert of $COMMIT..."
-            if ! git revert --no-commit "$COMMIT" 2>/dev/null; then
+            # Merge commits require -m 1 to specify which parent to revert to
+            PARENT_COUNT=$(git cat-file -p "$COMMIT" | grep -c "^parent")
+            if [ "$PARENT_COUNT" -gt 1 ]; then
+              REVERT_OPTS="--no-commit -m 1"
+            else
+              REVERT_OPTS="--no-commit"
+            fi
+            if ! git revert $REVERT_OPTS "$COMMIT" 2>/dev/null; then
               echo "::error::Axiom A1 VIOLATION: Commit $COMMIT cannot be cleanly reverted."
               git revert --abort 2>/dev/null || true
               exit 1
