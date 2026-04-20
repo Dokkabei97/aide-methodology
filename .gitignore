@@ -15,6 +15,13 @@ evolution/sandbox/*.yaml
 !evolution/deliberation/.gitkeep
 !evolution/sandbox/.gitkeep
 
+# Weekly Intel — raw fetches are volatile; digest MD + benchmark-history.yaml are tracked
+evolution/intel/vendor-releases.yaml
+evolution/intel/social-signals.yaml
+evolution/intel/benchmarks.yaml
+evolution/intel/weekly-digest.yaml
+evolution/intel/dispatch.json
+
 # Flag files
 *.flag
 
