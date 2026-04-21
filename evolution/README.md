@@ -5,12 +5,21 @@ The Evolution Engine is AIDE v2.0's autonomous self-evolution system. It automat
 ## Architecture
 
 ```
-Evolution Engine Pipeline:
+                      Weekly Intel Loop (sensor, keyless)
+                      Mon 00:00 UTC — vendors, HN, blogs, benchmarks
+                                     │
+                                     ▼ repository_dispatch when thresholds cross
+Evolution Engine Pipeline (monthly, multi-agent):
 
   SENSE ──> DELIBERATE ──> VALIDATE ──> APPLY
   (data)    (3-agent)     (empirical)  (auto-commit)
               debate        gate
 ```
+
+The **Weekly Intel Loop** (`evolution/intel/`, workflow
+`aide-weekly-intel.yml`) is a lightweight read-only scanner that runs
+every Monday and only wakes the heavy monthly pipeline when the
+outside world actually moves. See `evolution/intel/README.md`.
 
 ## Directory Structure
 
@@ -31,20 +40,29 @@ evolution/
     update_docs.py           # Phase 4: Update EN/KO methodology docs
     record_history.py        # Phase 4: Record evolution history
     drift_detection.py       # Safeguard: Detect directional bias
+  scripts/intel/        # Weekly Intel Loop — external signal scanners
+    fetch_vendor_releases.py  # Anthropic / OpenAI / Google releases
+    fetch_social_signals.py   # HN, tech blogs, X, Threads
+    fetch_benchmarks.py       # SWE-bench, Terminal-bench, WebArena, SWE-rebench
+    compile_weekly_digest.py  # Merge + dispatch decision
   benchmarks/           # Collected benchmark data (auto-generated)
   deliberation/         # Agent deliberation artifacts (auto-generated)
   sandbox/              # Empirical validation results (auto-generated)
   history/              # Evolution audit trail (permanent record)
+  intel/                # Weekly intel digests (permanent MDs + transient YAMLs)
 ```
 
 ## Triggering the Engine
 
 The engine runs automatically on:
 - **Monthly schedule**: 1st of every month at 09:00 UTC
-- **Model releases**: Via repository_dispatch event
+- **Weekly intel signal**: `repository_dispatch` of `weekly_intel_signal`
+  emitted by `aide-weekly-intel.yml` every Monday when thresholds cross
+- **Model releases**: Via `repository_dispatch` event
 - **Benchmark shifts**: When tracked benchmarks change by >10%
 
 Manual trigger: `gh workflow run aide-evolution-engine.yml`
+Weekly sensor trigger: `gh workflow run aide-weekly-intel.yml`
 
 ## Required Secrets
 
