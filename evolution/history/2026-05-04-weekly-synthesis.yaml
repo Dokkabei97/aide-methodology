@@ -1,0 +1,171 @@
+# AIDE Evolution History — 2026-05-04 Weekly Synthesis
+#
+# This is the first entry in evolution/history/. It records the week of
+# 2026-04-28 → 2026-05-04, the principle re-tuning candidates that survived
+# scoring, and the reversal path. Per Axiom A1 (Reversibility), every entry
+# below names the exact git revert that undoes it; per A3 (Empiricism),
+# every change carries quantitative evidence; per A4 (No Single Authority),
+# every change is marked single_agent_draft until a different-vendor reviewer
+# countersigns.
+
+schema_version: "1.0"
+entry_kind: weekly_synthesis
+entry_date: "2026-05-04"
+lookback_window: "2026-04-28..2026-05-04"
+
+source_artifacts:
+  weekly_intel_digest: "evolution/intel/weekly-2026-05-04.md"
+  preceding_digest: "evolution/intel/weekly-2026-04-27.md"
+  governing_rfc: "rfcs/0003-distributed-agent-native-scheduling.md"
+  benchmark_history: "evolution/intel/benchmark-history.yaml"
+
+participating_agent:
+  role: author
+  vendor: anthropic
+  product: "Claude Code on web"
+  model: claude-opus-4-7
+  session_kind: scheduled_weekly_curator
+  authority_scope: |
+    Per RFC-0003 §4 (per-platform scheduling contract), this agent may open a
+    draft PR carrying numeric calibration changes plus an audit entry. It MAY
+    NOT mark the PR ready-for-review; that requires a different-vendor reviewer
+    per Axioms A2 and A4.
+
+required_reviewer:
+  policy: "A2 + A4 — at least one reviewer from a different vendor before merge."
+  preferred_vendors: ["openai", "google"]
+  preferred_products:
+    - "Codex (OpenAI scheduled session)"
+    - "Gemini CLI subagent (when scheduler ships, per RFC-0003 §3)"
+  fallback: |
+    If no different-vendor scheduled agent has reviewed within 7 days, the PR
+    remains draft. RFC-0003 §3 explicitly forbids resolving the gap with a
+    human-in-the-loop bridge.
+
+# ────────────────────────────────────────────────────────────────────────────
+# Signal scoring — every signal in weekly-2026-05-04.md scored against
+# AIDE's 10 principles + 5 axioms. Survival rule: a signal becomes a
+# principle-metadata change only if it has a defensible quantitative metric.
+# ────────────────────────────────────────────────────────────────────────────
+signals_considered:
+  - id: S1
+    title: "Google Subagents in Gemini CLI; Agents CLI; ADK Skills; ADK for Java 1.0"
+    raw_evidence:
+      - "developers.googleblog.com/subagents-have-arrived-in-gemini-cli/"
+      - "developers.googleblog.com/agents-cli-in-agent-platform-create-to-production-in-one-cli/"
+      - "developers.googleblog.com/announcing-adk-for-java-100-building-the-future-of-ai-agents-in-java/"
+    principle_axiom_hit: ["P2", "P10"]
+    decision: corroborates_existing
+    rationale: |
+      First major vendor adopts subagent topology mirroring feature boundaries.
+      No numeric trigger fires; existing P2 calibration is reinforced. Recorded
+      as supporting evidence; no principle-metadata.yaml change this cycle.
+
+  - id: S2
+    title: "OpenAI on AWS — Codex + Managed Agents in Bedrock"
+    raw_evidence:
+      - "openai.com/index/openai-on-aws/ (2026-04-28)"
+    principle_axiom_hit: ["P10", "A2"]
+    decision: corroborates_existing
+    rationale: |
+      Cross-cloud agent identity becomes a deliberation surface. AGENTS.md /
+      CLAUDE.md / managed-agent state versioning is already P10's domain. Will
+      revisit when Bedrock Managed Agents publishes a state-format spec.
+
+  - id: S3
+    title: "Anthropic Claude Security (beta) + Claude Mythos Preview"
+    raw_evidence:
+      - "red.anthropic.com/2026/mythos-preview/"
+      - "anthropic.com/glasswing"
+    principle_axiom_hit: ["P9", "A2"]
+    decision: corroborates_existing
+    rationale: |
+      Same vendor now ships both build agent and attack agent. P9 is permanent;
+      A2 statement is immutable. The empirical reinforcement is logged here as
+      audit evidence rather than a metadata change. Recommend Evolution Engine
+      treat Red Team Agent as a permanent slot in the next charter (RFC-0002
+      §v2_adaptations.security_review already specifies this).
+
+  - id: S4
+    title: "Anthropic Claude Opus 4.7 promotional pricing ended; 15× premium multiplier"
+    raw_evidence:
+      - url: "https://github.blog/changelog/2026-04-16-claude-opus-4-7-is-generally-available/"
+        date: "2026-04-30"
+    principle_axiom_hit: ["P1"]
+    decision: triggers_metadata_change
+    metadata_change:
+      file: "principle-metadata.yaml"
+      principle: "context-budget (P1)"
+      changes:
+        - "max_file_lines.variables.utilization_ratio: 0.03 -> 0.02"
+        - "max_file_lines.value: 500 -> 333 (derived from new utilization_ratio)"
+        - "added validity_condition P1-VC4 (premium_request_multiplier_for_top_tier_model < 10.0; status=false)"
+        - "added invalidation_trigger P1-T4 (multiplier >= 10x → tighten utilization_ratio)"
+        - "added evolution_history entry with quantitative evidence"
+    quantitative_evidence:
+      premium_multiplier: 15
+      effective_input_cost_usd_per_million: 7.5
+      previous_validity_condition_status:
+        P1-VC3: "still true (cost > 0.50 USD/M)"
+
+  - id: S5
+    title: "Dirac OSS topping TerminalBench on Gemini-3-flash-preview (HN 392 pts)"
+    raw_evidence:
+      - "github.com/dirac-run/dirac"
+      - "news.ycombinator.com top-10 thread, 147 comments"
+    principle_axiom_hit: ["P3", "P8"]
+    decision: corroborates_existing
+    rationale: |
+      Strongest weekly evidence for AIDE's central bet — structure beats raw
+      model size. P3 and P8 are permanent; this is exhibit-grade evidence for
+      the next deliberation cycle but does not move a numeric dial today.
+
+  - id: S6
+    title: "SWE-bench Pro top-3 capability spread widens to ~19pp"
+    raw_evidence:
+      - "labs.scale.com/leaderboard/swe_bench_pro_public — Mythos 77.8% / Opus 4.7 64.3% / GPT-5.5 58.6%"
+    principle_axiom_hit: ["P4"]
+    decision: triggers_metadata_change
+    metadata_change:
+      file: "principle-metadata.yaml"
+      principle: "knowledge-dry (P4)"
+      changes:
+        - "added validity_condition P4-VC1 (swe_bench_pro_top3_spread < 0.15; status=false)"
+        - "added invalidation_trigger P4-T2 (spread > 0.15 → soften vendor-portability sub-assumption; severity=major)"
+        - "added evolution_history entry with quantitative evidence"
+    quantitative_evidence:
+      swe_bench_pro_top3_spread: 0.192
+      benchmark_kind: contamination_resistant_private_set
+      reliability_note: "SWE-bench Pro is the trustworthy frontier signal per the digest; Verified is contamination-flagged."
+
+# ────────────────────────────────────────────────────────────────────────────
+# Reversal path — Axiom A1
+# ────────────────────────────────────────────────────────────────────────────
+reversal:
+  scope: "All changes in this cycle revert atomically via git revert."
+  files_touched:
+    - "principle-metadata.yaml"
+    - "evolution/history/2026-05-04-weekly-synthesis.yaml"
+    - "research/en/2026-05-04-weekly-synthesis.md"
+    - "research/ko/2026-05-04-weekly-synthesis.md"
+    - "rfcs/0004-cost-pressure-and-vendor-portability.md"
+  rollback_command: "git revert <merge_commit_sha>"
+  rollback_smoke_test: |
+    After revert, confirm:
+      python3 -c "import yaml; d=yaml.safe_load(open('principle-metadata.yaml')); \
+        assert d['principles']['context-budget']['current_values']['max_file_lines']['variables']['utilization_ratio']['value'] == 0.03; \
+        assert len(d['principles']['knowledge-dry'].get('validity_conditions', [])) == 0"
+
+# ────────────────────────────────────────────────────────────────────────────
+# Self-observability — Axiom A5
+# ────────────────────────────────────────────────────────────────────────────
+observability:
+  measured_at: "2026-05-04T00:00:00Z"
+  digest_source_health:
+    machine_fetched_signals: 12
+    curator_added_signals: 4
+    fetch_failures: 0
+  next_calibration_targets:
+    - "Re-check P1-VC4 when any vendor publishes a top-tier model below 10× premium"
+    - "Re-check P4-VC1 when SWE-bench Pro top-3 spread closes below 15pp"
+    - "Promote permanent Red Team Agent slot in next monthly Evolution Engine charter (S3 above)"

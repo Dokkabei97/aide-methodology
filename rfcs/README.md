@@ -32,3 +32,5 @@ Draft → Discussion (2 weeks min) → Accepted / Rejected / Revision Requested
 |-----|-------|--------|------|
 | [0001](0001-language-native-naming-convention.md) | Language-Native Naming Convention First | Draft | 2026-02-18 |
 | [0002](0002-autonomous-self-evolving-methodology.md) | Autonomous Self-Evolving Methodology (AIDE v2.0) | Draft | 2026-02-20 |
+| [0003](0003-distributed-agent-native-scheduling.md) | Distributed Agent-Native Scheduling (AIDE v2.1) | Draft | 2026-05-04 |
+| [0004](0004-cost-pressure-and-vendor-portability.md) | Cost-Pressure Variable in P1 + Vendor-Portability Validity Condition in P4 | Draft | 2026-05-04 |
