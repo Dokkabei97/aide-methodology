@@ -12,6 +12,7 @@
 schema_version: "2.0"
 governance_mode: "autonomous"
 last_global_calibration: "2026-02-20T00:00:00Z"
+last_partial_calibration: "2026-05-04T00:00:00Z"  # Weekly synthesis (P1, P4); awaits different-vendor reviewer per A2/A4
 
 # ============================================================================
 # ADAPTIVE PRINCIPLES (auto-calibrated by Evolution Engine)
@@ -27,7 +28,7 @@ principles:
 
     current_values:
       max_file_lines:
-        value: 500
+        value: 333
         unit: lines
         formula: "round(effective_context_tokens / tokens_per_line * utilization_ratio)"
         bounds:
@@ -43,8 +44,14 @@ principles:
             source: "Codebase average (TypeScript)"
             measured_at: "2026-02-15"
           utilization_ratio:
-            value: 0.03
-            rationale: "Single file should occupy <=3% of effective context for safe multi-file operations"
+            value: 0.02
+            rationale: |
+              Single file should occupy <=2% of effective context. Tightened from 0.03 on
+              2026-05-04 in response to Opus 4.7 premium-request multiplier reaching 15x
+              (P1-T4 fired). Smaller per-file footprint frees budget for parallel-context
+              autonomous loops, where cost — not capability — is now the binding constraint.
+            previous_value: 0.03
+            previous_value_until: "2026-05-04"
 
       max_function_lines:
         value: 50
@@ -91,6 +98,11 @@ principles:
         description: "Token cost is non-trivial"
         status: true
         last_checked: "2026-02-20"
+      - id: "P1-VC4"
+        condition: "premium_request_multiplier_for_top_tier_model < 10.0"
+        description: "Top-tier model premium pricing has not entered cost-pressure regime"
+        status: false  # Opus 4.7 set to 15x on 2026-04-30 per GitHub Changelog 2026-04-16
+        last_checked: "2026-05-04"
 
     invalidation_triggers:
       - id: "P1-T1"
@@ -111,8 +123,41 @@ principles:
         condition: "litm_severity_index < 0.1"
         action: "significantly increase max_file_lines bounds"
         severity: major
+      - id: "P1-T4"
+        type: market
+        source: "Vendor premium-request multipliers (Anthropic / OpenAI / Google)"
+        condition: "premium_request_multiplier_for_top_tier_model >= 10.0"
+        action: |
+          Tighten utilization_ratio (e.g. 0.03 -> 0.02) so a single file's context footprint
+          shrinks. Frees budget for parallel-context autonomous loops, which become the
+          dominant cost concern when premium multipliers spike. Reverse symmetrically when
+          the multiplier returns below 10x.
+        severity: minor
 
-    evolution_history: []
+    evolution_history:
+      - timestamp: "2026-05-04T00:00:00Z"
+        change: "utilization_ratio 0.03 -> 0.02; introduced VC4 + T4 (premium_request_multiplier)"
+        evidence:
+          - metric: "Anthropic Claude Opus 4.7 premium request multiplier"
+            value: 15
+            unit: "x baseline"
+            measured_at: "2026-04-30"
+            source: "https://github.blog/changelog/2026-04-16-claude-opus-4-7-is-generally-available/"
+          - metric: "Token cost regime indicator (P1-VC3 was true at >0.50 USD/M, now Opus 4.7 effective rate)"
+            value: 7.5
+            unit: "USD per million input tokens at 15x premium"
+            measured_at: "2026-05-04"
+            source: "GitHub Changelog + 2026-05-04 weekly intel digest"
+        rationale: |
+          The trigger P1-T2 was specified asymmetrically (only the cost-decrease direction
+          was modeled). This week's signal is the opposite direction: a frontier model went
+          from promotional pricing to a 15x premium multiplier in a single step. The 0.03
+          value was sized for a regime where context was relatively cheap to load. Halving
+          the utilization_ratio is the structurally symmetric response that preserves
+          parallel-loop headroom under cost pressure.
+        decided_by: "single_agent_draft"  # awaits different-vendor reviewer per A2/A4
+        reverse_path: "git revert <commit_sha>; restores 0.03 / removes VC4 / removes T4"
+        weekly_intel_source: "evolution/intel/weekly-2026-05-04.md"
 
   locality-of-behavior:
     id: P2
@@ -204,6 +249,18 @@ principles:
             source: "Average utility function token count in codebase"
             measured_at: "2026-02-20"
 
+    validity_conditions:
+      - id: "P4-VC1"
+        condition: "swe_bench_pro_top3_spread < 0.15"
+        description: |
+          The "vendor portability" sub-assumption of P4 — that a Knowledge-DRY structure
+          will perform comparably across frontier vendors — holds only when the
+          contamination-resistant top-3 capability spread is bounded. Beyond ~15pp,
+          knowledge structures may need vendor-specific calibration rather than a single
+          vendor-agnostic specification.
+        status: false  # 2026-05-04: Mythos 77.8% vs GPT-5.5 58.6% = 19.2pp
+        last_checked: "2026-05-04"
+
     invalidation_triggers:
       - id: "P4-T1"
         type: metric
@@ -211,8 +268,44 @@ principles:
         condition: "context_budget_utilization < 0.3"
         action: "increase max_utility_duplication (more headroom available)"
         severity: minor
+      - id: "P4-T2"
+        type: benchmark
+        source: "SWE-bench Pro (contamination-resistant private set)"
+        condition: "top3_capability_spread > 0.15"
+        action: |
+          Soften the implicit "vendor portability" sub-assumption of P4. Knowledge-DRY
+          guidelines that work for vendor X may not transfer to vendor Y at this spread.
+          AGENTS.md / CLAUDE.md / GEMINI.md should be permitted to diverge per-vendor on
+          calibration details (test-density, decomposition depth) while the underlying
+          knowledge invariants stay single-source.
+        severity: major
 
-    evolution_history: []
+    evolution_history:
+      - timestamp: "2026-05-04T00:00:00Z"
+        change: "Introduced VC1 (vendor-portability bound) + T2 (SWE-bench Pro spread trigger)"
+        evidence:
+          - metric: "SWE-bench Pro top-3 spread"
+            value: 0.192
+            unit: "ratio (Mythos 77.8% - GPT-5.5 58.6%)"
+            measured_at: "2026-05-04"
+            source: "https://labs.scale.com/leaderboard/swe_bench_pro_public; surfaced in evolution/intel/weekly-2026-05-04.md"
+          - metric: "SWE-bench Verified top-3 spread"
+            value: 0.089
+            unit: "ratio (Mythos 93.9% - GPT-5.3 Codex 85.0%)"
+            measured_at: "2026-05-04"
+            source: "https://llm-stats.com/benchmarks/swe-bench-verified (informational; verified is contamination-flagged)"
+        rationale: |
+          P4 originally treated "knowledge as a single source of truth" as vendor-agnostic.
+          The SWE-bench Pro contamination-resistant top-3 spread reaching 19.2pp is the
+          first quantitative signal that frontier-vendor capability is stratifying faster
+          than methodology can track with one specification. Per A2 (Adversarial
+          Separation), this also means the *reviewer* model may interpret a Knowledge-DRY
+          guideline differently from the *author* model — exactly the failure mode A2
+          guards against. Adding a validity_condition + a major-severity trigger makes
+          this a tracked surface for the next deliberation.
+        decided_by: "single_agent_draft"  # awaits different-vendor reviewer per A2/A4
+        reverse_path: "git revert <commit_sha>; removes VC1, T2, and this history entry"
+        weekly_intel_source: "evolution/intel/weekly-2026-05-04.md"
 
   test-as-specification:
     id: P5
