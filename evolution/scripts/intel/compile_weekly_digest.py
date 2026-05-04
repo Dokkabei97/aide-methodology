@@ -109,6 +109,67 @@ def _detect_viral_hn(social_report: dict) -> list[dict]:
     return viral
 
 
+def _audit_fetcher_health(
+    vendor_report: dict, social_report: dict, bench_report: dict
+) -> dict:
+    """Walk every fetched feed and tag it ok / error so A5 stays honest.
+
+    A weekly run where every source 403s must look different from a
+    genuinely quiet week — otherwise the "no signal" path silently
+    masks an upstream outage and the dispatch decision becomes a lie.
+    """
+    failures: list[dict] = []
+    ok_count = 0
+
+    def _record(scope: str, name: str, payload):
+        nonlocal ok_count
+        if isinstance(payload, dict) and "error" in payload:
+            failures.append({"scope": scope, "name": name, "error": payload["error"]})
+        elif isinstance(payload, list) and payload and isinstance(payload[0], dict) and "error" in payload[0]:
+            failures.append({"scope": scope, "name": name, "error": payload[0]["error"]})
+        else:
+            ok_count += 1
+
+    for vendor_key, wrapped in (vendor_report.get("vendors") or {}).items():
+        feeds = ((wrapped or {}).get("data") or {}).get("feeds") or {}
+        for feed_name, payload in feeds.items():
+            _record(f"vendor:{vendor_key}", feed_name, payload)
+
+    channels = social_report.get("channels") or {}
+    hn_queries = (
+        ((channels.get("hackernews") or {}).get("data") or {}).get("queries") or {}
+    )
+    for q, payload in hn_queries.items():
+        _record("hn", q, payload)
+    blog_feeds = (
+        ((channels.get("tech_blogs") or {}).get("data") or {}).get("feeds") or {}
+    )
+    for name, payload in blog_feeds.items():
+        _record(f"blog:{name}", "feed", payload)
+    x_accounts = (
+        ((channels.get("x") or {}).get("data") or {}).get("accounts") or {}
+    )
+    for handle, payload in x_accounts.items():
+        _record(f"x:{handle}", "feed", payload)
+
+    for name, wrapped in (bench_report.get("benchmarks") or {}).items():
+        data = (wrapped or {}).get("data") or {}
+        if "variants" in data:
+            for variant_name, payload in data["variants"].items():
+                _record(f"bench:{name}", variant_name, payload)
+        else:
+            _record(f"bench:{name}", "leaderboard", data)
+
+    total = ok_count + len(failures)
+    return {
+        "ok": ok_count,
+        "failed": len(failures),
+        "total": total,
+        "failures": failures,
+        "all_failed": total > 0 and ok_count == 0,
+    }
+
+
 def _detect_benchmark_shift(bench_report: dict) -> list[dict]:
     shifts = []
     benchmarks = bench_report.get("benchmarks", {})
@@ -168,6 +229,24 @@ def _render_markdown(payload: dict) -> str:
             f"(Δ {s['delta_pp']:+.2f}pp)"
         )
     lines.append("")
+    lines.append("## Source health")
+    health = payload.get("source_health") or {}
+    total = health.get("total", 0)
+    ok = health.get("ok", 0)
+    failed = health.get("failed", 0)
+    lines.append(f"- Sources reached: **{ok}/{total}** (failed: {failed})")
+    if health.get("all_failed"):
+        lines.append(
+            "- **WARNING**: every external source failed this week. The empty signal "
+            "above reflects an outage, not a quiet week. Dispatch suppressed for safety."
+        )
+    elif failed:
+        sample = health.get("failures", [])[:5]
+        for f in sample:
+            lines.append(f"  - `{f['scope']}/{f['name']}` — {f['error']}")
+        if failed > len(sample):
+            lines.append(f"  - … and {failed - len(sample)} more")
+    lines.append("")
     lines.append("## Dispatch decision")
     lines.append(
         f"- Evolution Engine dispatch: **{'YES' if payload['dispatch']['should_dispatch'] else 'no'}**"
@@ -184,6 +263,7 @@ def main() -> None:
     vendor_releases = _detect_vendor_releases(vendor)
     viral_hn = _detect_viral_hn(social)
     benchmark_shifts = _detect_benchmark_shift(bench)
+    source_health = _audit_fetcher_health(vendor, social, bench)
 
     reasons = []
     if vendor_releases:
@@ -193,14 +273,16 @@ def main() -> None:
     if benchmark_shifts:
         reasons.append(f"{len(benchmark_shifts)} benchmark SOTA shifts")
 
+    suppress_dispatch = source_health.get("all_failed", False)
     dispatch = {
-        "should_dispatch": bool(reasons),
-        "reasons": reasons,
+        "should_dispatch": bool(reasons) and not suppress_dispatch,
+        "reasons": reasons if not suppress_dispatch else ["suppressed: all sources failed"],
         "event_type": "weekly_intel_signal",
         "client_payload": {
             "vendor_release_count": len(vendor_releases),
             "viral_hn_count": len(viral_hn),
             "benchmark_shift_count": len(benchmark_shifts),
+            "source_health": source_health,
         },
     }
 
@@ -210,6 +292,7 @@ def main() -> None:
         "vendor_releases": vendor_releases,
         "viral_hn": viral_hn,
         "benchmark_shifts": benchmark_shifts,
+        "source_health": source_health,
         "dispatch": dispatch,
     }
 
