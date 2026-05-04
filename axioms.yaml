@@ -4,7 +4,7 @@
 # All axioms are outcome-based: they define required states, not processes.
 
 schema_version: "2.0"
-last_reviewed: "2026-02-20"
+last_reviewed: "2026-05-04"
 
 axioms:
   A1:
@@ -65,8 +65,9 @@ axioms:
       type: "ci_gate"
       workflow: ".github/workflows/axiom-gate.yml"
       checks:
-        - "Code review requires 2/3 supermajority from different-vendor models"
-        - "Evolution Engine deliberation requires 3 agents from different vendors"
+        - "Code review requires unanimous approval when only 2 vendors participate, or 2/3 supermajority with 3+ vendors"
+        - "Evolution proposals require at least 2 agents from different vendors"
+        - "Tie-breaker rule: a 1:1 split blocks the change (no merge), it never auto-resolves"
         - "All decision logs record participating agent IDs and individual verdicts"
     verification: "Check decision logs for multi-agent participation"
 
