@@ -185,10 +185,27 @@ AIDE v2.0은 **자율적 자기진화** 기능을 도입합니다 — AI 에이�
 |--------|------|------|
 | **불변 공리** | 어떤 에이전트도 변경 불가능한 5개 공리 | 되돌림 가능성, 적대적 분리, 경험주의, 단일 결정권 금지, 자기 관찰 가능성 |
 | **적응형 원칙** | 자동 캘리브레이션 공식이 있는 10대 원칙 | 에이전트 벤치마크 기반 수치 자동 조정 |
-| **진화 엔진** | 월간 자율 파이프라인 | 감지 → 3-에이전트 토론 → 경험적 검증 → 자동 적용 |
+| **진화 엔진** | 분산 스케줄 에이전트 | 감지(주간 CI) → 다중-에이전트 심의(각 플랫폼 스케줄러, ≥2 벤더) → 경험적 검증 → 자동 적용 |
 | **실행** | 개발 파이프라인 | Multi-Agent Review가 Human Review를 대체 |
 
-> 전체 설계: [RFC-0002](rfcs/0002-autonomous-self-evolving-methodology.md) 참조
+### 동작 방식
+
+```
+주간 사이클(각 플랫폼 스케줄러, 공유 CI cron 없음):
+
+  1. SENSE     — aide-weekly-intel.yml(CI)이 매주 월요일 00:00 UTC에
+                 SWE-bench·벤더 릴리스·HN·블로그를 수집
+  2. DELIBERATE — Claude Code on web(월요일 스케줄)이 디지스트를 큐레이션해
+                 원칙 재조정 후보를 담은 PR을 생성;
+                 Codex app(OpenAI, 월요일 스케줄)이 적대적 리뷰 수행
+  3. VALIDATE  — 각 에이전트가 벤치마크·레포 메트릭 증거를 첨부;
+                 A3(Empiricism) 게이트가 정량 데이터 없는 PR을 차단
+  4. APPLY     — Axiom Gate CI가 A1-A5를 검증; ≥2-벤더 합의 시 머지
+                 (1:1 동률은 A4에 따라 차단)
+```
+
+> v2.0 기반: [RFC-0002](rfcs/0002-autonomous-self-evolving-methodology.md) ·
+> v2.1 분산 스케줄 개선: [RFC-0003](rfcs/0003-distributed-agent-native-scheduling.md)
 
 ---
 
@@ -200,6 +217,7 @@ AIDE v2.0은 **자율적 자기진화** 기능을 도입합니다 — AI 에이�
 - [적응형 원칙 메타데이터](principle-metadata.yaml)
 - [진화 엔진](evolution/README.md)
 - [RFC-0002: 자율 자기진화 방법론](rfcs/0002-autonomous-self-evolving-methodology.md)
+- [RFC-0003: 분산 에이전트-네이티브 스케줄링](rfcs/0003-distributed-agent-native-scheduling.md)
 - [연구 배경](research/)
 
 ---

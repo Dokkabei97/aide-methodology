@@ -185,21 +185,28 @@ AIDE v2.0 introduces **autonomous self-evolution** — the methodology updates i
 |-------|------|-----|
 | **Immutable Axioms** | 5 axioms no agent can change | Reversibility, Adversarial Separation, Empiricism, No Single Authority, Self-Observability |
 | **Adaptive Principles** | 10 principles with self-calibrating formulas | Numeric guidelines auto-adjust based on agent benchmarks |
-| **Evolution Engine** | Monthly autonomous pipeline | Sense → 3-Agent Deliberation → Empirical Validation → Auto-Apply |
+| **Evolution Engine** | Distributed scheduled agents | Sense (weekly CI) → Multi-Agent Deliberation (per-platform schedulers, ≥2 vendors) → Empirical Validation → Auto-Apply |
 | **Execution** | Development pipeline | Multi-Agent Review replaces Human Review |
 
 ### How It Works
 
 ```
-Monthly (or on model release):
+Weekly cadence (per-platform schedules; no shared CI cron):
 
-  1. SENSE     — Collect SWE-bench, RULER, HumanEval, pricing data
-  2. DELIBERATE — Claude proposes → GPT challenges → Gemini synthesizes
-  3. VALIDATE  — Apply to sandbox project, compare metrics before/after
-  4. APPLY     — Auto-commit if metrics improve, auto-rollback if they don't
+  1. SENSE     — aide-weekly-intel.yml (CI) collects SWE-bench, vendor
+                 releases, HN, blogs every Monday 00:00 UTC
+  2. DELIBERATE — Claude Code on web (Mon schedule) curates the digest and
+                 opens a PR with principle re-tuning candidates;
+                 Codex app (OpenAI, Mon schedule) reviews adversarially
+  3. VALIDATE  — Each agent attaches benchmark / repo metric evidence; A3
+                 (Empiricism) gate blocks PRs without quantitative data
+  4. APPLY     — Axiom Gate CI verifies A1-A5; merge on ≥2-vendor consensus
+                 (1:1 split blocks per A4)
 ```
 
-> See [RFC-0002](rfcs/0002-autonomous-self-evolving-methodology.md) for the full design.
+> See [RFC-0002](rfcs/0002-autonomous-self-evolving-methodology.md) for the
+> v2.0 foundation and [RFC-0003](rfcs/0003-distributed-agent-native-scheduling.md)
+> for the v2.1 distributed-scheduling refinement.
 
 ---
 
@@ -211,6 +218,7 @@ Monthly (or on model release):
 - [Adaptive Principles Metadata](principle-metadata.yaml)
 - [Evolution Engine](evolution/README.md)
 - [RFC-0002: Autonomous Self-Evolving Methodology](rfcs/0002-autonomous-self-evolving-methodology.md)
+- [RFC-0003: Distributed Agent-Native Scheduling](rfcs/0003-distributed-agent-native-scheduling.md)
 - [Research Background](research/)
 
 ---
