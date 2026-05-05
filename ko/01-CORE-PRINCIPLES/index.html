@@ -1,0 +1,2929 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Agent-Informed Development Engineering">
+      
+      
+      
+        <link rel="canonical" href="https://Dokkabei97.github.io/aide-methodology/ko/01-CORE-PRINCIPLES/">
+      
+      
+        <link rel="prev" href="../00-PREFACE/">
+      
+      
+        <link rel="next" href="../02-ARCHITECTURE-PATTERNS/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>핵심 원칙 - AIDE Methodology</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#aide-agent-informed-development-engineering-v10" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="AIDE Methodology" class="md-header__button md-logo" aria-label="AIDE Methodology" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            AIDE Methodology
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              핵심 원칙
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/Dokkabei97/aide-methodology" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Dokkabei97/aide-methodology
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="AIDE Methodology" class="md-nav__button md-logo" aria-label="AIDE Methodology" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    AIDE Methodology
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/Dokkabei97/aide-methodology" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Dokkabei97/aide-methodology
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    English
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    English
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../en/INDEX/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../en/AIDE-METHODOLOGY/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Full Methodology
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../en/00-PREFACE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Preface
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../en/01-CORE-PRINCIPLES/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Core Principles
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../en/02-ARCHITECTURE-PATTERNS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture Patterns
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../en/03-EXISTING-METHODOLOGIES/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Existing Methodologies
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../en/04-PRACTICAL-GUIDE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Practical Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../en/05-CICD-PIPELINE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CI/CD Pipeline
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../en/06-ADOPTION-GUIDE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Adoption Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../en/07-DISCUSSION-RECORDS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Discussion Records
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_11" >
+        
+          
+          <label class="md-nav__link" for="__nav_1_11" id="__nav_1_11_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Comparisons
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_11">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Comparisons
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../en/comparisons/AIDE-vs-Clean-Architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AIDE vs Clean Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../en/comparisons/AIDE-vs-Hexagonal-Architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AIDE vs Hexagonal Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    한국어
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    한국어
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../INDEX/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    개요
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../AIDE-METHODOLOGY/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    전체 방법론
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../00-PREFACE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    서문
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    핵심 원칙
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    핵심 원칙
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#part-1-aide-10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Part 1: AIDE 핵심 원칙 (10개)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Part 1: AIDE 핵심 원칙 (10개)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-context-budget-principle-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        원칙 1: Context Budget Principle -- 컨텍스트 예산은 1차 설계 제약이다
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="원칙 1: Context Budget Principle -- 컨텍스트 예산은 1차 설계 제약이다">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        배경과 근거
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        구체적 가이드라인
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#team-alphabeta" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Team Alpha/Beta 토론 과정
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-locality-of-behavior-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        원칙 2: Locality of Behavior -- 행위의 지역성이 추상화보다 우선한다
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="원칙 2: Locality of Behavior -- 행위의 지역성이 추상화보다 우선한다">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        배경과 근거
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        구체적 가이드라인
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#team-alphabeta_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Team Alpha/Beta 토론 과정
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-functional-core-structural-shell-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        원칙 3: Functional Core, Structural Shell -- 순수 함수 코어 + 구조적 쉘
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="원칙 3: Functional Core, Structural Shell -- 순수 함수 코어 + 구조적 쉘">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        배경과 근거
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        구체적 가이드라인
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#team-alphabeta_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Team Alpha/Beta 토론 과정
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-knowledge-dry-code-wet-tolerant-dry" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        원칙 4: Knowledge DRY, Code WET-tolerant -- 지식은 DRY, 코드는 지역성과 트레이드오프
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="원칙 4: Knowledge DRY, Code WET-tolerant -- 지식은 DRY, 코드는 지역성과 트레이드오프">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        배경과 근거
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        구체적 가이드라인
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#team-alphabeta_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Team Alpha/Beta 토론 과정
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-test-as-specification-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        원칙 5: Test as Specification -- 테스트는 사양 언어다
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="원칙 5: Test as Specification -- 테스트는 사양 언어다">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        배경과 근거
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        구체적 가이드라인
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#team-alphabeta_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Team Alpha/Beta 토론 과정
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-progressive-disclosure-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        원칙 6: Progressive Disclosure -- 정보의 단계적 공개
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="원칙 6: Progressive Disclosure -- 정보의 단계적 공개">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        배경과 근거
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        구체적 가이드라인
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#team-alphabeta_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Team Alpha/Beta 토론 과정
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-deterministic-guardrails-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        원칙 7: Deterministic Guardrails -- 확률적 생성에 결정론적 가드레일
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="원칙 7: Deterministic Guardrails -- 확률적 생성에 결정론적 가드레일">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        배경과 근거
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        구체적 가이드라인
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#team-alphabeta_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Team Alpha/Beta 토론 과정
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#8-observability-as-structure-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        원칙 8: Observability as Structure -- 관찰가능성은 구조의 일부
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="원칙 8: Observability as Structure -- 관찰가능성은 구조의 일부">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        배경과 근거
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        구체적 가이드라인
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#team-alphabeta_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Team Alpha/Beta 토론 과정
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#9-security-by-structure-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        원칙 9: Security by Structure -- 구조적 보안 검증
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="원칙 9: Security by Structure -- 구조적 보안 검증">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        배경과 근거
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_18" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        구체적 가이드라인
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#team-alphabeta_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Team Alpha/Beta 토론 과정
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#10-meta-code-as-first-class-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        원칙 10: Meta-Code as First-Class -- 메타 코드를 1급 시민으로
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="원칙 10: Meta-Code as First-Class -- 메타 코드를 1급 시민으로">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_19" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        배경과 근거
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_20" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        구체적 가이드라인
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#team-alphabeta_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Team Alpha/Beta 토론 과정
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-ARCHITECTURE-PATTERNS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    아키텍처 패턴
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-EXISTING-METHODOLOGIES/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    기존 방법론 비교
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-PRACTICAL-GUIDE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    실무 가이드
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-CICD-PIPELINE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CI/CD 파이프라인
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-ADOPTION-GUIDE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    도입 가이드
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-DISCUSSION-RECORDS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    토론 기록
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_11" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_11" id="__nav_2_11_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    비교
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_11">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    비교
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../comparisons/AIDE-vs-Clean-Architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AIDE vs Clean Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../comparisons/AIDE-vs-Hexagonal-Architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AIDE vs Hexagonal Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#part-1-aide-10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Part 1: AIDE 핵심 원칙 (10개)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Part 1: AIDE 핵심 원칙 (10개)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-context-budget-principle-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        원칙 1: Context Budget Principle -- 컨텍스트 예산은 1차 설계 제약이다
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="원칙 1: Context Budget Principle -- 컨텍스트 예산은 1차 설계 제약이다">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        배경과 근거
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        구체적 가이드라인
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#team-alphabeta" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Team Alpha/Beta 토론 과정
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-locality-of-behavior-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        원칙 2: Locality of Behavior -- 행위의 지역성이 추상화보다 우선한다
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="원칙 2: Locality of Behavior -- 행위의 지역성이 추상화보다 우선한다">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        배경과 근거
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        구체적 가이드라인
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#team-alphabeta_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Team Alpha/Beta 토론 과정
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-functional-core-structural-shell-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        원칙 3: Functional Core, Structural Shell -- 순수 함수 코어 + 구조적 쉘
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="원칙 3: Functional Core, Structural Shell -- 순수 함수 코어 + 구조적 쉘">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        배경과 근거
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        구체적 가이드라인
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#team-alphabeta_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Team Alpha/Beta 토론 과정
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-knowledge-dry-code-wet-tolerant-dry" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        원칙 4: Knowledge DRY, Code WET-tolerant -- 지식은 DRY, 코드는 지역성과 트레이드오프
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="원칙 4: Knowledge DRY, Code WET-tolerant -- 지식은 DRY, 코드는 지역성과 트레이드오프">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        배경과 근거
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        구체적 가이드라인
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#team-alphabeta_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Team Alpha/Beta 토론 과정
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-test-as-specification-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        원칙 5: Test as Specification -- 테스트는 사양 언어다
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="원칙 5: Test as Specification -- 테스트는 사양 언어다">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        배경과 근거
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        구체적 가이드라인
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#team-alphabeta_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Team Alpha/Beta 토론 과정
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-progressive-disclosure-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        원칙 6: Progressive Disclosure -- 정보의 단계적 공개
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="원칙 6: Progressive Disclosure -- 정보의 단계적 공개">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        배경과 근거
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        구체적 가이드라인
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#team-alphabeta_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Team Alpha/Beta 토론 과정
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-deterministic-guardrails-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        원칙 7: Deterministic Guardrails -- 확률적 생성에 결정론적 가드레일
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="원칙 7: Deterministic Guardrails -- 확률적 생성에 결정론적 가드레일">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        배경과 근거
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        구체적 가이드라인
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#team-alphabeta_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Team Alpha/Beta 토론 과정
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#8-observability-as-structure-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        원칙 8: Observability as Structure -- 관찰가능성은 구조의 일부
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="원칙 8: Observability as Structure -- 관찰가능성은 구조의 일부">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        배경과 근거
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        구체적 가이드라인
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#team-alphabeta_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Team Alpha/Beta 토론 과정
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#9-security-by-structure-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        원칙 9: Security by Structure -- 구조적 보안 검증
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="원칙 9: Security by Structure -- 구조적 보안 검증">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        배경과 근거
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_18" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        구체적 가이드라인
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#team-alphabeta_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Team Alpha/Beta 토론 과정
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#10-meta-code-as-first-class-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        원칙 10: Meta-Code as First-Class -- 메타 코드를 1급 시민으로
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="원칙 10: Meta-Code as First-Class -- 메타 코드를 1급 시민으로">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_19" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        배경과 근거
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_20" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        구체적 가이드라인
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#team-alphabeta_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Team Alpha/Beta 토론 과정
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="aide-agent-informed-development-engineering-v10">AIDE (Agent-Informed Development Engineering) -- 에이전트 시대의 소프트웨어 개발론 v1.0<a class="headerlink" href="#aide-agent-informed-development-engineering-v10" title="Permanent link">&para;</a></h1>
+<p><strong>작성</strong>: CTO (20년+ 아키텍처 경험, 3년 AI 에이전트 실전 경험)
+<strong>기반</strong>: GPT/Claude/Gemini 3종 딥리서치 + Team Alpha(통합파) 보고서 2종 + Team Beta(급진파) 보고서 1종
+<strong>날짜</strong>: 2026-02-18</p>
+<hr />
+<h2 id="part-1-aide-10">Part 1: AIDE 핵심 원칙 (10개)<a class="headerlink" href="#part-1-aide-10" title="Permanent link">&para;</a></h2>
+<h3 id="1-context-budget-principle-1">원칙 1: Context Budget Principle -- 컨텍스트 예산은 1차 설계 제약이다<a class="headerlink" href="#1-context-budget-principle-1" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><strong>"메모리가 프로그래밍 언어를 결정했듯, 컨텍스트 윈도우가 아키텍처를 결정한다."</strong></p>
+</blockquote>
+<h4 id="_1">배경과 근거<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h4>
+<p>3개 연구 보고서 모두 <strong>완전 합의</strong>한 유일한 1순위 원칙이다:
+- GPT 보고서: "컨텍스트 예산을 설계 입력으로" (핵심 원칙 2번, P0 요구사항)
+- Claude 보고서: "컨텍스트 윈도우는 새로운 CPU"
+- Gemini 보고서: "컨텍스트 공학이 새로운 희소 자원"</p>
+<p>100만 토큰 컨텍스트 윈도우라 해도 성능이 선형적으로 유지되지 않는다. Chroma의 연구에서 18개 LLM을 측정한 결과, 입력 길이 증가에 따라 성능이 불안정해지며, <strong>Lost in the Middle</strong> 현상으로 중간 위치 정보가 소실된다. 도구 정의만으로도 수만 토큰이 소비되며, 이것이 추론 품질과 비용 모두를 악화시킨다.</p>
+<h4 id="_2">구체적 가이드라인<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>항목</th>
+<th>권장 기준</th>
+<th>상한</th>
+<th>근거</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>파일 크기</td>
+<td>200~300줄</td>
+<td>500줄</td>
+<td>300줄 = ~5,400토큰, 시스템 프롬프트+대화 이력과 합쳐도 안전</td>
+</tr>
+<tr>
+<td>함수 크기</td>
+<td>30줄 (파서/정책/래퍼)</td>
+<td>50줄</td>
+<td>단일 추론 턴에서 완전 이해 가능한 범위</td>
+</tr>
+<tr>
+<td>라인 길이</td>
+<td>100자</td>
+<td>120자</td>
+<td>diff 리뷰 편의성</td>
+</tr>
+<tr>
+<td>메타 파일 (CLAUDE.md)</td>
+<td>200줄</td>
+<td>300줄</td>
+<td>지시 수 증가 시 이행률 선형 감소</td>
+</tr>
+<tr>
+<td>기능 수정 시 로드 파일 수</td>
+<td>1~2개</td>
+<td>3개</td>
+<td>간접 참조 비용 최소화</td>
+</tr>
+</tbody>
+</table>
+<h4 id="team-alphabeta">Team Alpha/Beta 토론 과정<a class="headerlink" href="#team-alphabeta" title="Permanent link">&para;</a></h4>
+<p>이 원칙에 대해서는 <strong>양팀 완전 합의</strong>했다. 유일한 차이는 구현 강도에 있었다:
+- <strong>Team Alpha</strong>: "기존 SRP와 응집도 개념의 연장선. 토큰 비용이라는 정량적 근거가 추가되었을 뿐"
+- <strong>Team Beta</strong>: "이것이 모든 아키텍처 결정의 출발점. 기능 수정 시 로드 파일 최대 3개, 간접 참조 깊이 최대 1단계"</p>
+<p><strong>CTO 판단</strong>: Team Beta의 구체적 지표(로드 파일 수, 간접 참조 깊이)를 <strong>권장 기준</strong>으로 채택하되, <strong>상한</strong>으로 강제하지는 않는다. 인프라 계층의 DIP 구현 등에서 간접 참조가 2단계까지 필요한 경우가 있기 때문이다.</p>
+<hr />
+<h3 id="2-locality-of-behavior-">원칙 2: Locality of Behavior -- 행위의 지역성이 추상화보다 우선한다<a class="headerlink" href="#2-locality-of-behavior-" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><strong>"하나의 기능에 관련된 모든 코드는 물리적으로 가까이 위치해야 한다."</strong></p>
+</blockquote>
+<h4 id="_3">배경과 근거<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h4>
+<p>에이전트가 하나의 기능을 수정하기 위해 8개 파일(Controller, Service, Repository, Entity, DTO, Mapper, Interface, Validator)을 탐색해야 하는 전통적 계층 구조는 컨텍스트 파편화를 유발한다. Factory.ai의 연구는 AI 에이전트가 <strong>multi-hop reasoning</strong>(여러 파일 간 참조를 따라가는 추론)에서 극적으로 성능이 저하됨을 보여준다.</p>
+<p>이 원칙은 "관심사의 분리(Separation of Concerns)"를 폐기하는 것이 아니다. <strong>분리의 축을 바꾸는 것</strong>이다:
+- 기존: 기술적 역할별 분리 (presentation / business / data)
+- AIDE: 기능/도메인별 분리 (user-auth / payment / order)</p>
+<h4 id="_4">구체적 가이드라인<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>// AIDE 패턴: Feature-Based 구조
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>features/
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>  user-auth/
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>    types.ts          -- 이 기능 전용 타입/스키마 정의
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    logic.ts          -- 순수 함수 비즈니스 로직
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    handler.ts        -- HTTP/이벤트 핸들러 (부작용 경계)
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>    store.ts          -- 데이터 저장소 접근 (부작용 경계)
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>    user-auth.test.ts -- 이 기능의 모든 테스트
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>    AGENTS.md         -- 에이전트를 위한 도메인 컨텍스트 (Tier 2)
+</code></pre></div>
+<ul>
+<li>각 Feature 디렉토리는 <strong>자가 완결적(Self-Contained)</strong>: 에이전트가 해당 폴더만 읽으면 기능 전체를 파악 가능</li>
+<li>Feature 간 공유 코드는 <code>shared/</code>에 두되, <strong>최소한으로 유지</strong></li>
+<li>Feature 내부에서 논리적 계층(순수 로직 / 부작용 경계)은 파일 단위로 분리</li>
+</ul>
+<h4 id="team-alphabeta_1">Team Alpha/Beta 토론 과정<a class="headerlink" href="#team-alphabeta_1" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Team Alpha</strong>: "Feature 기반 구조는 Clean Architecture의 Vertical Slice Architecture와 호환 가능. 의존성 규칙은 유지하되 물리적 계층을 축소하면 된다."</li>
+<li><strong>Team Beta</strong>: "아름다운 추상화보다 뚱뚱한 파일이 낫다. 인터페이스와 구현체를 분리하는 순간 에이전트는 두 파일을 로드해야 한다."</li>
+</ul>
+<p><strong>CTO 판단</strong>: Feature 기반 구조를 <strong>기본으로 채택</strong>한다. Team Alpha가 지적한 대로 이것은 Clean Architecture와 대립하지 않으며, Vertical Slice Architecture의 자연스러운 확장이다. 단, Feature 내부에서 types/logic/handler/store의 파일 분리는 유지한다 -- 하나의 300줄 파일이 모든 것을 담는 것보다 역할별 100줄 파일 3개가 에이전트에게도 더 명확하다. 핵심은 <strong>Feature 경계 밖으로의 간접 참조를 최소화</strong>하는 것이다.</p>
+<hr />
+<h3 id="3-functional-core-structural-shell-">원칙 3: Functional Core, Structural Shell -- 순수 함수 코어 + 구조적 쉘<a class="headerlink" href="#3-functional-core-structural-shell-" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><strong>"비즈니스 로직은 순수 함수로, 부작용은 명시적 경계에서 처리한다."</strong></p>
+</blockquote>
+<h4 id="_5">배경과 근거<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h4>
+<p>3개 보고서 모두 함수형 패러다임이 AI 에이전트에게 구조적 우위를 가진다는 점에 동의했다:
+- <strong>순수 함수</strong>는 입력이 같으면 출력이 항상 같으므로, 에이전트가 함수 블록 하나만으로 완벽한 추론이 가능하다
+- <strong>불변 데이터</strong>는 상태 추적 없이 데이터 흐름을 체인 형태로 이해할 수 있게 한다
+- <strong>강력한 타입 시스템</strong>은 에이전트의 환각을 컴파일 타임에 차단하는 가드레일 역할을 한다</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1">// [1] 데이터: 불변 구조체로 정의</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="kr">type</span><span class="w"> </span><span class="nx">User</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">Readonly</span><span class="o">&lt;</span><span class="p">{</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">  </span><span class="nx">id</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">  </span><span class="nx">email</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">  </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">  </span><span class="nx">role</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;admin&#39;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="s1">&#39;member&#39;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="s1">&#39;viewer&#39;</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="p">}</span><span class="o">&gt;</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="c1">// [2] 순수 로직: 입력 -&gt; 출력, 부작용 없음</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="kd">const</span><span class="w"> </span><span class="nx">promote_user_to_admin</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="nx">user</span><span class="o">:</span><span class="w"> </span><span class="kt">User</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nx">User</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">({</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="w">  </span><span class="p">...</span><span class="nx">user</span><span class="p">,</span>
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="w">  </span><span class="nx">role</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;admin&#39;</span>
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="p">})</span>
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a><span class="c1">// [3] 부작용 경계: 의존성 주입, 명시적 에러 핸들링</span>
+<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a><span class="kd">const</span><span class="w"> </span><span class="nx">handle_promote_user</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a><span class="w">  </span><span class="nx">userId</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span>
+<a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a><span class="w">  </span><span class="nx">deps</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">db</span><span class="o">:</span><span class="w"> </span><span class="kt">Database</span><span class="p">;</span><span class="w"> </span><span class="nx">logger</span><span class="o">:</span><span class="w"> </span><span class="kt">Logger</span><span class="w"> </span><span class="p">}</span>
+<a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">Result</span><span class="o">&lt;</span><span class="nx">User</span><span class="p">,</span><span class="w"> </span><span class="ne">Error</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a><span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">user</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">deps</span><span class="p">.</span><span class="nx">db</span><span class="p">.</span><span class="nx">findUser</span><span class="p">(</span><span class="nx">userId</span><span class="p">)</span>
+<a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a><span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="nx">user</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="nx">err</span><span class="p">(</span><span class="ow">new</span><span class="w"> </span><span class="nx">UserNotFoundError</span><span class="p">(</span><span class="nx">userId</span><span class="p">))</span>
+<a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a>
+<a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a><span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">promoted</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">promote_user_to_admin</span><span class="p">(</span><span class="nx">user</span><span class="p">)</span>
+<a id="__codelineno-1-24" name="__codelineno-1-24" href="#__codelineno-1-24"></a><span class="w">  </span><span class="k">await</span><span class="w"> </span><span class="nx">deps</span><span class="p">.</span><span class="nx">db</span><span class="p">.</span><span class="nx">saveUser</span><span class="p">(</span><span class="nx">promoted</span><span class="p">)</span>
+<a id="__codelineno-1-25" name="__codelineno-1-25" href="#__codelineno-1-25"></a><span class="w">  </span><span class="nx">deps</span><span class="p">.</span><span class="nx">logger</span><span class="p">.</span><span class="nx">info</span><span class="p">({</span><span class="w"> </span><span class="nx">event</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;user_promoted&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">userId</span><span class="w"> </span><span class="p">})</span>
+<a id="__codelineno-1-26" name="__codelineno-1-26" href="#__codelineno-1-26"></a>
+<a id="__codelineno-1-27" name="__codelineno-1-27" href="#__codelineno-1-27"></a><span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="nx">ok</span><span class="p">(</span><span class="nx">promoted</span><span class="p">)</span>
+<a id="__codelineno-1-28" name="__codelineno-1-28" href="#__codelineno-1-28"></a><span class="p">}</span>
+</code></pre></div>
+<h4 id="_6">구체적 가이드라인<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>영역</th>
+<th>권장 패러다임</th>
+<th>클래스 사용</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>비즈니스 로직</td>
+<td>순수 함수</td>
+<td>금지</td>
+</tr>
+<tr>
+<td>도메인 모델</td>
+<td>불변 데이터 구조 + 타입</td>
+<td>불변 Record/Type으로 대체</td>
+</tr>
+<tr>
+<td>인프라/IO 계층</td>
+<td>함수 우선, 필요 시 클래스</td>
+<td>허용 (DB 연결, 소켓 등 리소스 관리)</td>
+</tr>
+<tr>
+<td>정책/검증</td>
+<td>함수형 파이프라인</td>
+<td>금지</td>
+</tr>
+<tr>
+<td>도메인 경계 정의</td>
+<td>DDD Bounded Context (타입 + 함수 조합)</td>
+<td>불요</td>
+</tr>
+</tbody>
+</table>
+<h4 id="team-alphabeta_2">Team Alpha/Beta 토론 과정<a class="headerlink" href="#team-alphabeta_2" title="Permanent link">&para;</a></h4>
+<p>이 원칙은 양팀 간 <strong>가장 격렬한 논쟁</strong>이 벌어진 지점이다:</p>
+<ul>
+<li><strong>Team Alpha</strong>: "Functional Core + OOP Shell + DDD. DDD의 Aggregate, Entity, Value Object는 도메인 지식을 구조화하는 데 여전히 유효. 불변으로 구현하되 OOP 개념은 유지해야 한다."</li>
+<li><strong>Team Beta</strong>: "FP-only. 클래스는 상태를 숨기고 에이전트의 인지 부하를 높인다. 비즈니스 로직에 클래스를 사용하지 말라."</li>
+</ul>
+<p><strong>CTO 판단</strong>: 실질적 차이는 생각보다 작다. 양팀 모두 "비즈니스 로직은 순수 함수, 데이터는 불변"에 동의한다. 차이는 DDD의 Aggregate Root 같은 개념을 클래스로 표현하느냐, 타입+함수 조합으로 표현하느냐에 있다. <strong>AIDE는 타입+함수 조합을 권장</strong>한다. DDD의 도메인 모델링 <strong>개념</strong>(Bounded Context, Aggregate, Value Object)은 보존하되, <strong>구현 방식</strong>은 불변 타입+순수 함수로 전환한다. 이렇게 하면 Alpha의 DDD 가치와 Beta의 FP 가치가 모두 충족된다.</p>
+<p>상속은 최대 1단계로 제한하며, 깊은 상속 트리는 어떤 경우에도 허용하지 않는다. Composition over Inheritance는 AI 시대에 더욱 강하게 적용된다.</p>
+<hr />
+<h3 id="4-knowledge-dry-code-wet-tolerant-dry">원칙 4: Knowledge DRY, Code WET-tolerant -- 지식은 DRY, 코드는 지역성과 트레이드오프<a class="headerlink" href="#4-knowledge-dry-code-wet-tolerant-dry" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><strong>"비즈니스 규칙은 반드시 한 곳에. 유틸리티 코드의 중복은 지역성을 위해 허용한다."</strong></p>
+</blockquote>
+<h4 id="_7">배경과 근거<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h4>
+<p>DRY 원칙의 재해석은 3개 보고서에서 가장 넓은 의견 스펙트럼을 보인 주제다:
+- GPT: 구조적 해법(카탈로그화)으로 중복 관리
+- Claude: "DRY is not dead but transformed" -- AHA(Avoid Hasty Abstractions) 원칙 적용
+- Gemini: WET/DAMP 적극 수용, "5줄짜리 로직이 10곳에 반복되어도 OK"</p>
+<p>Claude 보고서가 발견한 자기모순이 핵심이다: "중복 허용 -&gt; AI가 더 많은 코드 생성 -&gt; 컨텍스트 윈도우 초과 -&gt; 결국 DRY 필요." 무한한 중복 허용은 자기 파괴적이다.</p>
+<h4 id="_8">구체적 가이드라인<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>수준</th>
+<th>전략</th>
+<th>예시</th>
+<th>중복 허용 한도</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>비즈니스 규칙</strong></td>
+<td>엄격한 DRY</td>
+<td>"할인율 계산 공식", "가격 정책"</td>
+<td>0 (반드시 단일 출처)</td>
+</tr>
+<tr>
+<td><strong>도메인 타입</strong></td>
+<td>Feature 경계에서 재선언 허용</td>
+<td>공유 User 타입의 Feature-local subset</td>
+<td>인터페이스로 참조하거나 부분 재선언</td>
+</tr>
+<tr>
+<td><strong>유틸리티 코드</strong></td>
+<td>AHA 원칙</td>
+<td>이메일 검증, 날짜 포맷</td>
+<td>2~3곳 중복 허용, 4곳 이상이면 추출 검토</td>
+</tr>
+<tr>
+<td><strong>보일러플레이트</strong></td>
+<td>구조화된 중복 허용</td>
+<td>try-catch 패턴, 로깅 패턴</td>
+<td>제한 없음 (패턴 앵커 역할)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>중복 관리 체계</strong>:
+- 의식적 중복(Conscious Duplication): 중복할 때 <strong>그 이유를 주석으로 명시</strong>
+- 드리프트 감지: CI에서 에이전트 기반 중복 코드 드리프트 탐지를 자동화
+- 정기 리뷰: 분기별로 중복 코드의 일관성을 검증</p>
+<h4 id="team-alphabeta_3">Team Alpha/Beta 토론 과정<a class="headerlink" href="#team-alphabeta_3" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Team Alpha</strong>: "Knowledge DRY + Code AHA. 중복은 의식적으로 허용하되, 가시적 관리가 전제. Gemini의 '10곳에 5줄 중복도 OK'는 극단적."</li>
+<li><strong>Team Beta</strong>: "적극적 WET/DAMP. 각 파일의 자가 완결성이 최우선. 추상화를 통한 공유는 간접 참조 비용을 수반하므로 최소화해야."</li>
+</ul>
+<p><strong>CTO 판단</strong>: Team Alpha의 "Knowledge DRY + Code AHA"를 채택한다. 핵심 논거:
+1. Beta가 인정하듯 중복 코드의 무한 허용은 결국 컨텍스트 윈도우를 초과시켜 자기 모순에 빠진다
+2. 그러나 Alpha도 인정하듯 과도한 추상화(모든 3줄 유틸을 공통 모듈로 추출)는 에이전트에게 해로운 간접 참조를 만든다
+3. 따라서 "비즈니스 지식은 DRY, 유틸리티 코드는 AHA 기준으로 의식적 중복 허용"이 균형점이다</p>
+<hr />
+<h3 id="5-test-as-specification-">원칙 5: Test as Specification -- 테스트는 사양 언어다<a class="headerlink" href="#5-test-as-specification-" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><strong>"테스트는 검증 도구가 아니라 에이전트에게 의도를 전달하는 사양서다. TDG + PBT + EDD의 삼중 체계를 적용한다."</strong></p>
+</blockquote>
+<h4 id="_9">배경과 근거<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h4>
+<p>Claude 보고서의 핵심 통찰: "TDD는 AI 시대에 더 중요해진다. 테스트가 prompt engineering이 된다." Matthews &amp; Nagappan의 학술 검증에서도 테스트와 함께 문제를 제시하면 GPT-4와 Llama 3 모두에서 코드 생성 품질이 향상됨을 확인했다.</p>
+<p>Property-Based Testing(PBT)의 혁신적 효과 (Claude 보고서):
+- TDD 대비 23.1~37.3% 상대 향상
+- Hard 태스크에서 직접 코드 생성 1.1% 정확도 vs 속성 검증 생성 48.9% 정확도
+- LLM은 정확한 코드보다 <strong>정확성 속성(property)을 정의하는 데 훨씬 뛰어남</strong></p>
+<h4 id="_10">구체적 가이드라인<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h4>
+<p><strong>삼중 테스트 체계:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>                     +------------------+
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>                     |   Human Review   |  아키텍처, 보안, 도메인 지식
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>                     +------------------+
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>                    +--------------------+
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>                    |  Eval Suites (EDD) |  시나리오/데이터셋 기반 행동 평가
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>                    +--------------------+
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>                  +------------------------+
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>                  | Integration Tests      |  AI 생성 코드의 통합 검증
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>                  +------------------------+
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>                +----------------------------+
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>                | Property-Based Tests (PBT) |  불변 속성 검증
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>                +----------------------------+
+<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>              +--------------------------------+
+<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>              | Unit Tests (TDD)               |  결정적 코드: 파서, 정책, 도구 래퍼
+<a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a>              +--------------------------------+
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>테스트 유형</th>
+<th>대상</th>
+<th>도구</th>
+<th>작성 주체</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Unit (TDD)</strong></td>
+<td>결정적 코드 -- 파서, 정책, 상태 전이, 도구 래퍼</td>
+<td>Jest/Vitest/pytest</td>
+<td>인간 스펙 -&gt; AI 구현</td>
+</tr>
+<tr>
+<td><strong>PBT</strong></td>
+<td>비즈니스 불변 속성 -- "총액은 항상 &gt;= 0", "정렬 후 순서 보존"</td>
+<td>fast-check/Hypothesis</td>
+<td>인간이 속성 정의, AI가 생성</td>
+</tr>
+<tr>
+<td><strong>Integration</strong></td>
+<td>AI가 생성한 코드의 통합 시나리오 -- Feature 간 연동, 데이터 흐름 검증</td>
+<td>커스텀 테스트 프레임워크</td>
+<td>AI 생성, 인간 리뷰</td>
+</tr>
+<tr>
+<td><strong>Eval (EDD)</strong></td>
+<td>모델 출력 품질 -- 정확도, 안전성, 유용성</td>
+<td>커스텀 eval 프레임워크</td>
+<td>인간 설계 + 프로덕션 실패 편입</td>
+</tr>
+<tr>
+<td><strong>Security</strong></td>
+<td>AI 생성 코드의 보안 취약점(XSS, SQL Injection, 로직 오류)</td>
+<td>OWASP 기반 시나리오 + Security linters</td>
+<td>보안팀 설계, 자동 실행</td>
+</tr>
+</tbody>
+</table>
+<p><strong>확인 편향 방지 필수</strong>: AI가 테스트와 구현을 모두 작성할 때 "버그를 검증하는 테스트"가 만들어질 위험이 있다. 테스트 작성과 코드 작성에 <strong>다른 모델을 사용</strong>하거나, <strong>인간이 테스트 사양을 리뷰</strong>해야 한다.</p>
+<h4 id="team-alphabeta_4">Team Alpha/Beta 토론 과정<a class="headerlink" href="#team-alphabeta_4" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Team Alpha</strong>: "TDG(Test-Driven Generation) + PBT + EDD 확장. TDD를 폐기하지 않고 AI 시대에 맞게 확장."</li>
+<li><strong>Team Beta</strong>: "이중 체계 -- 결정론적 코드에는 Traditional TDD, 확률적 행동에는 EDD. PBT 적극 도입."</li>
+</ul>
+<p><strong>CTO 판단</strong>: 실질적으로 <strong>거의 동일한 제안</strong>이다. 양팀의 테스트 전략을 합쳐서 위의 삼중 체계를 확정한다. 유일한 차이는 명칭뿐이었다.</p>
+<hr />
+<h3 id="6-progressive-disclosure-">원칙 6: Progressive Disclosure -- 정보의 단계적 공개<a class="headerlink" href="#6-progressive-disclosure-" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><strong>"에이전트에게 모든 정보를 한꺼번에 주지 말라. 필요할 때 필요한 만큼만 제공하라."</strong></p>
+</blockquote>
+<h4 id="_11">배경과 근거<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h4>
+<p>GPT 보고서의 스킬 점진적 로딩, Claude 보고서의 3-Tier Progressive Disclosure, Gemini 보고서의 동적 정보 로딩이 모두 같은 원리를 말한다: <strong>운영체제의 가상 메모리처럼, 모든 것을 물리 메모리에 올리지 않고 필요할 때 로드한다.</strong></p>
+<h4 id="_12">구체적 가이드라인<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h4>
+<p><strong>메타 파일 3-Tier 체계:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Tier</th>
+<th>파일</th>
+<th>역할</th>
+<th>크기 제한</th>
+<th>로딩 방식</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Tier 1: 헌법</strong></td>
+<td><code>CLAUDE.md</code> / <code>AGENTS.md</code> (루트)</td>
+<td>프로젝트 정체성, 절대 규칙, 아키텍처 맵</td>
+<td>300줄 이내</td>
+<td>항상 로딩</td>
+</tr>
+<tr>
+<td><strong>Tier 2: 지역법</strong></td>
+<td>하위 디렉토리의 <code>AGENTS.md</code></td>
+<td>컴포넌트별 패턴, 도메인 컨텍스트</td>
+<td>200줄 이내</td>
+<td>해당 디렉토리 작업 시 Lazy 로딩</td>
+</tr>
+<tr>
+<td><strong>Tier 3: 기술서</strong></td>
+<td><code>.agents/skills/*/SKILL.md</code></td>
+<td>절차적 지식, 워크플로 가이드</td>
+<td>YAML frontmatter + 본문</td>
+<td>On-demand 로딩</td>
+</tr>
+</tbody>
+</table>
+<p><strong>의존성/라이브러리 정보의 단계적 제공:</strong></p>
+<p>프로젝트에서 사용하는 외부 라이브러리와 내부 공유 모듈의 정보를 에이전트에게 전달할 때도 단계적 접근이 필요하다:</p>
+<table>
+<thead>
+<tr>
+<th>단계</th>
+<th>제공 정보</th>
+<th>용도</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>요약</strong></td>
+<td>라이브러리 이름 + 버전 + 한 줄 용도 설명</td>
+<td>에이전트가 프로젝트 전체 기술 스택을 파악</td>
+</tr>
+<tr>
+<td><strong>API 시그니처</strong></td>
+<td>사용 중인 함수/타입의 시그니처만</td>
+<td>에이전트가 해당 라이브러리와 연동하는 코드를 작성할 때</td>
+</tr>
+<tr>
+<td><strong>상세 문서</strong></td>
+<td>예제 코드, 설정 방법, 주의사항</td>
+<td>에이전트가 새로운 연동을 구축하거나 트러블슈팅할 때</td>
+</tr>
+</tbody>
+</table>
+<p>핵심은 "모든 라이브러리의 전체 문서를 컨텍스트에 로드하지 않는 것"이다. 필요한 깊이의 정보만 필요한 시점에 제공하면 컨텍스트 예산을 효율적으로 사용할 수 있다.</p>
+<h4 id="team-alphabeta_5">Team Alpha/Beta 토론 과정<a class="headerlink" href="#team-alphabeta_5" title="Permanent link">&para;</a></h4>
+<p><strong>양팀 완전 합의</strong>. 구현 세부사항도 거의 동일했다. 3-Tier 메타 파일 체계와 단계적 정보 제공 원칙을 결합하여 위 체계를 확정했다.</p>
+<hr />
+<h3 id="7-deterministic-guardrails-">원칙 7: Deterministic Guardrails -- 확률적 생성에 결정론적 가드레일<a class="headerlink" href="#7-deterministic-guardrails-" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><strong>"AI 에이전트를 믿되, 검증하라. 그리고 검증은 반드시 결정론적이어야 한다."</strong></p>
+</blockquote>
+<h4 id="_13">배경과 근거<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h4>
+<p>AI 생성 코드의 보안 실태 (Claude 보고서, Veracode 2025):
+- 생성 코드의 <strong>약 45%에 보안 결함</strong> 포함
+- 로직 에러 발생률 인간 대비 <strong>1.75배</strong>
+- XSS 취약점 <strong>2.74배</strong>
+- <strong>모델 크기와 무관</strong> -- 더 똑똑한 모델이 더 안전한 코드를 만드는 것이 아님</p>
+<p>이 데이터는 "에이전트에게 '잘 하라'고 프롬프트하는 것"이 불충분함을 명확히 보여준다. 결정론적 도구가 에이전트의 출력을 검증해야 한다.</p>
+<h4 id="_14">구체적 가이드라인<a class="headerlink" href="#_14" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>확률적 생성(AI)  ──→  결정론적 검증  ──→  통과/실패
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>                        │
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>                        ├── TypeScript strict mode (타입 검증)
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>                        ├── ESLint/Prettier (스타일 강제)
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>                        ├── Zod/io-ts (런타임 타입 검증)
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>                        ├── Pre-commit hooks (자동 실행)
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>                        ├── Security linters (보안 검증)
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>                        └── CI test suite (회귀 방지)
+</code></pre></div>
+<p><strong>절대 규칙</strong>: "린터가 할 수 있는 일을 프롬프트에 맡기지 말라" (Claude 보고서: "never send an LLM to do a linter's job"). 스타일 강제, 타입 검증, 보안 패턴 탐지는 모두 결정론적 도구에 위임한다.</p>
+<p><strong>Self-Healing Loop</strong> (Gemini 보고서의 Reflexion Pattern):
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>Generate -&gt; Compile/Lint -&gt; Test -&gt; Analyze Errors -&gt; Regenerate -&gt; ...
+</code></pre></div></p>
+<p>이 루프가 효과적으로 작동하려면 에러 메시지가 <strong>기계 판독 가능한 구조화된 형태(JSON)</strong>로 제공되어야 한다.</p>
+<h4 id="team-alphabeta_6">Team Alpha/Beta 토론 과정<a class="headerlink" href="#team-alphabeta_6" title="Permanent link">&para;</a></h4>
+<p><strong>양팀 완전 합의</strong>. Team Beta가 이 원칙을 가장 강조하며 "나를 믿되 검증하라"는 직관적 표현을 제시했고, Team Alpha도 이에 동의했다.</p>
+<hr />
+<h3 id="8-observability-as-structure-">원칙 8: Observability as Structure -- 관찰가능성은 구조의 일부<a class="headerlink" href="#8-observability-as-structure-" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><strong>"AI가 생성한 코드에는 구조화된 로깅과 트레이싱이 기본 포함되어야 한다. 관찰가능성은 1급 시민이다."</strong></p>
+</blockquote>
+<h4 id="_15">배경과 근거<a class="headerlink" href="#_15" title="Permanent link">&para;</a></h4>
+<p>3개 보고서 <strong>완전 합의</strong>: AI가 빠르게 생성하는 코드의 "왜 이렇게 동작하는지"를 추적할 수 없으면 운영과 디버깅이 불가능하다. AI 에이전트가 코드를 생성할 때 관찰가능성을 구조적으로 내장하도록 해야 한다.</p>
+<ul>
+<li>GPT 보고서: Observability를 아키텍처의 횡단 관심사로 포함</li>
+<li>Claude 보고서: 트레이싱 기본 ON, 개발 단계부터 trace 필수</li>
+<li>Gemini 보고서: 시맨틱 로깅(JSON-LD) 표준 채택</li>
+</ul>
+<h4 id="_16">구체적 가이드라인<a class="headerlink" href="#_16" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1">// 구조화된 로그 포맷 -- AI가 생성하는 모든 코드에 포함되어야 함</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="kr">type</span><span class="w"> </span><span class="nx">StructuredLog</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">  </span><span class="nx">level</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;info&#39;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="s1">&#39;warning&#39;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="s1">&#39;error&#39;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="s1">&#39;critical&#39;</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">  </span><span class="nx">timestamp</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="w">       </span><span class="c1">// ISO 8601</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="w">  </span><span class="nx">service</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="w">         </span><span class="c1">// 서비스/Feature 식별</span>
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="w">  </span><span class="nx">event</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="w">           </span><span class="c1">// 비즈니스 이벤트명</span>
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="w">  </span><span class="nx">trace_id</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="w">        </span><span class="c1">// 분산 트레이싱 ID</span>
+<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="w">  </span><span class="nx">span_id</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="w">         </span><span class="c1">// 현재 작업 단위 ID</span>
+<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="w">  </span><span class="nx">data</span><span class="o">:</span><span class="w"> </span><span class="kt">Record</span><span class="o">&lt;</span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">unknown</span><span class="o">&gt;</span><span class="w">  </span><span class="c1">// 구조화된 부가 데이터</span>
+<a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="p">}</span>
+<a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a>
+<a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a><span class="c1">// 사용 예시: 이커머스 결제 처리</span>
+<a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a><span class="kd">const</span><span class="w"> </span><span class="nx">handle_payment</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a><span class="w">  </span><span class="nx">order_id</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span>
+<a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a><span class="w">  </span><span class="nx">deps</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">db</span><span class="o">:</span><span class="w"> </span><span class="kt">Database</span><span class="p">;</span><span class="w"> </span><span class="nx">pg</span><span class="o">:</span><span class="w"> </span><span class="kt">PaymentGateway</span><span class="p">;</span><span class="w"> </span><span class="nx">logger</span><span class="o">:</span><span class="w"> </span><span class="kt">Logger</span><span class="w"> </span><span class="p">}</span>
+<a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">Result</span><span class="o">&lt;</span><span class="nx">PaymentResult</span><span class="p">,</span><span class="w"> </span><span class="ne">Error</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-5-17" name="__codelineno-5-17" href="#__codelineno-5-17"></a><span class="w">  </span><span class="nx">deps</span><span class="p">.</span><span class="nx">logger</span><span class="p">.</span><span class="nx">info</span><span class="p">({</span>
+<a id="__codelineno-5-18" name="__codelineno-5-18" href="#__codelineno-5-18"></a><span class="w">    </span><span class="nx">event</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;payment_initiated&#39;</span><span class="p">,</span>
+<a id="__codelineno-5-19" name="__codelineno-5-19" href="#__codelineno-5-19"></a><span class="w">    </span><span class="nx">data</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">order_id</span><span class="w"> </span><span class="p">}</span>
+<a id="__codelineno-5-20" name="__codelineno-5-20" href="#__codelineno-5-20"></a><span class="w">  </span><span class="p">})</span>
+<a id="__codelineno-5-21" name="__codelineno-5-21" href="#__codelineno-5-21"></a>
+<a id="__codelineno-5-22" name="__codelineno-5-22" href="#__codelineno-5-22"></a><span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">deps</span><span class="p">.</span><span class="nx">pg</span><span class="p">.</span><span class="nx">charge</span><span class="p">(</span><span class="nx">order_id</span><span class="p">)</span>
+<a id="__codelineno-5-23" name="__codelineno-5-23" href="#__codelineno-5-23"></a>
+<a id="__codelineno-5-24" name="__codelineno-5-24" href="#__codelineno-5-24"></a><span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">result</span><span class="p">.</span><span class="nx">success</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-5-25" name="__codelineno-5-25" href="#__codelineno-5-25"></a><span class="w">    </span><span class="nx">deps</span><span class="p">.</span><span class="nx">logger</span><span class="p">.</span><span class="nx">info</span><span class="p">({</span>
+<a id="__codelineno-5-26" name="__codelineno-5-26" href="#__codelineno-5-26"></a><span class="w">      </span><span class="nx">event</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;payment_completed&#39;</span><span class="p">,</span>
+<a id="__codelineno-5-27" name="__codelineno-5-27" href="#__codelineno-5-27"></a><span class="w">      </span><span class="nx">data</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">order_id</span><span class="p">,</span><span class="w"> </span><span class="nx">transaction_id</span><span class="o">:</span><span class="w"> </span><span class="kt">result.transaction_id</span><span class="w"> </span><span class="p">}</span>
+<a id="__codelineno-5-28" name="__codelineno-5-28" href="#__codelineno-5-28"></a><span class="w">    </span><span class="p">})</span>
+<a id="__codelineno-5-29" name="__codelineno-5-29" href="#__codelineno-5-29"></a><span class="w">  </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-5-30" name="__codelineno-5-30" href="#__codelineno-5-30"></a><span class="w">    </span><span class="nx">deps</span><span class="p">.</span><span class="nx">logger</span><span class="p">.</span><span class="nx">error</span><span class="p">({</span>
+<a id="__codelineno-5-31" name="__codelineno-5-31" href="#__codelineno-5-31"></a><span class="w">      </span><span class="nx">event</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;payment_failed&#39;</span><span class="p">,</span>
+<a id="__codelineno-5-32" name="__codelineno-5-32" href="#__codelineno-5-32"></a><span class="w">      </span><span class="nx">data</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">order_id</span><span class="p">,</span><span class="w"> </span><span class="nx">reason</span><span class="o">:</span><span class="w"> </span><span class="kt">result.error</span><span class="w"> </span><span class="p">}</span>
+<a id="__codelineno-5-33" name="__codelineno-5-33" href="#__codelineno-5-33"></a><span class="w">    </span><span class="p">})</span>
+<a id="__codelineno-5-34" name="__codelineno-5-34" href="#__codelineno-5-34"></a><span class="w">  </span><span class="p">}</span>
+<a id="__codelineno-5-35" name="__codelineno-5-35" href="#__codelineno-5-35"></a>
+<a id="__codelineno-5-36" name="__codelineno-5-36" href="#__codelineno-5-36"></a><span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="nx">result</span>
+<a id="__codelineno-5-37" name="__codelineno-5-37" href="#__codelineno-5-37"></a><span class="p">}</span>
+</code></pre></div>
+<p><strong>핵심 가이드라인:</strong>
+- <strong>분산 트레이싱 기본 적용</strong>: <code>trace_id</code> -&gt; <code>span_id</code>로 요청 흐름을 추적. OpenTelemetry 등 표준 활용
+- <strong>개발 단계부터 기본 ON</strong>: 프로덕션에서만이 아니라 로컬 개발에서도 구조화된 로그 활성화
+- <strong>비용/성능 메트릭</strong>: API 응답 시간, DB 쿼리 수, 외부 API 호출 수를 실시간 추적
+- <strong>AI 생성 코드의 관찰가능성 필수화</strong>: 에이전트에게 코드를 요청할 때, CLAUDE.md에 "모든 handler에 구조화된 로깅을 포함할 것"을 명시</p>
+<h4 id="team-alphabeta_7">Team Alpha/Beta 토론 과정<a class="headerlink" href="#team-alphabeta_7" title="Permanent link">&para;</a></h4>
+<p><strong>양팀 완전 합의</strong>. 관찰가능성은 소프트웨어 운영의 기본이며, AI가 생성하는 코드에서 더욱 중요해진다는 데 이견이 없었다.</p>
+<hr />
+<h3 id="9-security-by-structure-">원칙 9: Security by Structure -- 구조적 보안 검증<a class="headerlink" href="#9-security-by-structure-" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><strong>"AI가 생성한 코드의 45%에 보안 결함이 있다. 보안 검증은 구조적으로 내장되어야 한다."</strong></p>
+</blockquote>
+<h4 id="_17">배경과 근거<a class="headerlink" href="#_17" title="Permanent link">&para;</a></h4>
+<p>AI가 코드의 주 생산자가 되면서 보안 위협의 양상이 달라졌다. AI 생성 코드 자체의 보안 취약점이 핵심 위협이다:</p>
+<ul>
+<li>Veracode 2025: AI 생성 코드의 약 45%에 보안 결함 포함</li>
+<li>XSS 취약점 인간 대비 2.74배, 로직 에러 1.75배</li>
+<li>모델 크기와 보안 품질은 비례하지 않음</li>
+</ul>
+<h4 id="_18">구체적 가이드라인<a class="headerlink" href="#_18" title="Permanent link">&para;</a></h4>
+<p><strong>위협-통제 매핑:</strong></p>
+<table>
+<thead>
+<tr>
+<th>위협</th>
+<th>대표 시나리오</th>
+<th>방어 지점</th>
+<th>권장 통제</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SQL Injection</td>
+<td>AI가 parameterized query 대신 문자열 결합 생성</td>
+<td>Security linter + Code review</td>
+<td>린터 규칙으로 raw query 사용 탐지, ORM/Query Builder 강제</td>
+</tr>
+<tr>
+<td>XSS</td>
+<td>AI가 사용자 입력 이스케이프 누락</td>
+<td>Security linter + 템플릿 엔진</td>
+<td>자동 이스케이프 프레임워크 사용 강제, DOMPurify 등</td>
+</tr>
+<tr>
+<td>로직 오류</td>
+<td>권한 검증 누락, 경계 조건 미처리</td>
+<td>PBT + Integration test</td>
+<td>Property-Based Testing으로 불변 속성 검증</td>
+</tr>
+<tr>
+<td>인증/인가 결함</td>
+<td>AI가 인증 미들웨어 적용을 누락</td>
+<td>아키텍처 강제</td>
+<td>인증 미들웨어를 라우터 수준에서 기본 적용, 명시적 opt-out만 허용</td>
+</tr>
+<tr>
+<td>의존성 취약점</td>
+<td>AI가 취약한 버전의 패키지 추가</td>
+<td>SCA (Software Composition Analysis)</td>
+<td>npm audit, Snyk 등 자동 스캔</td>
+</tr>
+</tbody>
+</table>
+<p><strong>보안 3원칙:</strong>
+1. <strong>자동화된 보안 검증</strong>: AI가 생성한 모든 코드에 대해 security linter를 CI에서 자동 실행
+2. <strong>보안 리뷰 필수화</strong>: 인증, 결제, 개인정보 관련 코드 변경은 반드시 보안 리뷰를 거침
+3. <strong>감사 추적(Audit Trail)</strong>: 민감한 데이터 접근과 상태 변경은 모두 구조화된 로그에 기록</p>
+<h4 id="team-alphabeta_8">Team Alpha/Beta 토론 과정<a class="headerlink" href="#team-alphabeta_8" title="Permanent link">&para;</a></h4>
+<p><strong>양팀 완전 합의</strong>. 보안은 타협의 여지가 없는 영역이다.</p>
+<hr />
+<h3 id="10-meta-code-as-first-class-1">원칙 10: Meta-Code as First-Class -- 메타 코드를 1급 시민으로<a class="headerlink" href="#10-meta-code-as-first-class-1" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><strong>"AGENTS.md, CLAUDE.md, Skills 파일은 소스 코드와 동등한 엄격도로 버전 관리하고 테스트한다."</strong></p>
+</blockquote>
+<h4 id="_19">배경과 근거<a class="headerlink" href="#_19" title="Permanent link">&para;</a></h4>
+<ul>
+<li>AGENTS.md가 <strong>60,000+ 오픈소스 프로젝트</strong>에서 사용 (Linux Foundation 산하 Agentic AI Foundation이 관리)</li>
+<li>연구에 따르면 프롬프트/컨텍스트가 보존되지 않는 관행이 재현성을 약화시킴</li>
+<li>메타 파일의 한 줄 변경이 에이전트의 전체 행동을 바꿀 수 있으므로, <strong>코드보다 더 높은 영향력</strong>을 가질 수 있음</li>
+</ul>
+<h4 id="_20">구체적 가이드라인<a class="headerlink" href="#_20" title="Permanent link">&para;</a></h4>
+<p><strong>메타 코드 관리 원칙:</strong>
+1. <strong>버전 관리</strong>: Git에서 코드와 동일한 워크플로 -- PR, 코드 리뷰, 변경 로그, 릴리스 태그
+2. <strong>변경 시 Eval 실행</strong>: 메타 파일 변경은 CI에서 자동으로 eval suite 실행 (행동 회귀 감지)
+3. <strong>크기 감시</strong>: Tier 1 파일이 300줄을 넘으면 CI에서 경고/차단
+4. <strong>부정 명령문 활용</strong>: "무엇을 하지 말라"가 종종 더 명확하고 위반 감지가 쉬움
+5. <strong>예시 기반 지시</strong>: 추상적 원칙보다 구체적 코드 예시가 에이전트의 출력 품질을 극적으로 높임</p>
+<p><strong>manifest.yaml로 전체 구성 고정:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="c1"># manifest.yaml</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="nt">spec_version</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;1.0&quot;</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="nt">project_name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;my-ecommerce&quot;</span>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="nt">project_type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;backend&quot;</span>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="nt">tech_stack</span><span class="p">:</span>
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="w">  </span><span class="nt">language</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;typescript&quot;</span>
+<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="w">  </span><span class="nt">runtime</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;node&quot;</span>
+<a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a><span class="w">  </span><span class="nt">framework</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;express&quot;</span>
+<a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a><span class="w">  </span><span class="nt">database</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;postgresql&quot;</span>
+<a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a><span class="w">  </span><span class="nt">cache</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;redis&quot;</span>
+<a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a>
+<a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a><span class="nt">ai_development</span><span class="p">:</span>
+<a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a><span class="w">  </span><span class="nt">primary_model</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;claude-opus-4-6&quot;</span>
+<a id="__codelineno-6-15" name="__codelineno-6-15" href="#__codelineno-6-15"></a><span class="w">  </span><span class="nt">instruction_files</span><span class="p">:</span>
+<a id="__codelineno-6-16" name="__codelineno-6-16" href="#__codelineno-6-16"></a><span class="w">    </span><span class="nt">tier1</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;CLAUDE.md&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;AGENTS.md&quot;</span><span class="p p-Indicator">]</span>
+<a id="__codelineno-6-17" name="__codelineno-6-17" href="#__codelineno-6-17"></a><span class="w">    </span><span class="nt">tier2_pattern</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;src/features/*/AGENTS.md&quot;</span>
+<a id="__codelineno-6-18" name="__codelineno-6-18" href="#__codelineno-6-18"></a>
+<a id="__codelineno-6-19" name="__codelineno-6-19" href="#__codelineno-6-19"></a><span class="nt">code_standards</span><span class="p">:</span>
+<a id="__codelineno-6-20" name="__codelineno-6-20" href="#__codelineno-6-20"></a><span class="w">  </span><span class="nt">max_file_lines</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">300</span>
+<a id="__codelineno-6-21" name="__codelineno-6-21" href="#__codelineno-6-21"></a><span class="w">  </span><span class="nt">max_function_lines</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">50</span>
+<a id="__codelineno-6-22" name="__codelineno-6-22" href="#__codelineno-6-22"></a><span class="w">  </span><span class="nt">paradigm</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;functional-core&quot;</span>
+<a id="__codelineno-6-23" name="__codelineno-6-23" href="#__codelineno-6-23"></a><span class="w">  </span><span class="nt">type_strictness</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;strict&quot;</span>
+<a id="__codelineno-6-24" name="__codelineno-6-24" href="#__codelineno-6-24"></a>
+<a id="__codelineno-6-25" name="__codelineno-6-25" href="#__codelineno-6-25"></a><span class="nt">testing</span><span class="p">:</span>
+<a id="__codelineno-6-26" name="__codelineno-6-26" href="#__codelineno-6-26"></a><span class="w">  </span><span class="nt">unit</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;vitest&quot;</span>
+<a id="__codelineno-6-27" name="__codelineno-6-27" href="#__codelineno-6-27"></a><span class="w">  </span><span class="nt">property</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;fast-check&quot;</span>
+<a id="__codelineno-6-28" name="__codelineno-6-28" href="#__codelineno-6-28"></a><span class="w">  </span><span class="nt">e2e</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;playwright&quot;</span>
+<a id="__codelineno-6-29" name="__codelineno-6-29" href="#__codelineno-6-29"></a>
+<a id="__codelineno-6-30" name="__codelineno-6-30" href="#__codelineno-6-30"></a><span class="nt">observability</span><span class="p">:</span>
+<a id="__codelineno-6-31" name="__codelineno-6-31" href="#__codelineno-6-31"></a><span class="w">  </span><span class="nt">logging</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;structured_json&quot;</span>
+<a id="__codelineno-6-32" name="__codelineno-6-32" href="#__codelineno-6-32"></a><span class="w">  </span><span class="nt">tracing</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</code></pre></div>
+<h4 id="team-alphabeta_9">Team Alpha/Beta 토론 과정<a class="headerlink" href="#team-alphabeta_9" title="Permanent link">&para;</a></h4>
+<p><strong>양팀 완전 합의</strong>. Gemini의 "메타 제어 평면(Meta-Control Plane)" 개념을 양팀 모두 수용했다.</p>
+<hr />
+<p>← Previous: <a href="../00-PREFACE/">00-PREFACE</a> | Next: <a href="../02-ARCHITECTURE-PATTERNS/">02-ARCHITECTURE-PATTERNS</a> →</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

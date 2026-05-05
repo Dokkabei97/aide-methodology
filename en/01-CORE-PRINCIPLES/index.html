@@ -1,0 +1,2929 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Agent-Informed Development Engineering">
+      
+      
+      
+        <link rel="canonical" href="https://Dokkabei97.github.io/aide-methodology/en/01-CORE-PRINCIPLES/">
+      
+      
+        <link rel="prev" href="../00-PREFACE/">
+      
+      
+        <link rel="next" href="../02-ARCHITECTURE-PATTERNS/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Core Principles - AIDE Methodology</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#aide-agent-informed-development-engineering-a-software-development-methodology-for-the-agentic-era-v10" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="AIDE Methodology" class="md-header__button md-logo" aria-label="AIDE Methodology" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            AIDE Methodology
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Core Principles
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/Dokkabei97/aide-methodology" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Dokkabei97/aide-methodology
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="AIDE Methodology" class="md-nav__button md-logo" aria-label="AIDE Methodology" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    AIDE Methodology
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/Dokkabei97/aide-methodology" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Dokkabei97/aide-methodology
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    English
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    English
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../INDEX/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../AIDE-METHODOLOGY/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Full Methodology
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../00-PREFACE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Preface
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Core Principles
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Core Principles
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#part-1-aide-core-principles-10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Part 1: AIDE Core Principles (10)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Part 1: AIDE Core Principles (10)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#principle-1-context-budget-principle-the-context-budget-is-a-first-class-design-constraint" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Principle 1: Context Budget Principle -- The Context Budget Is a First-Class Design Constraint
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Principle 1: Context Budget Principle -- The Context Budget Is a First-Class Design Constraint">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#background-and-rationale" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Background and Rationale
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#specific-guidelines" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Specific Guidelines
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#team-alphabeta-discussion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Team Alpha/Beta Discussion
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#principle-2-locality-of-behavior-locality-of-behavior-takes-priority-over-abstraction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Principle 2: Locality of Behavior -- Locality of Behavior Takes Priority Over Abstraction
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Principle 2: Locality of Behavior -- Locality of Behavior Takes Priority Over Abstraction">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#background-and-rationale_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Background and Rationale
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#specific-guidelines_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Specific Guidelines
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#team-alphabeta-discussion_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Team Alpha/Beta Discussion
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#principle-3-functional-core-structural-shell-pure-function-core-structural-shell" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Principle 3: Functional Core, Structural Shell -- Pure Function Core + Structural Shell
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Principle 3: Functional Core, Structural Shell -- Pure Function Core + Structural Shell">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#background-and-rationale_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Background and Rationale
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#specific-guidelines_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Specific Guidelines
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#team-alphabeta-discussion_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Team Alpha/Beta Discussion
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#principle-4-knowledge-dry-code-wet-tolerant-knowledge-is-dry-code-trades-off-with-locality" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Principle 4: Knowledge DRY, Code WET-tolerant -- Knowledge Is DRY, Code Trades Off with Locality
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Principle 4: Knowledge DRY, Code WET-tolerant -- Knowledge Is DRY, Code Trades Off with Locality">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#background-and-rationale_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Background and Rationale
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#specific-guidelines_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Specific Guidelines
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#team-alphabeta-discussion_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Team Alpha/Beta Discussion
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#principle-5-test-as-specification-tests-are-a-specification-language" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Principle 5: Test as Specification -- Tests Are a Specification Language
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Principle 5: Test as Specification -- Tests Are a Specification Language">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#background-and-rationale_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Background and Rationale
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#specific-guidelines_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Specific Guidelines
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#team-alphabeta-discussion_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Team Alpha/Beta Discussion
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#principle-6-progressive-disclosure-progressive-disclosure-of-information" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Principle 6: Progressive Disclosure -- Progressive Disclosure of Information
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Principle 6: Progressive Disclosure -- Progressive Disclosure of Information">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#background-and-rationale_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Background and Rationale
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#specific-guidelines_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Specific Guidelines
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#team-alphabeta-discussion_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Team Alpha/Beta Discussion
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#principle-7-deterministic-guardrails-deterministic-guardrails-for-probabilistic-generation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Principle 7: Deterministic Guardrails -- Deterministic Guardrails for Probabilistic Generation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Principle 7: Deterministic Guardrails -- Deterministic Guardrails for Probabilistic Generation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#background-and-rationale_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Background and Rationale
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#specific-guidelines_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Specific Guidelines
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#team-alphabeta-discussion_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Team Alpha/Beta Discussion
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#principle-8-observability-as-structure-observability-is-part-of-the-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Principle 8: Observability as Structure -- Observability Is Part of the Structure
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Principle 8: Observability as Structure -- Observability Is Part of the Structure">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#background-and-rationale_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Background and Rationale
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#specific-guidelines_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Specific Guidelines
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#team-alphabeta-discussion_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Team Alpha/Beta Discussion
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#principle-9-security-by-structure-structural-security-verification" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Principle 9: Security by Structure -- Structural Security Verification
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Principle 9: Security by Structure -- Structural Security Verification">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#background-and-rationale_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Background and Rationale
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#specific-guidelines_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Specific Guidelines
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#team-alphabeta-discussion_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Team Alpha/Beta Discussion
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#principle-10-meta-code-as-first-class-meta-code-as-a-first-class-citizen" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Principle 10: Meta-Code as First-Class -- Meta-Code as a First-Class Citizen
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Principle 10: Meta-Code as First-Class -- Meta-Code as a First-Class Citizen">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#background-and-rationale_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Background and Rationale
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#specific-guidelines_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Specific Guidelines
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#team-alphabeta-discussion_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Team Alpha/Beta Discussion
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-ARCHITECTURE-PATTERNS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture Patterns
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-EXISTING-METHODOLOGIES/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Existing Methodologies
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-PRACTICAL-GUIDE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Practical Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-CICD-PIPELINE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CI/CD Pipeline
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-ADOPTION-GUIDE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Adoption Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-DISCUSSION-RECORDS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Discussion Records
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_11" >
+        
+          
+          <label class="md-nav__link" for="__nav_1_11" id="__nav_1_11_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Comparisons
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_11">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Comparisons
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../comparisons/AIDE-vs-Clean-Architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AIDE vs Clean Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../comparisons/AIDE-vs-Hexagonal-Architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AIDE vs Hexagonal Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    한국어
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    한국어
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ko/INDEX/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    개요
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ko/AIDE-METHODOLOGY/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    전체 방법론
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ko/00-PREFACE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    서문
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ko/01-CORE-PRINCIPLES/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    핵심 원칙
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ko/02-ARCHITECTURE-PATTERNS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    아키텍처 패턴
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ko/03-EXISTING-METHODOLOGIES/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    기존 방법론 비교
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ko/04-PRACTICAL-GUIDE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    실무 가이드
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ko/05-CICD-PIPELINE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CI/CD 파이프라인
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ko/06-ADOPTION-GUIDE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    도입 가이드
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ko/07-DISCUSSION-RECORDS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    토론 기록
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_11" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_11" id="__nav_2_11_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    비교
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_11">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    비교
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ko/comparisons/AIDE-vs-Clean-Architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AIDE vs Clean Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ko/comparisons/AIDE-vs-Hexagonal-Architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AIDE vs Hexagonal Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#part-1-aide-core-principles-10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Part 1: AIDE Core Principles (10)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Part 1: AIDE Core Principles (10)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#principle-1-context-budget-principle-the-context-budget-is-a-first-class-design-constraint" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Principle 1: Context Budget Principle -- The Context Budget Is a First-Class Design Constraint
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Principle 1: Context Budget Principle -- The Context Budget Is a First-Class Design Constraint">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#background-and-rationale" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Background and Rationale
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#specific-guidelines" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Specific Guidelines
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#team-alphabeta-discussion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Team Alpha/Beta Discussion
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#principle-2-locality-of-behavior-locality-of-behavior-takes-priority-over-abstraction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Principle 2: Locality of Behavior -- Locality of Behavior Takes Priority Over Abstraction
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Principle 2: Locality of Behavior -- Locality of Behavior Takes Priority Over Abstraction">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#background-and-rationale_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Background and Rationale
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#specific-guidelines_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Specific Guidelines
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#team-alphabeta-discussion_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Team Alpha/Beta Discussion
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#principle-3-functional-core-structural-shell-pure-function-core-structural-shell" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Principle 3: Functional Core, Structural Shell -- Pure Function Core + Structural Shell
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Principle 3: Functional Core, Structural Shell -- Pure Function Core + Structural Shell">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#background-and-rationale_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Background and Rationale
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#specific-guidelines_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Specific Guidelines
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#team-alphabeta-discussion_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Team Alpha/Beta Discussion
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#principle-4-knowledge-dry-code-wet-tolerant-knowledge-is-dry-code-trades-off-with-locality" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Principle 4: Knowledge DRY, Code WET-tolerant -- Knowledge Is DRY, Code Trades Off with Locality
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Principle 4: Knowledge DRY, Code WET-tolerant -- Knowledge Is DRY, Code Trades Off with Locality">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#background-and-rationale_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Background and Rationale
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#specific-guidelines_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Specific Guidelines
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#team-alphabeta-discussion_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Team Alpha/Beta Discussion
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#principle-5-test-as-specification-tests-are-a-specification-language" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Principle 5: Test as Specification -- Tests Are a Specification Language
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Principle 5: Test as Specification -- Tests Are a Specification Language">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#background-and-rationale_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Background and Rationale
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#specific-guidelines_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Specific Guidelines
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#team-alphabeta-discussion_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Team Alpha/Beta Discussion
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#principle-6-progressive-disclosure-progressive-disclosure-of-information" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Principle 6: Progressive Disclosure -- Progressive Disclosure of Information
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Principle 6: Progressive Disclosure -- Progressive Disclosure of Information">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#background-and-rationale_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Background and Rationale
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#specific-guidelines_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Specific Guidelines
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#team-alphabeta-discussion_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Team Alpha/Beta Discussion
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#principle-7-deterministic-guardrails-deterministic-guardrails-for-probabilistic-generation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Principle 7: Deterministic Guardrails -- Deterministic Guardrails for Probabilistic Generation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Principle 7: Deterministic Guardrails -- Deterministic Guardrails for Probabilistic Generation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#background-and-rationale_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Background and Rationale
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#specific-guidelines_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Specific Guidelines
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#team-alphabeta-discussion_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Team Alpha/Beta Discussion
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#principle-8-observability-as-structure-observability-is-part-of-the-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Principle 8: Observability as Structure -- Observability Is Part of the Structure
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Principle 8: Observability as Structure -- Observability Is Part of the Structure">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#background-and-rationale_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Background and Rationale
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#specific-guidelines_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Specific Guidelines
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#team-alphabeta-discussion_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Team Alpha/Beta Discussion
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#principle-9-security-by-structure-structural-security-verification" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Principle 9: Security by Structure -- Structural Security Verification
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Principle 9: Security by Structure -- Structural Security Verification">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#background-and-rationale_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Background and Rationale
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#specific-guidelines_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Specific Guidelines
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#team-alphabeta-discussion_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Team Alpha/Beta Discussion
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#principle-10-meta-code-as-first-class-meta-code-as-a-first-class-citizen" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Principle 10: Meta-Code as First-Class -- Meta-Code as a First-Class Citizen
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Principle 10: Meta-Code as First-Class -- Meta-Code as a First-Class Citizen">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#background-and-rationale_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Background and Rationale
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#specific-guidelines_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Specific Guidelines
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#team-alphabeta-discussion_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Team Alpha/Beta Discussion
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="aide-agent-informed-development-engineering-a-software-development-methodology-for-the-agentic-era-v10">AIDE (Agent-Informed Development Engineering) -- A Software Development Methodology for the Agentic Era v1.0<a class="headerlink" href="#aide-agent-informed-development-engineering-a-software-development-methodology-for-the-agentic-era-v10" title="Permanent link">&para;</a></h1>
+<p><strong>Author</strong>: CTO (20+ years of architecture experience, 3 years of hands-on AI agent experience)
+<strong>Based on</strong>: GPT/Claude/Gemini triple deep research + Team Alpha (Integrationists) 2 reports + Team Beta (Radicals) 1 report
+<strong>Date</strong>: 2026-02-18</p>
+<hr />
+<h2 id="part-1-aide-core-principles-10">Part 1: AIDE Core Principles (10)<a class="headerlink" href="#part-1-aide-core-principles-10" title="Permanent link">&para;</a></h2>
+<h3 id="principle-1-context-budget-principle-the-context-budget-is-a-first-class-design-constraint">Principle 1: Context Budget Principle -- The Context Budget Is a First-Class Design Constraint<a class="headerlink" href="#principle-1-context-budget-principle-the-context-budget-is-a-first-class-design-constraint" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><strong>"Just as memory determined programming languages, the context window determines architecture."</strong></p>
+</blockquote>
+<h4 id="background-and-rationale">Background and Rationale<a class="headerlink" href="#background-and-rationale" title="Permanent link">&para;</a></h4>
+<p>This is the only Tier-1 principle on which all three research reports reached <strong>complete consensus</strong>:
+- GPT report: "Context budget as a design input" (Core Principle #2, P0 requirement)
+- Claude report: "The context window is the new CPU"
+- Gemini report: "Context engineering is the new scarce resource"</p>
+<p>Even with a 1-million-token context window, performance does not scale linearly. In Chroma's study measuring 18 LLMs, performance became unstable as input length increased, and the <strong>Lost in the Middle</strong> phenomenon caused information loss at middle positions. Tool definitions alone consume tens of thousands of tokens, degrading both reasoning quality and cost.</p>
+<h4 id="specific-guidelines">Specific Guidelines<a class="headerlink" href="#specific-guidelines" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Recommended</th>
+<th>Upper Limit</th>
+<th>Rationale</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>File size</td>
+<td>200-300 lines</td>
+<td>500 lines</td>
+<td>300 lines = ~5,400 tokens, safe even combined with system prompt + conversation history</td>
+</tr>
+<tr>
+<td>Function size</td>
+<td>30 lines (parsers/policies/wrappers)</td>
+<td>50 lines</td>
+<td>Fully comprehensible within a single reasoning turn</td>
+</tr>
+<tr>
+<td>Line length</td>
+<td>100 characters</td>
+<td>120 characters</td>
+<td>Diff review convenience</td>
+</tr>
+<tr>
+<td>Meta files (CLAUDE.md)</td>
+<td>200 lines</td>
+<td>300 lines</td>
+<td>Instruction compliance rate decreases linearly as instruction count increases</td>
+</tr>
+<tr>
+<td>Files loaded per feature modification</td>
+<td>1-2</td>
+<td>3</td>
+<td>Minimize indirection cost</td>
+</tr>
+</tbody>
+</table>
+<h4 id="team-alphabeta-discussion">Team Alpha/Beta Discussion<a class="headerlink" href="#team-alphabeta-discussion" title="Permanent link">&para;</a></h4>
+<p>Both teams reached <strong>complete consensus</strong> on this principle. The only difference was in implementation intensity:
+- <strong>Team Alpha</strong>: "This is an extension of existing SRP and cohesion concepts. The quantitative basis of token cost has simply been added."
+- <strong>Team Beta</strong>: "This should be the starting point for all architectural decisions. Maximum 3 files loaded per feature modification, maximum 1 level of indirection."</p>
+<p><strong>CTO Judgment</strong>: Team Beta's specific metrics (file load count, indirection depth) are adopted as <strong>recommended guidelines</strong>, but not enforced as <strong>upper limits</strong>. This is because infrastructure-layer DIP implementations may require up to 2 levels of indirection in some cases.</p>
+<hr />
+<h3 id="principle-2-locality-of-behavior-locality-of-behavior-takes-priority-over-abstraction">Principle 2: Locality of Behavior -- Locality of Behavior Takes Priority Over Abstraction<a class="headerlink" href="#principle-2-locality-of-behavior-locality-of-behavior-takes-priority-over-abstraction" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><strong>"All code related to a single feature should be physically co-located."</strong></p>
+</blockquote>
+<h4 id="background-and-rationale_1">Background and Rationale<a class="headerlink" href="#background-and-rationale_1" title="Permanent link">&para;</a></h4>
+<p>The traditional layered structure where an agent must navigate 8 files (Controller, Service, Repository, Entity, DTO, Mapper, Interface, Validator) to modify a single feature causes context fragmentation. Factory.ai's research shows that AI agents experience <strong>dramatic performance degradation in multi-hop reasoning</strong> (reasoning that follows references across multiple files).</p>
+<p>This principle does not abolish "Separation of Concerns." It <strong>changes the axis of separation</strong>:
+- Traditional: Separation by technical role (presentation / business / data)
+- AIDE: Separation by feature/domain (user-auth / payment / order)</p>
+<h4 id="specific-guidelines_1">Specific Guidelines<a class="headerlink" href="#specific-guidelines_1" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>// AIDE Pattern: Feature-Based Structure
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>features/
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>  user-auth/
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>    types.ts          -- Feature-specific type/schema definitions
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    logic.ts          -- Pure function business logic
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    handler.ts        -- HTTP/event handlers (side-effect boundary)
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>    store.ts          -- Data store access (side-effect boundary)
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>    user-auth.test.ts -- All tests for this feature
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>    AGENTS.md         -- Domain context for agents (Tier 2)
+</code></pre></div>
+<ul>
+<li>Each Feature directory is <strong>self-contained</strong>: an agent can understand the entire feature by reading only that folder</li>
+<li>Code shared across Features goes in <code>shared/</code>, kept to a <strong>minimum</strong></li>
+<li>Logical layers within a Feature (pure logic / side-effect boundaries) are separated at the file level</li>
+</ul>
+<h4 id="team-alphabeta-discussion_1">Team Alpha/Beta Discussion<a class="headerlink" href="#team-alphabeta-discussion_1" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Team Alpha</strong>: "Feature-based structure is compatible with Clean Architecture's Vertical Slice Architecture. Keep the dependency rule but reduce the physical layers."</li>
+<li><strong>Team Beta</strong>: "A fat file is better than beautiful abstraction. The moment you separate interface from implementation, the agent must load two files."</li>
+</ul>
+<p><strong>CTO Judgment</strong>: Feature-based structure is adopted as the <strong>default</strong>. As Team Alpha pointed out, this does not conflict with Clean Architecture and is a natural extension of Vertical Slice Architecture. However, the file separation of types/logic/handler/store within a Feature is maintained -- three 100-line files with distinct roles are clearer for agents than a single 300-line file containing everything. The key is to <strong>minimize indirection crossing Feature boundaries</strong>.</p>
+<hr />
+<h3 id="principle-3-functional-core-structural-shell-pure-function-core-structural-shell">Principle 3: Functional Core, Structural Shell -- Pure Function Core + Structural Shell<a class="headerlink" href="#principle-3-functional-core-structural-shell-pure-function-core-structural-shell" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><strong>"Business logic in pure functions, side effects handled at explicit boundaries."</strong></p>
+</blockquote>
+<h4 id="background-and-rationale_2">Background and Rationale<a class="headerlink" href="#background-and-rationale_2" title="Permanent link">&para;</a></h4>
+<p>All three reports agreed that the functional paradigm provides structural advantages for AI agents:
+- <strong>Pure functions</strong> always produce the same output for the same input, enabling agents to reason perfectly from a single function block
+- <strong>Immutable data</strong> allows understanding data flow as a chain without tracking state
+- <strong>Strong type systems</strong> serve as guardrails that catch agent hallucinations at compile time</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1">// [1] Data: Defined as immutable structs</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="kr">type</span><span class="w"> </span><span class="nx">User</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">Readonly</span><span class="o">&lt;</span><span class="p">{</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">  </span><span class="nx">id</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">  </span><span class="nx">email</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">  </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">  </span><span class="nx">role</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;admin&#39;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="s1">&#39;member&#39;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="s1">&#39;viewer&#39;</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="p">}</span><span class="o">&gt;</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="c1">// [2] Pure logic: Input -&gt; Output, no side effects</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="kd">const</span><span class="w"> </span><span class="nx">promote_user_to_admin</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="nx">user</span><span class="o">:</span><span class="w"> </span><span class="kt">User</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nx">User</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">({</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="w">  </span><span class="p">...</span><span class="nx">user</span><span class="p">,</span>
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="w">  </span><span class="nx">role</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;admin&#39;</span>
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="p">})</span>
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a><span class="c1">// [3] Side-effect boundary: Dependency injection, explicit error handling</span>
+<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a><span class="kd">const</span><span class="w"> </span><span class="nx">handle_promote_user</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a><span class="w">  </span><span class="nx">userId</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span>
+<a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a><span class="w">  </span><span class="nx">deps</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">db</span><span class="o">:</span><span class="w"> </span><span class="kt">Database</span><span class="p">;</span><span class="w"> </span><span class="nx">logger</span><span class="o">:</span><span class="w"> </span><span class="kt">Logger</span><span class="w"> </span><span class="p">}</span>
+<a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">Result</span><span class="o">&lt;</span><span class="nx">User</span><span class="p">,</span><span class="w"> </span><span class="ne">Error</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a><span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">user</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">deps</span><span class="p">.</span><span class="nx">db</span><span class="p">.</span><span class="nx">findUser</span><span class="p">(</span><span class="nx">userId</span><span class="p">)</span>
+<a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a><span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="nx">user</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="nx">err</span><span class="p">(</span><span class="ow">new</span><span class="w"> </span><span class="nx">UserNotFoundError</span><span class="p">(</span><span class="nx">userId</span><span class="p">))</span>
+<a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a>
+<a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a><span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">promoted</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">promote_user_to_admin</span><span class="p">(</span><span class="nx">user</span><span class="p">)</span>
+<a id="__codelineno-1-24" name="__codelineno-1-24" href="#__codelineno-1-24"></a><span class="w">  </span><span class="k">await</span><span class="w"> </span><span class="nx">deps</span><span class="p">.</span><span class="nx">db</span><span class="p">.</span><span class="nx">saveUser</span><span class="p">(</span><span class="nx">promoted</span><span class="p">)</span>
+<a id="__codelineno-1-25" name="__codelineno-1-25" href="#__codelineno-1-25"></a><span class="w">  </span><span class="nx">deps</span><span class="p">.</span><span class="nx">logger</span><span class="p">.</span><span class="nx">info</span><span class="p">({</span><span class="w"> </span><span class="nx">event</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;user_promoted&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">userId</span><span class="w"> </span><span class="p">})</span>
+<a id="__codelineno-1-26" name="__codelineno-1-26" href="#__codelineno-1-26"></a>
+<a id="__codelineno-1-27" name="__codelineno-1-27" href="#__codelineno-1-27"></a><span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="nx">ok</span><span class="p">(</span><span class="nx">promoted</span><span class="p">)</span>
+<a id="__codelineno-1-28" name="__codelineno-1-28" href="#__codelineno-1-28"></a><span class="p">}</span>
+</code></pre></div>
+<h4 id="specific-guidelines_2">Specific Guidelines<a class="headerlink" href="#specific-guidelines_2" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Area</th>
+<th>Recommended Paradigm</th>
+<th>Class Usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Business logic</td>
+<td>Pure functions</td>
+<td>Prohibited</td>
+</tr>
+<tr>
+<td>Domain model</td>
+<td>Immutable data structures + types</td>
+<td>Replaced with immutable Record/Type</td>
+</tr>
+<tr>
+<td>Infrastructure/IO layer</td>
+<td>Functions first, classes when necessary</td>
+<td>Allowed (DB connections, sockets, resource management)</td>
+</tr>
+<tr>
+<td>Policies/Validation</td>
+<td>Functional pipelines</td>
+<td>Prohibited</td>
+</tr>
+<tr>
+<td>Domain boundary definition</td>
+<td>DDD Bounded Context (type + function composition)</td>
+<td>Not needed</td>
+</tr>
+</tbody>
+</table>
+<h4 id="team-alphabeta-discussion_2">Team Alpha/Beta Discussion<a class="headerlink" href="#team-alphabeta-discussion_2" title="Permanent link">&para;</a></h4>
+<p>This principle was the point of <strong>most heated debate</strong> between the two teams:</p>
+<ul>
+<li><strong>Team Alpha</strong>: "Functional Core + OOP Shell + DDD. DDD's Aggregate, Entity, and Value Object are still valid for structuring domain knowledge. Implement them as immutable, but keep the OOP concepts."</li>
+<li><strong>Team Beta</strong>: "FP-only. Classes hide state and increase agent cognitive load. Do not use classes for business logic."</li>
+</ul>
+<p><strong>CTO Judgment</strong>: The practical difference is smaller than it seems. Both teams agree that "business logic should be pure functions, data should be immutable." The difference lies in whether DDD concepts like Aggregate Root are expressed as classes or as type+function compositions. <strong>AIDE recommends the type+function composition approach</strong>. DDD's domain modeling <strong>concepts</strong> (Bounded Context, Aggregate, Value Object) are preserved, but the <strong>implementation</strong> is shifted to immutable types + pure functions. This satisfies both Alpha's DDD values and Beta's FP values.</p>
+<p>Inheritance is limited to a maximum of 1 level, and deep inheritance trees are not allowed under any circumstances. Composition over Inheritance applies even more strongly in the AI era.</p>
+<hr />
+<h3 id="principle-4-knowledge-dry-code-wet-tolerant-knowledge-is-dry-code-trades-off-with-locality">Principle 4: Knowledge DRY, Code WET-tolerant -- Knowledge Is DRY, Code Trades Off with Locality<a class="headerlink" href="#principle-4-knowledge-dry-code-wet-tolerant-knowledge-is-dry-code-trades-off-with-locality" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><strong>"Business rules must live in exactly one place. Duplication of utility code is tolerated for the sake of locality."</strong></p>
+</blockquote>
+<h4 id="background-and-rationale_3">Background and Rationale<a class="headerlink" href="#background-and-rationale_3" title="Permanent link">&para;</a></h4>
+<p>The reinterpretation of the DRY principle showed the widest spectrum of opinions across the three reports:
+- GPT: Manage duplication through structural solutions (cataloging)
+- Claude: "DRY is not dead but transformed" -- Apply AHA (Avoid Hasty Abstractions) principle
+- Gemini: Actively embrace WET/DAMP, "5 lines of logic repeated in 10 places is OK"</p>
+<p>The self-contradiction discovered by the Claude report is the key insight: "Allow duplication -&gt; AI generates more code -&gt; Context window exceeded -&gt; DRY is needed after all." Unlimited duplication tolerance is self-defeating.</p>
+<h4 id="specific-guidelines_3">Specific Guidelines<a class="headerlink" href="#specific-guidelines_3" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Level</th>
+<th>Strategy</th>
+<th>Example</th>
+<th>Duplication Tolerance</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Business rules</strong></td>
+<td>Strict DRY</td>
+<td>"Discount rate calculation formula," "pricing policy"</td>
+<td>0 (must have a single source of truth)</td>
+</tr>
+<tr>
+<td><strong>Domain types</strong></td>
+<td>Allow re-declaration at Feature boundaries</td>
+<td>Feature-local subset of shared User type</td>
+<td>Reference via interface or partial re-declaration</td>
+</tr>
+<tr>
+<td><strong>Utility code</strong></td>
+<td>AHA principle</td>
+<td>Email validation, date formatting</td>
+<td>2-3 duplications allowed; review extraction at 4+</td>
+</tr>
+<tr>
+<td><strong>Boilerplate</strong></td>
+<td>Structured duplication allowed</td>
+<td>try-catch patterns, logging patterns</td>
+<td>Unlimited (serves as pattern anchors)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Duplication Management Framework</strong>:
+- Conscious Duplication: When duplicating, <strong>state the reason in a comment</strong>
+- Drift Detection: Automate agent-based duplicate code drift detection in CI
+- Periodic Review: Verify consistency of duplicate code on a quarterly basis</p>
+<h4 id="team-alphabeta-discussion_3">Team Alpha/Beta Discussion<a class="headerlink" href="#team-alphabeta-discussion_3" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Team Alpha</strong>: "Knowledge DRY + Code AHA. Duplication is consciously allowed, but visible management is a prerequisite. Gemini's '5-line duplication in 10 places is OK' is extreme."</li>
+<li><strong>Team Beta</strong>: "Aggressively WET/DAMP. Self-containment of each file is the top priority. Sharing through abstraction carries indirection costs that should be minimized."</li>
+</ul>
+<p><strong>CTO Judgment</strong>: Team Alpha's "Knowledge DRY + Code AHA" is adopted. Key arguments:
+1. Beta effectively acknowledges that unlimited code duplication eventually exceeds the context window, creating a self-contradiction
+2. However, as Alpha also acknowledges, excessive abstraction (extracting every 3-line utility into a shared module) creates harmful indirection for agents
+3. Therefore, "Business knowledge is DRY, utility code allows conscious duplication under AHA guidelines" is the balance point</p>
+<hr />
+<h3 id="principle-5-test-as-specification-tests-are-a-specification-language">Principle 5: Test as Specification -- Tests Are a Specification Language<a class="headerlink" href="#principle-5-test-as-specification-tests-are-a-specification-language" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><strong>"Tests are not verification tools but specification documents that communicate intent to agents. Apply the triple framework of TDG + PBT + EDD."</strong></p>
+</blockquote>
+<h4 id="background-and-rationale_4">Background and Rationale<a class="headerlink" href="#background-and-rationale_4" title="Permanent link">&para;</a></h4>
+<p>Key insight from the Claude report: "TDD becomes more important in the AI era. Tests become prompt engineering." Academic validation by Matthews &amp; Nagappan confirmed that presenting problems alongside tests improves code generation quality for both GPT-4 and Llama 3.</p>
+<p>The revolutionary effect of Property-Based Testing (PBT) (Claude report):
+- 23.1-37.3% relative improvement over TDD
+- On Hard tasks: direct code generation 1.1% accuracy vs. property-based verification 48.9% accuracy
+- LLMs are <strong>far better at defining correctness properties than generating correct code</strong></p>
+<h4 id="specific-guidelines_4">Specific Guidelines<a class="headerlink" href="#specific-guidelines_4" title="Permanent link">&para;</a></h4>
+<p><strong>Triple Test Framework:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>                     +------------------+
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>                     |   Human Review   |  Architecture, security, domain knowledge
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>                     +------------------+
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>                    +--------------------+
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>                    |  Eval Suites (EDD) |  Scenario/dataset-based behavioral evaluation
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>                    +--------------------+
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>                  +------------------------+
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>                  | Integration Tests      |  Integration verification of AI-generated code
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>                  +------------------------+
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>                +----------------------------+
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>                | Property-Based Tests (PBT) |  Invariant property verification
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>                +----------------------------+
+<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>              +--------------------------------+
+<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>              | Unit Tests (TDD)               |  Deterministic code: parsers, policies, tool wrappers
+<a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a>              +--------------------------------+
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Test Type</th>
+<th>Target</th>
+<th>Tools</th>
+<th>Author</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Unit (TDD)</strong></td>
+<td>Deterministic code -- parsers, policies, state transitions, tool wrappers</td>
+<td>Jest/Vitest/pytest</td>
+<td>Human spec -&gt; AI implementation</td>
+</tr>
+<tr>
+<td><strong>PBT</strong></td>
+<td>Business invariant properties -- "total is always &gt;= 0," "order preserved after sort"</td>
+<td>fast-check/Hypothesis</td>
+<td>Humans define properties, AI generates</td>
+</tr>
+<tr>
+<td><strong>Integration</strong></td>
+<td>Integration scenarios of AI-generated code -- cross-Feature coordination, data flow verification</td>
+<td>Custom test framework</td>
+<td>AI-generated, human-reviewed</td>
+</tr>
+<tr>
+<td><strong>Eval (EDD)</strong></td>
+<td>Model output quality -- accuracy, safety, usefulness</td>
+<td>Custom eval framework</td>
+<td>Human-designed + production failure incorporation</td>
+</tr>
+<tr>
+<td><strong>Security</strong></td>
+<td>Security vulnerabilities in AI-generated code (XSS, SQL Injection, logic errors)</td>
+<td>OWASP-based scenarios + Security linters</td>
+<td>Security team designs, automated execution</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Confirmation Bias Prevention Is Mandatory</strong>: When AI writes both tests and implementation, there is a risk of creating "tests that verify bugs." Use <strong>different models for test writing and code writing</strong>, or have <strong>humans review the test specifications</strong>.</p>
+<h4 id="team-alphabeta-discussion_4">Team Alpha/Beta Discussion<a class="headerlink" href="#team-alphabeta-discussion_4" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Team Alpha</strong>: "TDG (Test-Driven Generation) + PBT + EDD extension. Don't discard TDD; extend it for the AI era."</li>
+<li><strong>Team Beta</strong>: "Dual framework -- Traditional TDD for deterministic code, EDD for probabilistic behavior. Actively adopt PBT."</li>
+</ul>
+<p><strong>CTO Judgment</strong>: These are <strong>practically identical proposals</strong>. The test strategies from both teams are merged into the triple framework above. The only difference was in naming.</p>
+<hr />
+<h3 id="principle-6-progressive-disclosure-progressive-disclosure-of-information">Principle 6: Progressive Disclosure -- Progressive Disclosure of Information<a class="headerlink" href="#principle-6-progressive-disclosure-progressive-disclosure-of-information" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><strong>"Do not give agents all information at once. Provide only what is needed, when it is needed."</strong></p>
+</blockquote>
+<h4 id="background-and-rationale_5">Background and Rationale<a class="headerlink" href="#background-and-rationale_5" title="Permanent link">&para;</a></h4>
+<p>GPT report's progressive skill loading, Claude report's 3-Tier Progressive Disclosure, and Gemini report's dynamic information loading all express the same principle: <strong>Like virtual memory in an operating system, do not load everything into physical memory; load it when needed.</strong></p>
+<h4 id="specific-guidelines_5">Specific Guidelines<a class="headerlink" href="#specific-guidelines_5" title="Permanent link">&para;</a></h4>
+<p><strong>Meta File 3-Tier System:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Tier</th>
+<th>File</th>
+<th>Role</th>
+<th>Size Limit</th>
+<th>Loading Method</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Tier 1: Constitution</strong></td>
+<td><code>CLAUDE.md</code> / <code>AGENTS.md</code> (root)</td>
+<td>Project identity, absolute rules, architecture map</td>
+<td>300 lines max</td>
+<td>Always loaded</td>
+</tr>
+<tr>
+<td><strong>Tier 2: Local Laws</strong></td>
+<td><code>AGENTS.md</code> in subdirectories</td>
+<td>Component-specific patterns, domain context</td>
+<td>200 lines max</td>
+<td>Lazy loaded when working in that directory</td>
+</tr>
+<tr>
+<td><strong>Tier 3: Technical Manuals</strong></td>
+<td><code>.agents/skills/*/SKILL.md</code></td>
+<td>Procedural knowledge, workflow guides</td>
+<td>YAML frontmatter + body</td>
+<td>On-demand loading</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Progressive Provision of Dependency/Library Information:</strong></p>
+<p>When conveying information about external libraries and internal shared modules used in the project to agents, a progressive approach is also needed:</p>
+<table>
+<thead>
+<tr>
+<th>Level</th>
+<th>Information Provided</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Summary</strong></td>
+<td>Library name + version + one-line purpose description</td>
+<td>Agent grasps the overall technology stack</td>
+</tr>
+<tr>
+<td><strong>API Signatures</strong></td>
+<td>Only signatures of functions/types in use</td>
+<td>Agent writes code that integrates with the library</td>
+</tr>
+<tr>
+<td><strong>Detailed Documentation</strong></td>
+<td>Example code, configuration methods, caveats</td>
+<td>Agent builds new integrations or troubleshoots</td>
+</tr>
+</tbody>
+</table>
+<p>The key is to "never load the full documentation of every library into the context." Providing only the needed depth of information at the needed time allows efficient use of the context budget.</p>
+<h4 id="team-alphabeta-discussion_5">Team Alpha/Beta Discussion<a class="headerlink" href="#team-alphabeta-discussion_5" title="Permanent link">&para;</a></h4>
+<p><strong>Both teams reached complete consensus.</strong> Implementation details were also nearly identical. The 3-Tier meta file system and the progressive information provision principle were combined to establish the system above.</p>
+<hr />
+<h3 id="principle-7-deterministic-guardrails-deterministic-guardrails-for-probabilistic-generation">Principle 7: Deterministic Guardrails -- Deterministic Guardrails for Probabilistic Generation<a class="headerlink" href="#principle-7-deterministic-guardrails-deterministic-guardrails-for-probabilistic-generation" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><strong>"Trust the AI agent, but verify. And verification must be deterministic."</strong></p>
+</blockquote>
+<h4 id="background-and-rationale_6">Background and Rationale<a class="headerlink" href="#background-and-rationale_6" title="Permanent link">&para;</a></h4>
+<p>Security status of AI-generated code (Claude report, Veracode 2025):
+- <strong>Approximately 45% of generated code contains security flaws</strong>
+- Logic error rate <strong>1.75x</strong> that of humans
+- XSS vulnerabilities <strong>2.74x</strong>
+- <strong>Independent of model size</strong> -- smarter models do not produce safer code</p>
+<p>This data clearly demonstrates that "prompting agents to 'do well'" is insufficient. Deterministic tools must verify agent output.</p>
+<h4 id="specific-guidelines_6">Specific Guidelines<a class="headerlink" href="#specific-guidelines_6" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>Probabilistic Generation (AI)  --&gt;  Deterministic Verification  --&gt;  Pass/Fail
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>                                      |
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>                                      +-- TypeScript strict mode (type verification)
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>                                      +-- ESLint/Prettier (style enforcement)
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>                                      +-- Zod/io-ts (runtime type verification)
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>                                      +-- Pre-commit hooks (automatic execution)
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>                                      +-- Security linters (security verification)
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>                                      +-- CI test suite (regression prevention)
+</code></pre></div>
+<p><strong>Absolute Rule</strong>: "Never send an LLM to do a linter's job" (Claude report). Style enforcement, type verification, and security pattern detection are all delegated to deterministic tools.</p>
+<p><strong>Self-Healing Loop</strong> (Gemini report's Reflexion Pattern):
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>Generate -&gt; Compile/Lint -&gt; Test -&gt; Analyze Errors -&gt; Regenerate -&gt; ...
+</code></pre></div></p>
+<p>For this loop to work effectively, error messages must be provided in a <strong>machine-readable structured format (JSON)</strong>.</p>
+<h4 id="team-alphabeta-discussion_6">Team Alpha/Beta Discussion<a class="headerlink" href="#team-alphabeta-discussion_6" title="Permanent link">&para;</a></h4>
+<p><strong>Both teams reached complete consensus.</strong> Team Beta emphasized this principle most strongly, presenting the intuitive expression "trust me but verify," and Team Alpha agreed.</p>
+<hr />
+<h3 id="principle-8-observability-as-structure-observability-is-part-of-the-structure">Principle 8: Observability as Structure -- Observability Is Part of the Structure<a class="headerlink" href="#principle-8-observability-as-structure-observability-is-part-of-the-structure" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><strong>"AI-generated code must include structured logging and tracing by default. Observability is a first-class citizen."</strong></p>
+</blockquote>
+<h4 id="background-and-rationale_7">Background and Rationale<a class="headerlink" href="#background-and-rationale_7" title="Permanent link">&para;</a></h4>
+<p>All three reports reached <strong>complete consensus</strong>: If you cannot trace "why this behaves this way" for code that AI generates rapidly, operations and debugging become impossible. AI agents must structurally embed observability when generating code.</p>
+<ul>
+<li>GPT report: Include Observability as a cross-cutting concern in architecture</li>
+<li>Claude report: Tracing ON by default, traces mandatory from development stage</li>
+<li>Gemini report: Adopt semantic logging (JSON-LD) standard</li>
+</ul>
+<h4 id="specific-guidelines_7">Specific Guidelines<a class="headerlink" href="#specific-guidelines_7" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1">// Structured log format -- Must be included in all code generated by AI</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="kr">type</span><span class="w"> </span><span class="nx">StructuredLog</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">  </span><span class="nx">level</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;info&#39;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="s1">&#39;warning&#39;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="s1">&#39;error&#39;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="s1">&#39;critical&#39;</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">  </span><span class="nx">timestamp</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="w">       </span><span class="c1">// ISO 8601</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="w">  </span><span class="nx">service</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="w">         </span><span class="c1">// Service/Feature identifier</span>
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="w">  </span><span class="nx">event</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="w">           </span><span class="c1">// Business event name</span>
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="w">  </span><span class="nx">trace_id</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="w">        </span><span class="c1">// Distributed tracing ID</span>
+<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="w">  </span><span class="nx">span_id</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="w">         </span><span class="c1">// Current work unit ID</span>
+<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="w">  </span><span class="nx">data</span><span class="o">:</span><span class="w"> </span><span class="kt">Record</span><span class="o">&lt;</span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">unknown</span><span class="o">&gt;</span><span class="w">  </span><span class="c1">// Structured supplementary data</span>
+<a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="p">}</span>
+<a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a>
+<a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a><span class="c1">// Usage example: E-commerce payment processing</span>
+<a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a><span class="kd">const</span><span class="w"> </span><span class="nx">handle_payment</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a><span class="w">  </span><span class="nx">order_id</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span>
+<a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a><span class="w">  </span><span class="nx">deps</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">db</span><span class="o">:</span><span class="w"> </span><span class="kt">Database</span><span class="p">;</span><span class="w"> </span><span class="nx">pg</span><span class="o">:</span><span class="w"> </span><span class="kt">PaymentGateway</span><span class="p">;</span><span class="w"> </span><span class="nx">logger</span><span class="o">:</span><span class="w"> </span><span class="kt">Logger</span><span class="w"> </span><span class="p">}</span>
+<a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">Result</span><span class="o">&lt;</span><span class="nx">PaymentResult</span><span class="p">,</span><span class="w"> </span><span class="ne">Error</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-5-17" name="__codelineno-5-17" href="#__codelineno-5-17"></a><span class="w">  </span><span class="nx">deps</span><span class="p">.</span><span class="nx">logger</span><span class="p">.</span><span class="nx">info</span><span class="p">({</span>
+<a id="__codelineno-5-18" name="__codelineno-5-18" href="#__codelineno-5-18"></a><span class="w">    </span><span class="nx">event</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;payment_initiated&#39;</span><span class="p">,</span>
+<a id="__codelineno-5-19" name="__codelineno-5-19" href="#__codelineno-5-19"></a><span class="w">    </span><span class="nx">data</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">order_id</span><span class="w"> </span><span class="p">}</span>
+<a id="__codelineno-5-20" name="__codelineno-5-20" href="#__codelineno-5-20"></a><span class="w">  </span><span class="p">})</span>
+<a id="__codelineno-5-21" name="__codelineno-5-21" href="#__codelineno-5-21"></a>
+<a id="__codelineno-5-22" name="__codelineno-5-22" href="#__codelineno-5-22"></a><span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">deps</span><span class="p">.</span><span class="nx">pg</span><span class="p">.</span><span class="nx">charge</span><span class="p">(</span><span class="nx">order_id</span><span class="p">)</span>
+<a id="__codelineno-5-23" name="__codelineno-5-23" href="#__codelineno-5-23"></a>
+<a id="__codelineno-5-24" name="__codelineno-5-24" href="#__codelineno-5-24"></a><span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">result</span><span class="p">.</span><span class="nx">success</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-5-25" name="__codelineno-5-25" href="#__codelineno-5-25"></a><span class="w">    </span><span class="nx">deps</span><span class="p">.</span><span class="nx">logger</span><span class="p">.</span><span class="nx">info</span><span class="p">({</span>
+<a id="__codelineno-5-26" name="__codelineno-5-26" href="#__codelineno-5-26"></a><span class="w">      </span><span class="nx">event</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;payment_completed&#39;</span><span class="p">,</span>
+<a id="__codelineno-5-27" name="__codelineno-5-27" href="#__codelineno-5-27"></a><span class="w">      </span><span class="nx">data</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">order_id</span><span class="p">,</span><span class="w"> </span><span class="nx">transaction_id</span><span class="o">:</span><span class="w"> </span><span class="kt">result.transaction_id</span><span class="w"> </span><span class="p">}</span>
+<a id="__codelineno-5-28" name="__codelineno-5-28" href="#__codelineno-5-28"></a><span class="w">    </span><span class="p">})</span>
+<a id="__codelineno-5-29" name="__codelineno-5-29" href="#__codelineno-5-29"></a><span class="w">  </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-5-30" name="__codelineno-5-30" href="#__codelineno-5-30"></a><span class="w">    </span><span class="nx">deps</span><span class="p">.</span><span class="nx">logger</span><span class="p">.</span><span class="nx">error</span><span class="p">({</span>
+<a id="__codelineno-5-31" name="__codelineno-5-31" href="#__codelineno-5-31"></a><span class="w">      </span><span class="nx">event</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;payment_failed&#39;</span><span class="p">,</span>
+<a id="__codelineno-5-32" name="__codelineno-5-32" href="#__codelineno-5-32"></a><span class="w">      </span><span class="nx">data</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">order_id</span><span class="p">,</span><span class="w"> </span><span class="nx">reason</span><span class="o">:</span><span class="w"> </span><span class="kt">result.error</span><span class="w"> </span><span class="p">}</span>
+<a id="__codelineno-5-33" name="__codelineno-5-33" href="#__codelineno-5-33"></a><span class="w">    </span><span class="p">})</span>
+<a id="__codelineno-5-34" name="__codelineno-5-34" href="#__codelineno-5-34"></a><span class="w">  </span><span class="p">}</span>
+<a id="__codelineno-5-35" name="__codelineno-5-35" href="#__codelineno-5-35"></a>
+<a id="__codelineno-5-36" name="__codelineno-5-36" href="#__codelineno-5-36"></a><span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="nx">result</span>
+<a id="__codelineno-5-37" name="__codelineno-5-37" href="#__codelineno-5-37"></a><span class="p">}</span>
+</code></pre></div>
+<p><strong>Key Guidelines:</strong>
+- <strong>Distributed tracing by default</strong>: Track request flow with <code>trace_id</code> -&gt; <code>span_id</code>. Leverage standards such as OpenTelemetry
+- <strong>ON by default from the development stage</strong>: Activate structured logging not only in production but also in local development
+- <strong>Cost/performance metrics</strong>: Track API response time, DB query count, and external API call count in real time
+- <strong>Mandate observability in AI-generated code</strong>: When requesting code from agents, specify in CLAUDE.md: "Include structured logging in all handlers"</p>
+<h4 id="team-alphabeta-discussion_7">Team Alpha/Beta Discussion<a class="headerlink" href="#team-alphabeta-discussion_7" title="Permanent link">&para;</a></h4>
+<p><strong>Both teams reached complete consensus.</strong> There was no disagreement that observability is fundamental to software operations and becomes even more critical in AI-generated code.</p>
+<hr />
+<h3 id="principle-9-security-by-structure-structural-security-verification">Principle 9: Security by Structure -- Structural Security Verification<a class="headerlink" href="#principle-9-security-by-structure-structural-security-verification" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><strong>"45% of AI-generated code has security flaws. Security verification must be structurally embedded."</strong></p>
+</blockquote>
+<h4 id="background-and-rationale_8">Background and Rationale<a class="headerlink" href="#background-and-rationale_8" title="Permanent link">&para;</a></h4>
+<p>As AI has become the primary producer of code, the nature of security threats has changed. Security vulnerabilities in AI-generated code itself are the core threat:</p>
+<ul>
+<li>Veracode 2025: Approximately 45% of AI-generated code contains security flaws</li>
+<li>XSS vulnerabilities 2.74x humans, logic errors 1.75x</li>
+<li>Model size does not correlate with security quality</li>
+</ul>
+<h4 id="specific-guidelines_8">Specific Guidelines<a class="headerlink" href="#specific-guidelines_8" title="Permanent link">&para;</a></h4>
+<p><strong>Threat-Control Mapping:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Threat</th>
+<th>Representative Scenario</th>
+<th>Defense Point</th>
+<th>Recommended Control</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SQL Injection</td>
+<td>AI generates string concatenation instead of parameterized queries</td>
+<td>Security linter + Code review</td>
+<td>Linter rules to detect raw query usage, enforce ORM/Query Builder</td>
+</tr>
+<tr>
+<td>XSS</td>
+<td>AI omits user input escaping</td>
+<td>Security linter + Template engine</td>
+<td>Enforce auto-escaping frameworks, DOMPurify, etc.</td>
+</tr>
+<tr>
+<td>Logic errors</td>
+<td>Missing authorization checks, unhandled boundary conditions</td>
+<td>PBT + Integration test</td>
+<td>Verify invariant properties with Property-Based Testing</td>
+</tr>
+<tr>
+<td>Auth/AuthZ flaws</td>
+<td>AI omits authentication middleware</td>
+<td>Architecture enforcement</td>
+<td>Apply authentication middleware by default at router level, allow explicit opt-out only</td>
+</tr>
+<tr>
+<td>Dependency vulnerabilities</td>
+<td>AI adds packages with vulnerable versions</td>
+<td>SCA (Software Composition Analysis)</td>
+<td>Automated scanning with npm audit, Snyk, etc.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Three Security Principles:</strong>
+1. <strong>Automated security verification</strong>: Automatically run security linters in CI for all AI-generated code
+2. <strong>Mandatory security review</strong>: Code changes involving authentication, payments, and personal data must undergo security review
+3. <strong>Audit trail</strong>: All sensitive data access and state changes are recorded in structured logs</p>
+<h4 id="team-alphabeta-discussion_8">Team Alpha/Beta Discussion<a class="headerlink" href="#team-alphabeta-discussion_8" title="Permanent link">&para;</a></h4>
+<p><strong>Both teams reached complete consensus.</strong> Security is an area with no room for compromise.</p>
+<hr />
+<h3 id="principle-10-meta-code-as-first-class-meta-code-as-a-first-class-citizen">Principle 10: Meta-Code as First-Class -- Meta-Code as a First-Class Citizen<a class="headerlink" href="#principle-10-meta-code-as-first-class-meta-code-as-a-first-class-citizen" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><strong>"AGENTS.md, CLAUDE.md, and Skills files are version-controlled and tested with the same rigor as source code."</strong></p>
+</blockquote>
+<h4 id="background-and-rationale_9">Background and Rationale<a class="headerlink" href="#background-and-rationale_9" title="Permanent link">&para;</a></h4>
+<ul>
+<li>AGENTS.md is used in <strong>60,000+ open-source projects</strong> (managed by the Agentic AI Foundation under the Linux Foundation)</li>
+<li>Research shows that practices failing to preserve prompts/context weaken reproducibility</li>
+<li>A single-line change in a meta file can alter the agent's entire behavior, meaning it can have <strong>higher impact than code</strong></li>
+</ul>
+<h4 id="specific-guidelines_9">Specific Guidelines<a class="headerlink" href="#specific-guidelines_9" title="Permanent link">&para;</a></h4>
+<p><strong>Meta-Code Management Principles:</strong>
+1. <strong>Version control</strong>: Same workflow as code in Git -- PR, code review, changelogs, release tags
+2. <strong>Run evals on change</strong>: Meta file changes automatically trigger eval suite execution in CI (behavioral regression detection)
+3. <strong>Size monitoring</strong>: CI warns/blocks when Tier 1 files exceed 300 lines
+4. <strong>Use negative instructions</strong>: "Do not do X" is often clearer and easier to detect violations
+5. <strong>Example-based instructions</strong>: Concrete code examples dramatically improve agent output quality over abstract principles</p>
+<p><strong>Lock Down Full Configuration with manifest.yaml:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="c1"># manifest.yaml</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="nt">spec_version</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;1.0&quot;</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="nt">project_name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;my-ecommerce&quot;</span>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="nt">project_type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;backend&quot;</span>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="nt">tech_stack</span><span class="p">:</span>
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="w">  </span><span class="nt">language</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;typescript&quot;</span>
+<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="w">  </span><span class="nt">runtime</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;node&quot;</span>
+<a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a><span class="w">  </span><span class="nt">framework</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;express&quot;</span>
+<a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a><span class="w">  </span><span class="nt">database</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;postgresql&quot;</span>
+<a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a><span class="w">  </span><span class="nt">cache</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;redis&quot;</span>
+<a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a>
+<a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a><span class="nt">ai_development</span><span class="p">:</span>
+<a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a><span class="w">  </span><span class="nt">primary_model</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;claude-opus-4-6&quot;</span>
+<a id="__codelineno-6-15" name="__codelineno-6-15" href="#__codelineno-6-15"></a><span class="w">  </span><span class="nt">instruction_files</span><span class="p">:</span>
+<a id="__codelineno-6-16" name="__codelineno-6-16" href="#__codelineno-6-16"></a><span class="w">    </span><span class="nt">tier1</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;CLAUDE.md&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;AGENTS.md&quot;</span><span class="p p-Indicator">]</span>
+<a id="__codelineno-6-17" name="__codelineno-6-17" href="#__codelineno-6-17"></a><span class="w">    </span><span class="nt">tier2_pattern</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;src/features/*/AGENTS.md&quot;</span>
+<a id="__codelineno-6-18" name="__codelineno-6-18" href="#__codelineno-6-18"></a>
+<a id="__codelineno-6-19" name="__codelineno-6-19" href="#__codelineno-6-19"></a><span class="nt">code_standards</span><span class="p">:</span>
+<a id="__codelineno-6-20" name="__codelineno-6-20" href="#__codelineno-6-20"></a><span class="w">  </span><span class="nt">max_file_lines</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">300</span>
+<a id="__codelineno-6-21" name="__codelineno-6-21" href="#__codelineno-6-21"></a><span class="w">  </span><span class="nt">max_function_lines</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">50</span>
+<a id="__codelineno-6-22" name="__codelineno-6-22" href="#__codelineno-6-22"></a><span class="w">  </span><span class="nt">paradigm</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;functional-core&quot;</span>
+<a id="__codelineno-6-23" name="__codelineno-6-23" href="#__codelineno-6-23"></a><span class="w">  </span><span class="nt">type_strictness</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;strict&quot;</span>
+<a id="__codelineno-6-24" name="__codelineno-6-24" href="#__codelineno-6-24"></a>
+<a id="__codelineno-6-25" name="__codelineno-6-25" href="#__codelineno-6-25"></a><span class="nt">testing</span><span class="p">:</span>
+<a id="__codelineno-6-26" name="__codelineno-6-26" href="#__codelineno-6-26"></a><span class="w">  </span><span class="nt">unit</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;vitest&quot;</span>
+<a id="__codelineno-6-27" name="__codelineno-6-27" href="#__codelineno-6-27"></a><span class="w">  </span><span class="nt">property</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;fast-check&quot;</span>
+<a id="__codelineno-6-28" name="__codelineno-6-28" href="#__codelineno-6-28"></a><span class="w">  </span><span class="nt">e2e</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;playwright&quot;</span>
+<a id="__codelineno-6-29" name="__codelineno-6-29" href="#__codelineno-6-29"></a>
+<a id="__codelineno-6-30" name="__codelineno-6-30" href="#__codelineno-6-30"></a><span class="nt">observability</span><span class="p">:</span>
+<a id="__codelineno-6-31" name="__codelineno-6-31" href="#__codelineno-6-31"></a><span class="w">  </span><span class="nt">logging</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;structured_json&quot;</span>
+<a id="__codelineno-6-32" name="__codelineno-6-32" href="#__codelineno-6-32"></a><span class="w">  </span><span class="nt">tracing</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</code></pre></div>
+<h4 id="team-alphabeta-discussion_9">Team Alpha/Beta Discussion<a class="headerlink" href="#team-alphabeta-discussion_9" title="Permanent link">&para;</a></h4>
+<p><strong>Both teams reached complete consensus.</strong> Both teams accepted Gemini's "Meta-Control Plane" concept.</p>
+<hr />
+<p>← Previous: <a href="../00-PREFACE/">00-PREFACE</a> | Next: <a href="../02-ARCHITECTURE-PATTERNS/">02-ARCHITECTURE-PATTERNS</a> →</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,1991 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Agent-Informed Development Engineering">
+      
+      
+      
+        <link rel="canonical" href="https://Dokkabei97.github.io/aide-methodology/ko/04-PRACTICAL-GUIDE/">
+      
+      
+        <link rel="prev" href="../03-EXISTING-METHODOLOGIES/">
+      
+      
+        <link rel="next" href="../05-CICD-PIPELINE/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>실무 가이드 - AIDE Methodology</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#aide-agent-informed-development-engineering-v10" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="AIDE Methodology" class="md-header__button md-logo" aria-label="AIDE Methodology" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            AIDE Methodology
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              실무 가이드
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/Dokkabei97/aide-methodology" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Dokkabei97/aide-methodology
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="AIDE Methodology" class="md-nav__button md-logo" aria-label="AIDE Methodology" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    AIDE Methodology
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/Dokkabei97/aide-methodology" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Dokkabei97/aide-methodology
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    English
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    English
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../en/INDEX/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../en/AIDE-METHODOLOGY/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Full Methodology
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../en/00-PREFACE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Preface
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../en/01-CORE-PRINCIPLES/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Core Principles
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../en/02-ARCHITECTURE-PATTERNS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture Patterns
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../en/03-EXISTING-METHODOLOGIES/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Existing Methodologies
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../en/04-PRACTICAL-GUIDE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Practical Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../en/05-CICD-PIPELINE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CI/CD Pipeline
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../en/06-ADOPTION-GUIDE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Adoption Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../en/07-DISCUSSION-RECORDS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Discussion Records
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_11" >
+        
+          
+          <label class="md-nav__link" for="__nav_1_11" id="__nav_1_11_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Comparisons
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_11">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Comparisons
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../en/comparisons/AIDE-vs-Clean-Architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AIDE vs Clean Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../en/comparisons/AIDE-vs-Hexagonal-Architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AIDE vs Hexagonal Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    한국어
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    한국어
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../INDEX/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    개요
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../AIDE-METHODOLOGY/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    전체 방법론
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../00-PREFACE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    서문
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-CORE-PRINCIPLES/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    핵심 원칙
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-ARCHITECTURE-PATTERNS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    아키텍처 패턴
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-EXISTING-METHODOLOGIES/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    기존 방법론 비교
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    실무 가이드
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    실무 가이드
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#part-4-aide" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Part 4: AIDE 실전 가이드
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Part 4: AIDE 실전 가이드">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        파일/코드 크기 지침
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        네이밍 컨벤션 가이드
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="네이밍 컨벤션 가이드">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#language-native-convention-first" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        핵심 규칙: 언어 고유 컨벤션 우선 (Language-Native Convention First)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#claudemd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CLAUDE.md 작성 가이드 (템플릿)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#aide-referencemd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        AIDE-REFERENCE.md 프로젝트 통합 가이드
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="AIDE-REFERENCE.md 프로젝트 통합 가이드">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#option-a" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Option A: 별도 참조 파일 (권장)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#option-b-claudemd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Option B: CLAUDE.md에 직접 포함
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#option-c-feature-agentsmd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Option C: Feature 수준 AGENTS.md 활용
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#context-budget" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Context Budget 고려사항
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#agentsmd-feature-tier-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        AGENTS.md 작성 가이드 (Feature Tier 2 템플릿)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#skills" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Skills 관리 가이드
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        테스트 전략 가이드
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-CICD-PIPELINE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CI/CD 파이프라인
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-ADOPTION-GUIDE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    도입 가이드
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-DISCUSSION-RECORDS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    토론 기록
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_11" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_11" id="__nav_2_11_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    비교
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_11">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    비교
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../comparisons/AIDE-vs-Clean-Architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AIDE vs Clean Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../comparisons/AIDE-vs-Hexagonal-Architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AIDE vs Hexagonal Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#part-4-aide" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Part 4: AIDE 실전 가이드
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Part 4: AIDE 실전 가이드">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        파일/코드 크기 지침
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        네이밍 컨벤션 가이드
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="네이밍 컨벤션 가이드">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#language-native-convention-first" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        핵심 규칙: 언어 고유 컨벤션 우선 (Language-Native Convention First)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#claudemd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CLAUDE.md 작성 가이드 (템플릿)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#aide-referencemd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        AIDE-REFERENCE.md 프로젝트 통합 가이드
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="AIDE-REFERENCE.md 프로젝트 통합 가이드">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#option-a" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Option A: 별도 참조 파일 (권장)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#option-b-claudemd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Option B: CLAUDE.md에 직접 포함
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#option-c-feature-agentsmd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Option C: Feature 수준 AGENTS.md 활용
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#context-budget" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Context Budget 고려사항
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#agentsmd-feature-tier-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        AGENTS.md 작성 가이드 (Feature Tier 2 템플릿)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#skills" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Skills 관리 가이드
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        테스트 전략 가이드
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="aide-agent-informed-development-engineering-v10">AIDE (Agent-Informed Development Engineering) -- 에이전트 시대의 소프트웨어 개발론 v1.0<a class="headerlink" href="#aide-agent-informed-development-engineering-v10" title="Permanent link">&para;</a></h1>
+<p><strong>작성</strong>: CTO (20년+ 아키텍처 경험, 3년 AI 에이전트 실전 경험)
+<strong>기반</strong>: GPT/Claude/Gemini 3종 딥리서치 + Team Alpha(통합파) 보고서 2종 + Team Beta(급진파) 보고서 1종
+<strong>날짜</strong>: 2026-02-18</p>
+<hr />
+<h2 id="part-4-aide">Part 4: AIDE 실전 가이드<a class="headerlink" href="#part-4-aide" title="Permanent link">&para;</a></h2>
+<h3 id="_1">파일/코드 크기 지침<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>구분</th>
+<th>권장</th>
+<th>상한</th>
+<th>토큰 추정</th>
+<th>비고</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Feature 로직 (logic.ts)</td>
+<td>150-200줄</td>
+<td>300줄</td>
+<td>~5,400</td>
+<td>핵심 비즈니스 로직</td>
+</tr>
+<tr>
+<td>핸들러 (handler.ts)</td>
+<td>100-150줄</td>
+<td>200줄</td>
+<td>~3,600</td>
+<td>각 핸들러 함수 30줄 이내</td>
+</tr>
+<tr>
+<td>타입 정의 (types.ts)</td>
+<td>50-100줄</td>
+<td>150줄</td>
+<td>~2,700</td>
+<td>타입은 밀도가 높으므로 짧아도 충분</td>
+</tr>
+<tr>
+<td>테스트 (*.test.ts)</td>
+<td>200-300줄</td>
+<td>500줄</td>
+<td>~9,000</td>
+<td>반복 구조이므로 약간 길어도 허용</td>
+</tr>
+<tr>
+<td>메타 파일 (CLAUDE.md)</td>
+<td>100-200줄</td>
+<td>300줄</td>
+<td>~5,400</td>
+<td>지시 이행률 유지를 위한 상한</td>
+</tr>
+<tr>
+<td>도메인 컨텍스트 (AGENTS.md, Tier 2)</td>
+<td>50-100줄</td>
+<td>200줄</td>
+<td>~3,600</td>
+<td>핵심 비즈니스 규칙만 압축</td>
+</tr>
+<tr>
+<td>함수 크기</td>
+<td>20-30줄</td>
+<td>50줄</td>
+<td>~900</td>
+<td>단일 추론 턴 내 완전 이해</td>
+</tr>
+</tbody>
+</table>
+<p><strong>"18토큰/줄" 경험법칙</strong>: 평균적으로 코드 1줄 = 약 18토큰 (Cursor IDE 연구 기반)</p>
+<h3 id="_2">네이밍 컨벤션 가이드<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
+<p>Gemini 보고서의 <strong>의미론적 장황함(Semantic Verbosity)</strong> 원칙을 적용하되, 실용적 균형을 유지한다.</p>
+<h4 id="language-native-convention-first">핵심 규칙: 언어 고유 컨벤션 우선 (Language-Native Convention First)<a class="headerlink" href="#language-native-convention-first" title="Permanent link">&para;</a></h4>
+<p>AIDE는 범용적인 케이스 스타일을 강제하지 않는다. <strong>대상 언어의 확립된 네이밍 컨벤션을 항상 따른다</strong> (예: Python은 PEP 8, TypeScript는 ESLint camelcase, Kotlin은 Kotlin Coding Conventions). 언어 생태계에 반하는 스타일은 린터, 프레임워크, 라이브러리와 마찰을 일으키며 — 관용적 코드로 학습된 AI 에이전트와 인간 개발자 모두를 혼란시킨다.</p>
+<p><strong>AIDE가 규정하는 것</strong>은 케이스 스타일이 아닌 이름의 <em>의미론적 내용</em>이다:</p>
+<table>
+<thead>
+<tr>
+<th>규칙</th>
+<th>설명</th>
+<th>예시 (TS)</th>
+<th>예시 (Python)</th>
+<th>반례</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>함수는 동사+목적어</td>
+<td>이름이 동작과 대상을 기술</td>
+<td><code>calculateOrderTotalInKrw()</code></td>
+<td><code>calculate_order_total_in_krw()</code></td>
+<td><code>calc(d)</code></td>
+</tr>
+<tr>
+<td>변수는 의미 포함</td>
+<td>이름이 목적을 전달</td>
+<td><code>activeUserIdList</code></td>
+<td><code>active_user_id_list</code></td>
+<td><code>ids</code></td>
+</tr>
+<tr>
+<td>부작용 명시</td>
+<td>접두사로 부작용을 표시</td>
+<td><code>persistUserToDatabase()</code></td>
+<td><code>persist_user_to_database()</code></td>
+<td><code>save()</code></td>
+</tr>
+<tr>
+<td>타입은 명사</td>
+<td>타입명은 서술적 명사</td>
+<td><code>OrderItem</code></td>
+<td><code>OrderItem</code></td>
+<td><code>OI</code></td>
+</tr>
+<tr>
+<td>상수에 출처 포함</td>
+<td>상수명에 원천을 포함</td>
+<td><code>MAX_LOGIN_ATTEMPTS_PER_POLICY</code></td>
+<td><code>MAX_LOGIN_ATTEMPTS_PER_POLICY</code></td>
+<td><code>MAX</code></td>
+</tr>
+<tr>
+<td>파일명</td>
+<td>언어 컨벤션에 따름</td>
+<td><code>user-auth.ts</code></td>
+<td><code>user_auth.py</code></td>
+<td><code>ua.ts</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>핵심 원칙</strong>: 변수명과 함수명은 에이전트에게 <strong>추론의 입력</strong>이다. 이름이 구체적일수록 에이전트가 잘못 사용할 확률이 기하급수적으로 낮아진다. 이 원칙은 어떤 케이스 스타일에서든 동일하게 적용된다. 단, <code>calculatedTotalPriceWithDiscountAppliedInKrw</code> 수준의 극단적 장황함은 라인 길이 제한과 충돌하므로 실용적 범위를 유지한다.</p>
+<h3 id="claudemd">CLAUDE.md 작성 가이드 (템플릿)<a class="headerlink" href="#claudemd" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="gh"># Project: [프로젝트명]</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="gu">## Identity</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="k">-</span><span class="w"> </span>Type: [프로젝트 타입, e.g. Next.js 14 Monorepo]
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="k">-</span><span class="w"> </span>Language: TypeScript (Strict Mode)
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="k">-</span><span class="w"> </span>Paradigm: Functional core, classes only for infrastructure
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="k">-</span><span class="w"> </span>State: [상태 관리 도구, e.g. Zustand]
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="gu">## Absolute Rules (MUST FOLLOW)</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="k">-</span><span class="w"> </span>비즈니스 로직에 class를 사용하지 말 것
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="k">-</span><span class="w"> </span>모든 함수 매개변수와 반환값에 타입을 명시할 것
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="k">-</span><span class="w"> </span>any 타입을 사용하지 말 것
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="k">-</span><span class="w"> </span>features/ 외부에서 features/ 내부를 직접 import하지 말 것
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="k">-</span><span class="w"> </span>새로운 npm 패키지 추가 전 반드시 확인을 받을 것
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="k">-</span><span class="w"> </span>[프로젝트 특화 규칙 추가]
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>
+<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a><span class="gu">## Architecture Map</span>
+<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>features/: 기능별 독립 모듈 (types + logic + handler + store + test)
+<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>shared/:   전역 타입, 인프라 클라이언트, 공통 에러 (최소 유지)
+<a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>evals/:    평가 데이터셋 및 시나리오
+<a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a>.agents/:  스킬 패키지
+<a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a>
+<a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a><span class="gu">## Code Style</span>
+<a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a><span class="k">-</span><span class="w"> </span>네이밍: 언어 고유 컨벤션 우선 (예: TS는 camelCase, Python은 snake_case)
+<a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a><span class="k">-</span><span class="w"> </span>네이밍 내용: 함수는 동사_목적어, 변수는 의미 포함, 부작용 접두사 명시
+<a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a><span class="k">-</span><span class="w"> </span>타입명: PascalCase
+<a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a><span class="k">-</span><span class="w"> </span>파일: kebab-case (또는 언어 컨벤션, 예: Python은 snake_case.py)
+<a id="__codelineno-0-28" name="__codelineno-0-28" href="#__codelineno-0-28"></a><span class="k">-</span><span class="w"> </span>최대 파일 길이: 300줄 (경고), 500줄 (금지)
+<a id="__codelineno-0-29" name="__codelineno-0-29" href="#__codelineno-0-29"></a><span class="k">-</span><span class="w"> </span>함수: 50줄 이내
+<a id="__codelineno-0-30" name="__codelineno-0-30" href="#__codelineno-0-30"></a>
+<a id="__codelineno-0-31" name="__codelineno-0-31" href="#__codelineno-0-31"></a><span class="gu">## Workflow</span>
+<a id="__codelineno-0-32" name="__codelineno-0-32" href="#__codelineno-0-32"></a><span class="k">1.</span> types.ts 먼저 정의/수정
+<a id="__codelineno-0-33" name="__codelineno-0-33" href="#__codelineno-0-33"></a><span class="k">2.</span> logic.ts에 순수 함수 구현
+<a id="__codelineno-0-34" name="__codelineno-0-34" href="#__codelineno-0-34"></a><span class="k">3.</span> *.test.ts에 테스트 작성
+<a id="__codelineno-0-35" name="__codelineno-0-35" href="#__codelineno-0-35"></a><span class="k">4.</span> handler.ts에서 부작용 통합
+<a id="__codelineno-0-36" name="__codelineno-0-36" href="#__codelineno-0-36"></a><span class="k">5.</span> 린트 + 테스트 + 타입 체크 통과 확인
+<a id="__codelineno-0-37" name="__codelineno-0-37" href="#__codelineno-0-37"></a>
+<a id="__codelineno-0-38" name="__codelineno-0-38" href="#__codelineno-0-38"></a><span class="gu">## Domain Glossary</span>
+<a id="__codelineno-0-39" name="__codelineno-0-39" href="#__codelineno-0-39"></a><span class="k">-</span><span class="w"> </span>[<span class="nl">도메인 용어1</span>]: <span class="na">[정의]</span>
+<a id="__codelineno-0-40" name="__codelineno-0-40" href="#__codelineno-0-40"></a><span class="k">-</span><span class="w"> </span>[<span class="nl">도메인 용어2</span>]: <span class="na">[정의]</span>
+<a id="__codelineno-0-41" name="__codelineno-0-41" href="#__codelineno-0-41"></a>
+<a id="__codelineno-0-42" name="__codelineno-0-42" href="#__codelineno-0-42"></a><span class="gu">## Examples</span>
+<a id="__codelineno-0-43" name="__codelineno-0-43" href="#__codelineno-0-43"></a><span class="k">-</span><span class="w"> </span>Good pattern: src/features/user-auth/logic.ts
+<a id="__codelineno-0-44" name="__codelineno-0-44" href="#__codelineno-0-44"></a><span class="k">-</span><span class="w"> </span>Anti-pattern: (해당 없으면 생략)
+</code></pre></div>
+<h3 id="aide-referencemd">AIDE-REFERENCE.md 프로젝트 통합 가이드<a class="headerlink" href="#aide-referencemd" title="Permanent link">&para;</a></h3>
+<p><a href="https://github.com/Dokkabei97/aide-methodology/blob/master/AIDE-REFERENCE.md">AIDE-REFERENCE.md</a>는 10대 핵심 원칙, Feature 아키텍처, 코드 스타일, 워크플로우를 하나의 파일(~240줄)로 요약한 독립형 빠른 참조 문서다. AI 에이전트가 AIDE를 일관되게 따르도록 하는 데 활용한다.</p>
+<h4 id="option-a">Option A: 별도 참조 파일 (권장)<a class="headerlink" href="#option-a" title="Permanent link">&para;</a></h4>
+<p><code>AIDE-REFERENCE.md</code>를 프로젝트 루트에 복사하고 <code>CLAUDE.md</code>에서 참조한다:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="gh"># CLAUDE.md</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="gu">## Methodology</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>이 프로젝트는 AIDE 방법론을 따릅니다. 전체 참조는 AIDE-REFERENCE.md를 참고하세요.
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="gu">## Project-Specific Rules</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="k">-</span><span class="w"> </span>[프로젝트 고유 규칙 추가]
+</code></pre></div>
+<p><strong>작동 원리</strong>: AI 에이전트(Claude, Cursor 등)는 CLAUDE.md에서 참조된 파일을 자동으로 로드한다. AIDE 규칙을 별도 파일로 분리하면 CLAUDE.md의 라인 예산을 프로젝트 고유 컨텍스트에 사용할 수 있다. AIDE-REFERENCE.md(~240줄)는 단독으로도 Tier 1 제한(300줄) 내에 들어간다.</p>
+<h4 id="option-b-claudemd">Option B: CLAUDE.md에 직접 포함<a class="headerlink" href="#option-b-claudemd" title="Permanent link">&para;</a></h4>
+<p>소규모 프로젝트에서는 관련 섹션을 CLAUDE.md에 직접 복사한다:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="gh"># CLAUDE.md</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="gu">## Methodology: AIDE</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="gu">### Core Principles</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>[AIDE-REFERENCE.md에서 필요한 원칙 붙여넣기]
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="gu">### Code Style</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>[AIDE-REFERENCE.md에서 코드 스타일 섹션 붙여넣기]
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="gu">## Project-Specific Rules</span>
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="k">-</span><span class="w"> </span>[프로젝트 규칙 추가]
+</code></pre></div>
+<p><strong>트레이드오프</strong>: 설정이 간단하지만 CLAUDE.md 라인 예산을 소비한다. AIDE 원칙 중 일부만 필요할 때 적합하다.</p>
+<h4 id="option-c-feature-agentsmd">Option C: Feature 수준 AGENTS.md 활용<a class="headerlink" href="#option-c-feature-agentsmd" title="Permanent link">&para;</a></h4>
+<p>대규모 프로젝트에서는 루트 레벨에서 AIDE를 참조하고, 각 Feature의 <code>AGENTS.md</code>에 도메인별 컨텍스트를 추가한다:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>project-root/
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>  CLAUDE.md            → &quot;AIDE를 따릅니다. AIDE-REFERENCE.md 참조.&quot;
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>  AIDE-REFERENCE.md    → AIDE 전체 빠른 참조
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>  src/features/
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>    user-auth/
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>      AGENTS.md        → 이 Feature의 도메인별 규칙
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>    payment/
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>      AGENTS.md        → 이 Feature의 도메인별 규칙
+</code></pre></div>
+<p>이는 AIDE의 <strong>점진적 공개(P6)</strong> 원칙을 활용한다: Tier 1(루트 CLAUDE.md + AIDE-REFERENCE.md)은 항상 로드되고, Tier 2(Feature AGENTS.md)는 에이전트가 해당 디렉토리에서 작업할 때만 로드된다.</p>
+<h4 id="context-budget">Context Budget 고려사항<a class="headerlink" href="#context-budget" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>구성</th>
+<th>CLAUDE.md</th>
+<th>AIDE-REFERENCE.md</th>
+<th>총 Tier 1</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Option A</td>
+<td>~60줄 (프로젝트 규칙)</td>
+<td>~240줄</td>
+<td>~300줄</td>
+</tr>
+<tr>
+<td>Option B</td>
+<td>~200-300줄 (통합)</td>
+<td>해당 없음</td>
+<td>~200-300줄</td>
+</tr>
+<tr>
+<td>Option C</td>
+<td>~60줄 (프로젝트 규칙)</td>
+<td>~240줄</td>
+<td>~300줄 + Feature당 Tier 2</td>
+</tr>
+</tbody>
+</table>
+<h3 id="agentsmd-feature-tier-2">AGENTS.md 작성 가이드 (Feature Tier 2 템플릿)<a class="headerlink" href="#agentsmd-feature-tier-2" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="gh"># [Feature명] Domain Context</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="gu">## Business Rules</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="k">-</span><span class="w"> </span>[규칙 1: 구체적이고 명확하게]
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="k">-</span><span class="w"> </span>[규칙 2: 에이전트가 추론할 필요 없이 이해할 수 있게]
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="k">-</span><span class="w"> </span>[규칙 3: 예외 케이스도 포함]
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="gu">## Data Flow</span>
+<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>[<span class="nl">주요 플로우</span>]: <span class="na">Request -&gt; validate -&gt; [순수 로직] -&gt; [부작용] -&gt; Response</span>
+<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>
+<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="gu">## Known Edge Cases</span>
+<a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a><span class="k">-</span><span class="w"> </span>[<span class="nl">엣지 케이스 1</span>]: <span class="na">[처리 방법]</span>
+<a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a><span class="k">-</span><span class="w"> </span>[<span class="nl">엣지 케이스 2</span>]: <span class="na">[처리 방법]</span>
+<a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a>
+<a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a><span class="gu">## Dependencies</span>
+<a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a><span class="k">-</span><span class="w"> </span>이 Feature가 의존하는 shared/ 모듈: [목록]
+<a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a><span class="k">-</span><span class="w"> </span>이 Feature를 참조하는 다른 Feature: [목록]
+</code></pre></div>
+<h3 id="skills">Skills 관리 가이드<a class="headerlink" href="#skills" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>.agents/skills/
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>  {skill-name}/
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>    SKILL.md          # YAML frontmatter(이름, 설명, 태그) + 실행 가이드
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>    scripts/           # 자동화 스크립트 (선택)
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>    examples/          # 예제 입출력 (선택)
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>    tests/             # 스킬 검증용 eval 시나리오
+</code></pre></div>
+<p><strong>SKILL.md 예시:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>---
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>name: add-api-endpoint
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>description: &quot;새로운 REST API 엔드포인트를 features/ 디렉토리에 추가&quot;
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>tags: [api, feature, crud]
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="gu">version: &quot;1.2.0&quot;</span>
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="gu">---</span>
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>
+<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="gu">## Steps</span>
+<a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a><span class="k">1.</span> features/{feature-name}/ 디렉토리 확인 (없으면 생성)
+<a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a><span class="k">2.</span> types.ts에 Request/Response 타입 정의
+<a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a><span class="k">3.</span> logic.ts에 비즈니스 로직 순수 함수 구현
+<a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a><span class="k">4.</span> handler.ts에 HTTP 핸들러 추가
+<a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a><span class="k">5.</span> {feature-name}.test.ts에 테스트 추가
+<a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a><span class="k">6.</span> Tier 2 AGENTS.md에 비즈니스 규칙 문서화
+<a id="__codelineno-6-15" name="__codelineno-6-15" href="#__codelineno-6-15"></a><span class="k">7.</span> 린트 + 테스트 + 타입 체크 실행
+<a id="__codelineno-6-16" name="__codelineno-6-16" href="#__codelineno-6-16"></a>
+<a id="__codelineno-6-17" name="__codelineno-6-17" href="#__codelineno-6-17"></a><span class="gu">## Guardrails</span>
+<a id="__codelineno-6-18" name="__codelineno-6-18" href="#__codelineno-6-18"></a><span class="k">-</span><span class="w"> </span>shared/ 수정 금지 (새 타입이 필요하면 feature 내부에 정의)
+<a id="__codelineno-6-19" name="__codelineno-6-19" href="#__codelineno-6-19"></a><span class="k">-</span><span class="w"> </span>기존 핸들러의 시그니처 변경 금지
+<a id="__codelineno-6-20" name="__codelineno-6-20" href="#__codelineno-6-20"></a><span class="k">-</span><span class="w"> </span>테스트 없는 코드 커밋 금지
+</code></pre></div>
+<p><strong>스킬 로딩 프로토콜:</strong>
+1. <strong>Discovery</strong>: SKILL.md의 YAML frontmatter만 읽음 (~50토큰)
+2. <strong>Selection</strong>: 태스크와 관련된 스킬 선택
+3. <strong>Loading</strong>: 선택된 스킬의 전체 내용을 컨텍스트에 주입
+4. <strong>Execution</strong>: 스킬 가이드에 따라 작업 수행
+5. <strong>Unloading</strong>: 작업 완료 후 컨텍스트에서 해제</p>
+<h3 id="_3">테스트 전략 가이드<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<pre class="mermaid"><code>graph TB
+    subgraph TestPyramid["AIDE 테스트 피라미드"]
+        HR["Human Review&lt;br/&gt;아키텍처 · 보안 · 도메인 지식"]
+        ES["Eval Suites (EDD)&lt;br/&gt;시나리오/데이터셋 기반 행동 평가"]
+        IT["Integration Tests&lt;br/&gt;Feature 간 연동 · 데이터 흐름 검증"]
+        PBT["Property-Based Tests&lt;br/&gt;불변 속성 검증 (fast-check/Hypothesis)"]
+        UT["Unit Tests (TDD)&lt;br/&gt;결정적 코드: 파서 · 정책 · 비즈니스 로직"]
+    end
+
+    UT --&gt; PBT --&gt; IT --&gt; ES --&gt; HR
+
+    style UT fill:#4CAF50,color:#fff
+    style PBT fill:#8BC34A,color:#fff
+    style IT fill:#FFC107,color:#000
+    style ES fill:#FF9800,color:#fff
+    style HR fill:#F44336,color:#fff</code></pre>
+<p><strong>각 레이어별 역할:</strong></p>
+<table>
+<thead>
+<tr>
+<th>레이어</th>
+<th>빈도</th>
+<th>실행 시점</th>
+<th>차단 권한</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Unit Tests</td>
+<td>매 커밋</td>
+<td>Pre-commit + CI</td>
+<td>머지 차단</td>
+</tr>
+<tr>
+<td>Property-Based</td>
+<td>매 커밋</td>
+<td>CI</td>
+<td>머지 차단</td>
+</tr>
+<tr>
+<td>Integration</td>
+<td>매 PR</td>
+<td>CI</td>
+<td>머지 차단</td>
+</tr>
+<tr>
+<td>Eval Suites</td>
+<td>매 PR + 메타파일 변경 시</td>
+<td>CI</td>
+<td>경고 (임계값 이하 시 차단)</td>
+</tr>
+<tr>
+<td>Human Review</td>
+<td>매 PR</td>
+<td>PR 리뷰</td>
+<td>머지 차단</td>
+</tr>
+<tr>
+<td>Security Tests</td>
+<td>매일 + 메타파일/정책 변경 시</td>
+<td>CI + 정기 실행</td>
+<td>머지 차단</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p>← Previous: <a href="../03-EXISTING-METHODOLOGIES/">03-EXISTING-METHODOLOGIES</a> | Next: <a href="../05-CICD-PIPELINE/">05-CICD-PIPELINE</a> →</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>
