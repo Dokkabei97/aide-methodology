@@ -17,15 +17,15 @@ Architectural implication: the per-loop context footprint should shrink so that 
 
 **This is symmetric with P1-T2.** P1-T2 specified the *cost-decrease* direction ("relax the budget when tokens get cheap"). P1-T4 (new) specifies the *cost-increase* direction. Asymmetric calibration triggers were a latent bug; this cycle closes them.
 
-### Claim 2 — Capability stratification breaks vendor-agnostic methodology
+### Claim 2 — Benchmark authority must be tiered before methodology calibration
 
-SWE-bench Pro — the contamination-resistant private set tracked by [Scale SEAL](https://labs.scale.com/leaderboard/swe_bench_pro_public) — now shows a top-3 spread of **19.2 percentage points** (Mythos 77.8% / Opus 4.7 64.3% / GPT-5.5 58.6%). Verified shows ~9pp. Pro is the reliable frontier signal because it cannot be gamed by training-data overlap.
+The first Claude draft treated a secondary SWE-bench Pro spread of **19.2 percentage points** as calibration-grade evidence. Codex review could not reproduce that number from the official [Scale public](https://labs.scale.com/leaderboard/swe_bench_pro_public) or [Scale private](https://labs.scale.com/leaderboard/swe_bench_pro_private) leaderboards on 2026-05-04. The official public top-3 spread is 7.2pp; the official private top-3 spread is 3.7pp. Both are below the proposed 15pp threshold.
 
-A 19pp spread on the contamination-resistant set is the first quantitative evidence we have that frontier-vendor capability is stratifying *faster than methodology can track with one shared specification*. P4 (Knowledge DRY, Code WET-tolerant) carries an unstated sub-assumption — that a single Knowledge-DRY guideline transfers across vendors. At 19pp, that assumption is no longer free.
+Architectural implication: P4 (Knowledge DRY, Code WET-tolerant) still carries a real unstated sub-assumption — that one Knowledge-DRY guideline transfers across vendors — but this week's official benchmark evidence does **not** prove that assumption has failed. The right change is to make vendor portability a monitored validity condition, while keeping the current condition satisfied until official contamination-resistant leaderboards cross the threshold.
 
-Architectural implication: AGENTS.md / CLAUDE.md / GEMINI.md should be *permitted to diverge* on calibration details (test density, decomposition depth, when to prefer pure-functional decomposition) while the knowledge invariants stay single-source. The spec layer separates from the calibration layer.
+The stronger methodology claim is about **source tiering**. Vendor launch claims, official benchmark leaderboards, secondary trackers, and community posts should not carry equal weight in `principle-metadata.yaml`. Calibration must prefer official benchmark leaderboards for benchmark deltas, use vendor claims as product-surface evidence, and use HN/social signals only as qualitative pressure.
 
-P4-VC1 and P4-T2 (added this cycle) make this a tracked surface. The methodology body of `docs/en/AIDE-METHODOLOGY.md` is *not* changed in this cycle — that change requires a different-vendor reviewer's countersignature first.
+P4-VC1 and P4-T2 remain useful as a tracked surface, but `P4-VC1.status` is corrected to `true` in this cycle. The methodology body of `docs/en/AIDE-METHODOLOGY.md` is *not* changed — body changes require a later review with calibration-grade evidence.
 
 ### Claim 3 — Same-vendor build/attack agents force structural Axiom A2
 
@@ -48,7 +48,7 @@ These signals matter for the next monthly Evolution Engine charter, but they did
 | File | Change | Axiom enforced |
 |---|---|---|
 | `principle-metadata.yaml` (P1) | utilization_ratio 0.03 → 0.02; max_file_lines 500 → 333; new VC4 + T4 + evolution_history entry | A3 (quantitative evidence: 15× multiplier) |
-| `principle-metadata.yaml` (P4) | new VC1 + T2 + evolution_history entry | A3 (quantitative evidence: 19.2pp spread) |
+| `principle-metadata.yaml` (P4) | new VC1 + T2 + evolution_history entry; current status corrected to true by Codex review | A3 (official Scale spreads below 15pp; secondary 19.2pp claim rejected) |
 | `evolution/history/2026-05-04-weekly-synthesis.yaml` | first audit entry ever; signal scoring + reversal path | A1 (named git revert) + A5 (timestamps + source health) |
 | `rfcs/0004-cost-pressure-and-vendor-portability.md` | draft RFC formalizing the structural change | A4 (awaits different-vendor consensus) |
 

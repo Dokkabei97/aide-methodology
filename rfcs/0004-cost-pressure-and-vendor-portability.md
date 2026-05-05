@@ -4,16 +4,17 @@
 - Agent Model: claude-opus-4-7
 - Research Method: 2026-05-04 weekly intel digest scoring + per-platform scheduled curator pass per RFC-0003 §4
 - Date: 2026-05-04
-- Status: Draft
+- Status: Draft (Codex reviewed; P4 status corrected)
 
 ## Summary
 
 This RFC formalizes two principle-metadata changes triggered by the 2026-05-04
 Weekly Intel digest. Together they teach AIDE's adaptive principles to respond
-to two new realities of frontier-vendor agent platforms: (1) per-token cost
-has re-entered the binding-constraint regime, and (2) contamination-resistant
-benchmark spreads have crossed the point where one vendor-agnostic Knowledge-DRY
-specification can no longer be assumed to transfer across vendors.
+to two realities of frontier-vendor agent platforms: (1) per-token cost has
+re-entered the binding-constraint regime, and (2) vendor portability needs an
+explicit monitored validity condition. Codex review corrected the initial
+draft: official Scale SWE-bench Pro leaderboards do **not** currently show a
+spread large enough to invalidate P4.
 
 The numeric changes have been applied in this RFC's accompanying PR. This
 document exists to make the *structural* change reviewable by a different-vendor
@@ -40,16 +41,14 @@ this as a P1 re-tune trigger; the trigger had no formal symmetric counterpart.
 P4 (Knowledge DRY, Code WET-tolerant) is written as if a single Knowledge-DRY
 specification — one AGENTS.md / CLAUDE.md / GEMINI.md authoring contract —
 transfers across vendors at comparable quality. That sub-assumption was free
-when frontier capability was tightly clustered. SWE-bench Pro
-([Scale SEAL leaderboard](https://labs.scale.com/leaderboard/swe_bench_pro_public))
-top-3 spread reaching **19.2pp** (Mythos 77.8% / Opus 4.7 64.3% / GPT-5.5 58.6%)
-on a contamination-resistant private set is the first quantitative signal that
-this assumption is breaking. Pro is the trustworthy frontier benchmark because
-it cannot be gamed by training-data overlap.
+when frontier capability was tightly clustered.
 
-A 19.2pp spread also stresses Axiom A2 (Adversarial Separation): a reviewer
-model 19pp below the author model on this kind of task may not produce
-review verdicts that A2 was intended to extract.
+The first draft cited a 19.2pp SWE-bench Pro spread from secondary tracking.
+Codex review could not reproduce that number from official Scale sources on
+2026-05-04. The [public leaderboard](https://labs.scale.com/leaderboard/swe_bench_pro_public)
+shows a 7.2pp top-3 spread, and the [private leaderboard](https://labs.scale.com/leaderboard/swe_bench_pro_private)
+shows a 3.7pp top-3 spread. The sub-assumption should therefore become
+explicit and monitored, but it is not currently invalidated.
 
 ## Detailed Design
 
@@ -77,15 +76,16 @@ formula.
 
 | Field | Before | After |
 |---|---|---|
-| `validity_conditions[]` | (none) | new section with **P4-VC1**: `swe_bench_pro_top3_spread < 0.15` |
+| `validity_conditions[]` | (none) | new section with **P4-VC1**: `swe_bench_pro_top3_spread < 0.15`, currently `true` after Codex review |
 | `invalidation_triggers[]` | (1 entry) | (2 entries) — adds **P4-T2**: spread > 0.15 → soften vendor-portability sub-assumption (severity: major) |
 | `evolution_history[]` | `[]` | one entry with quantitative evidence |
 
-The action of P4-T2 is the substantive change: it permits AGENTS.md / CLAUDE.md /
-GEMINI.md to *diverge* on calibration details (test density, decomposition
-depth, when to prefer pure-functional decomposition) while the underlying
-knowledge invariants remain single-source. The spec layer separates from the
-calibration layer.
+The action of P4-T2 is a future substantive change: if official
+contamination-resistant benchmark spreads cross the threshold, it permits
+AGENTS.md / CLAUDE.md / GEMINI.md to *diverge* on calibration details (test
+density, decomposition depth, when to prefer pure-functional decomposition)
+while the underlying knowledge invariants remain single-source. This RFC adds
+the monitoring surface but does not claim the trigger is firing today.
 
 ### Out of scope for this RFC
 
@@ -107,8 +107,9 @@ calibration layer.
 |---|---|---|---|
 | Cost regime shifted | Opus 4.7 premium request multiplier | 15× | [GitHub Changelog 2026-04-16](https://github.blog/changelog/2026-04-16-claude-opus-4-7-is-generally-available/), effective 2026-04-30 |
 | Cost regime shifted | Effective input cost at 15× | ~7.5 USD/M tokens | derivation in audit entry, S4 |
-| Capability stratifying | SWE-bench Pro top-3 spread | 0.192 | [Scale SEAL leaderboard](https://labs.scale.com/leaderboard/swe_bench_pro_public) |
-| Capability stratifying (informational) | SWE-bench Verified top-3 spread | 0.089 | [llm-stats](https://llm-stats.com/benchmarks/swe-bench-verified) (contamination-flagged; included only as comparator) |
+| Vendor portability monitored | SWE-bench Pro public top-3 spread | 0.072 | [Scale public leaderboard](https://labs.scale.com/leaderboard/swe_bench_pro_public) |
+| Vendor portability monitored | SWE-bench Pro private top-3 spread | 0.037 | [Scale private leaderboard](https://labs.scale.com/leaderboard/swe_bench_pro_private) |
+| Capability stratifying (informational) | SWE-bench Verified top-3 spread | 0.130 | [llm-stats](https://llm-stats.com/benchmarks/swe-bench-verified) (secondary tracker; included only as comparator) |
 | Source health | Machine-fetched signals | 12 | `evolution/intel/weekly-2026-05-04.md` |
 | Source health | Curator-added signals | 4 | same |
 | Source health | Fetch failures | 0 | same |
@@ -122,7 +123,7 @@ All evidence is reproducible from the linked URLs and the committed digest.
 | Principle | Change |
 |---|---|
 | P1 (Context Budget, adaptive) | Numeric: `max_file_lines` 500 → 333; `utilization_ratio` 0.03 → 0.02. Structural: validity_condition + trigger pair closes the asymmetry in market-direction handling. |
-| P4 (Knowledge DRY, adaptive) | Structural: validity_condition + trigger pair makes "vendor portability" an explicit, falsifiable assumption rather than a tacit one. No numeric value of `max_utility_duplication` changes. |
+| P4 (Knowledge DRY, adaptive) | Structural: validity_condition + trigger pair makes "vendor portability" an explicit, falsifiable assumption rather than a tacit one. Current official Scale spreads keep the condition satisfied. No numeric value of `max_utility_duplication` changes. |
 | P2, P3, P5–P10 | Unchanged. |
 
 ### Affected axioms
