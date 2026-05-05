@@ -258,7 +258,7 @@ principles:
           contamination-resistant top-3 capability spread is bounded. Beyond ~15pp,
           knowledge structures may need vendor-specific calibration rather than a single
           vendor-agnostic specification.
-        status: false  # 2026-05-04: Mythos 77.8% vs GPT-5.5 58.6% = 19.2pp
+        status: true  # 2026-05-04 Codex review: official Scale public/private top-3 spreads remain below 15pp
         last_checked: "2026-05-04"
 
     invalidation_triggers:
@@ -282,28 +282,33 @@ principles:
 
     evolution_history:
       - timestamp: "2026-05-04T00:00:00Z"
-        change: "Introduced VC1 (vendor-portability bound) + T2 (SWE-bench Pro spread trigger)"
+        change: "Introduced VC1 (vendor-portability bound) + T2 (SWE-bench Pro spread trigger); Codex review corrected current status to true"
         evidence:
           - metric: "SWE-bench Pro top-3 spread"
-            value: 0.192
-            unit: "ratio (Mythos 77.8% - GPT-5.5 58.6%)"
+            value: 0.072
+            unit: "ratio (Scale public leaderboard: gpt-5.4 xHigh 59.10% - claude-opus-4-6 thinking 51.90%)"
             measured_at: "2026-05-04"
-            source: "https://labs.scale.com/leaderboard/swe_bench_pro_public; surfaced in evolution/intel/weekly-2026-05-04.md"
+            source: "https://labs.scale.com/leaderboard/swe_bench_pro_public"
+          - metric: "SWE-bench Pro private top-3 spread"
+            value: 0.037
+            unit: "ratio (Scale private leaderboard: claude-opus-4-6 thinking 47.10% - gpt-5.4 xHigh 43.40%)"
+            measured_at: "2026-05-04"
+            source: "https://labs.scale.com/leaderboard/swe_bench_pro_private"
           - metric: "SWE-bench Verified top-3 spread"
-            value: 0.089
-            unit: "ratio (Mythos 93.9% - GPT-5.3 Codex 85.0%)"
+            value: 0.130
+            unit: "ratio (llm-stats: Claude Mythos Preview 93.9% - Claude Opus 4.5 80.9%)"
             measured_at: "2026-05-04"
-            source: "https://llm-stats.com/benchmarks/swe-bench-verified (informational; verified is contamination-flagged)"
+            source: "https://llm-stats.com/benchmarks/swe-bench-verified (informational; secondary tracker)"
         rationale: |
           P4 originally treated "knowledge as a single source of truth" as vendor-agnostic.
-          The SWE-bench Pro contamination-resistant top-3 spread reaching 19.2pp is the
-          first quantitative signal that frontier-vendor capability is stratifying faster
-          than methodology can track with one specification. Per A2 (Adversarial
-          Separation), this also means the *reviewer* model may interpret a Knowledge-DRY
-          guideline differently from the *author* model — exactly the failure mode A2
-          guards against. Adding a validity_condition + a major-severity trigger makes
-          this a tracked surface for the next deliberation.
-        decided_by: "single_agent_draft"  # awaits different-vendor reviewer per A2/A4
+          The initial Claude draft cited a secondary 19.2pp SWE-bench Pro spread. Codex
+          review could not reproduce that number from the official Scale public/private
+          leaderboards on 2026-05-04; both official spreads are below the 15pp threshold.
+          The validity condition and trigger remain useful because vendor-portability is a
+          real adaptive surface, but the condition is currently satisfied rather than
+          invalidated. A future run may flip it when official contamination-resistant
+          leaderboards cross the threshold.
+        decided_by: "codex_adversarial_review"
         reverse_path: "git revert <commit_sha>; removes VC1, T2, and this history entry"
         weekly_intel_source: "evolution/intel/weekly-2026-05-04.md"
 

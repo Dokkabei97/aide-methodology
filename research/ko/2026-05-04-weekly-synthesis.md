@@ -17,15 +17,15 @@
 
 **P1-T2와의 대칭성**. P1-T2는 비용 *하락* 방향만 명세했다("토큰이 싸지면 예산을 풀라"). 신설된 P1-T4는 *상승* 방향을 명세한다. 비대칭 calibration 트리거는 잠복 버그였고, 이번 사이클에서 닫혔다.
 
-### 주장 2 — 능력 계층화가 벤더-불가지론적 방법론을 깬다
+### 주장 2 — 방법론 보정 전 벤치마크 권위를 계층화해야 한다
 
-오염 저항형 비공개 셋인 SWE-bench Pro([Scale SEAL 추적](https://labs.scale.com/leaderboard/swe_bench_pro_public))의 top-3 격차가 **19.2 퍼센트포인트** (Mythos 77.8% / Opus 4.7 64.3% / GPT-5.5 58.6%)에 도달했다. Verified는 약 9pp. Pro가 신뢰 가능한 프런티어 신호인 이유는 학습 데이터 오버랩으로 게임할 수 없기 때문이다.
+첫 Claude 초안은 2차 SWE-bench Pro 추적기의 **19.2 퍼센트포인트** 격차를 calibration-grade 증거로 취급했다. 그러나 Codex 리뷰는 2026-05-04 기준 공식 [Scale public](https://labs.scale.com/leaderboard/swe_bench_pro_public) 및 [Scale private](https://labs.scale.com/leaderboard/swe_bench_pro_private) 리더보드에서 그 수치를 재현하지 못했다. 공식 public top-3 격차는 7.2pp, official private top-3 격차는 3.7pp이며 둘 다 제안된 15pp 임계값보다 낮다.
 
-오염 저항형 셋에서 19pp 격차는, 프런티어 벤더 능력이 *공유 단일 명세서가 따라잡을 수 있는 속도보다 빠르게* 계층화하고 있다는 첫 정량적 증거다. P4(Knowledge DRY)는 명시되지 않은 하위 가정을 품고 있다 — 단일 Knowledge-DRY 지침이 벤더 간 이식 가능하다는 가정. 19pp에서 그 가정은 더 이상 공짜가 아니다.
+아키텍처적 함의: P4(Knowledge DRY)는 여전히 명시되지 않은 하위 가정을 품고 있다 — 단일 Knowledge-DRY 지침이 벤더 간 이식 가능하다는 가정. 다만 이번 주 공식 벤치마크 증거는 그 가정이 깨졌다는 것을 입증하지 않는다. 올바른 변경은 벤더 이식성을 감시 validity condition으로 만들되, 공식 오염 저항형 리더보드가 임계값을 넘기 전까지 현재 조건은 만족된 것으로 유지하는 것이다.
 
-아키텍처적 함의: AGENTS.md / CLAUDE.md / GEMINI.md는 calibration 디테일(테스트 밀도, 분해 깊이, 순함수 분해를 언제 우선할지)에서 *발산이 허용*되어야 하며, 지식 불변량(invariants)만 단일 소스에 머문다. 명세 레이어와 calibration 레이어가 분리된다.
+더 강한 방법론 주장은 **출처 계층화(source tiering)**다. 벤더 출시 주장, 공식 벤치마크 리더보드, 2차 추적기, 커뮤니티 게시물을 `principle-metadata.yaml`에서 같은 권위로 취급하면 안 된다. 보정은 벤치마크 delta에는 공식 벤치마크 리더보드를 우선하고, 벤더 주장은 제품 표면(product surface) 증거로, HN/SNS 신호는 정성 압력으로만 사용해야 한다.
 
-이번 사이클에서 추가된 P4-VC1, P4-T2가 이 면을 추적한다. `docs/en/AIDE-METHODOLOGY.md` 본문은 이번 사이클에서 *변경하지 않는다* — 본문 변경은 다른 벤더 리뷰어의 부서명을 먼저 요구한다.
+P4-VC1, P4-T2는 추적 표면으로는 유효하지만, 이번 사이클에서 `P4-VC1.status`는 `true`로 정정한다. `docs/en/AIDE-METHODOLOGY.md` 본문은 변경하지 않는다 — 본문 변경은 calibration-grade 증거를 갖춘 후속 리뷰가 필요하다.
 
 ### 주장 3 — 동일 벤더 빌드/공격 에이전트가 구조적 A2를 강제한다
 
@@ -48,7 +48,7 @@
 | 파일 | 변경 | 강제하는 공리 |
 |---|---|---|
 | `principle-metadata.yaml` (P1) | utilization_ratio 0.03 → 0.02; max_file_lines 500 → 333; VC4 + T4 + evolution_history 항목 신설 | A3 (정량 증거: 15× 멀티플라이어) |
-| `principle-metadata.yaml` (P4) | VC1 + T2 + evolution_history 항목 신설 | A3 (정량 증거: 19.2pp 격차) |
+| `principle-metadata.yaml` (P4) | VC1 + T2 + evolution_history 항목 신설; Codex 리뷰로 현재 status를 true로 정정 | A3 (공식 Scale 격차는 15pp 미만; 2차 19.2pp 주장은 기각) |
 | `evolution/history/2026-05-04-weekly-synthesis.yaml` | 사상 첫 audit 항목; 신호 스코어링 + 반전 경로 | A1(명명된 git revert) + A5(타임스탬프 + 소스 헬스) |
 | `rfcs/0004-cost-pressure-and-vendor-portability.md` | 구조적 변경을 정식화하는 draft RFC | A4(다른 벤더 합의 대기) |
 

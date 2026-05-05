@@ -121,22 +121,24 @@ signals_considered:
       the next deliberation cycle but does not move a numeric dial today.
 
   - id: S6
-    title: "SWE-bench Pro top-3 capability spread widens to ~19pp"
+    title: "SWE-bench Pro vendor-portability threshold added; current spread below threshold"
     raw_evidence:
-      - "labs.scale.com/leaderboard/swe_bench_pro_public — Mythos 77.8% / Opus 4.7 64.3% / GPT-5.5 58.6%"
+      - "labs.scale.com/leaderboard/swe_bench_pro_public — gpt-5.4 xHigh 59.10 / Muse Spark 55.00 / claude-opus-4-6 thinking 51.90"
+      - "labs.scale.com/leaderboard/swe_bench_pro_private — claude-opus-4-6 thinking 47.10 / Muse Spark 44.70 / gpt-5.4 xHigh 43.40"
     principle_axiom_hit: ["P4"]
-    decision: triggers_metadata_change
+    decision: adds_monitoring_surface
     metadata_change:
       file: "principle-metadata.yaml"
       principle: "knowledge-dry (P4)"
       changes:
-        - "added validity_condition P4-VC1 (swe_bench_pro_top3_spread < 0.15; status=false)"
+        - "added validity_condition P4-VC1 (swe_bench_pro_top3_spread < 0.15; status=true)"
         - "added invalidation_trigger P4-T2 (spread > 0.15 → soften vendor-portability sub-assumption; severity=major)"
-        - "added evolution_history entry with quantitative evidence"
+        - "added evolution_history entry; Codex review rejected the initial secondary 19.2pp claim"
     quantitative_evidence:
-      swe_bench_pro_top3_spread: 0.192
+      swe_bench_pro_public_top3_spread: 0.072
+      swe_bench_pro_private_top3_spread: 0.037
       benchmark_kind: contamination_resistant_private_set
-      reliability_note: "SWE-bench Pro is the trustworthy frontier signal per the digest; Verified is contamination-flagged."
+      reliability_note: "Official Scale public/private leaderboards are calibration authority; secondary 19.2pp claim is not used."
 
 # ────────────────────────────────────────────────────────────────────────────
 # Reversal path — Axiom A1
@@ -167,5 +169,5 @@ observability:
     fetch_failures: 0
   next_calibration_targets:
     - "Re-check P1-VC4 when any vendor publishes a top-tier model below 10× premium"
-    - "Re-check P4-VC1 when SWE-bench Pro top-3 spread closes below 15pp"
+    - "Re-check P4-VC1 when official SWE-bench Pro top-3 spread rises above 15pp"
     - "Promote permanent Red Team Agent slot in next monthly Evolution Engine charter (S3 above)"
