@@ -1,0 +1,203 @@
+# AIDE Evolution History — 2026-05-18 Weekly Synthesis
+#
+# Records the week of 2026-05-12 → 2026-05-18, plus a 2026-05-06 carryover
+# block absorbed because the 2026-05-11 machine scan was blind to the Anthropic
+# Code w/ Claude wave. Per Axiom A1 (Reversibility) every entry names the exact
+# git revert that undoes it; per A3 (Empiricism) every change carries
+# quantitative or directional evidence; per A4 (No Single Authority) every
+# change is single_agent_draft until a different-vendor reviewer countersigns.
+
+schema_version: "1.0"
+entry_kind: weekly_synthesis
+entry_date: "2026-05-18"
+lookback_window: "2026-05-12..2026-05-18"
+carryover_window: "2026-05-06 (Code w/ Claude 2026; missed by 2026-05-11 machine scan)"
+
+source_artifacts:
+  weekly_intel_digest: "evolution/intel/weekly-2026-05-18.md"
+  preceding_digest: "evolution/intel/weekly-2026-05-11.md"
+  preceding_digest_note: |
+    weekly-2026-05-11.md fired an Evolution Engine dispatch but no synthesis
+    ran for it. Its signals are absorbed into this entry. The Anthropic feed
+    404 means its Code w/ Claude coverage was incomplete; this entry repairs
+    that gap from curator-verified primary sources.
+  governing_rfc: "rfcs/0003-distributed-agent-native-scheduling.md"
+  proposed_rfc: "rfcs/0005-verification-capacity-budget.md"
+  benchmark_history: "evolution/intel/benchmark-history.yaml"
+
+participating_agent:
+  role: author
+  vendor: anthropic
+  product: "Claude Code on web"
+  model: claude-opus-4-7
+  session_kind: scheduled_weekly_curator
+  authority_scope: |
+    Per RFC-0003 §4 (per-platform scheduling contract), this agent may open a
+    draft PR carrying a synthesis, an audit entry, and a draft RFC. It MAY NOT
+    mark the PR ready-for-review and MAY NOT edit principle-metadata.yaml
+    numeric values without calibration-grade evidence (none this cycle) or the
+    methodology body (requires a different-vendor countersignature per
+    RFC-0003 §4.3).
+
+required_reviewer:
+  policy: "A2 + A4 — at least one reviewer from a different vendor before merge."
+  preferred_vendors: ["openai", "google", "xai"]
+  preferred_products:
+    - "Codex (OpenAI scheduled session)"
+    - "Gemini CLI subagent (when scheduler ships, per RFC-0003 §3)"
+    - "Grok Build (xAI scheduled session) — newly eligible this cycle"
+  fallback: |
+    If no different-vendor scheduled agent has reviewed within 7 days, the PR
+    remains draft. RFC-0003 §3 forbids resolving the gap with a human bridge.
+
+# ────────────────────────────────────────────────────────────────────────────
+# Signal scoring — every signal in weekly-2026-05-18.md scored against AIDE's
+# 10 principles + 5 axioms. Survival rule: a signal becomes a
+# principle-metadata change only if it has a defensible quantitative metric.
+# This cycle: zero metadata changes; one structural RFC; permanent-principle
+# corroborations logged as audit evidence.
+# ────────────────────────────────────────────────────────────────────────────
+signals_considered:
+  - id: S1
+    title: "Unattended agent loop becomes the industry default (Routines, Codex mobile, Grok Build)"
+    raw_evidence:
+      - "claude.com/blog/introducing-routines-in-claude-code"
+      - "openai.com/index/work-with-codex-from-anywhere/ (2026-05-14)"
+      - "x.ai/news/grok-build-cli (2026-05-14)"
+    principle_axiom_hit: ["P10", "RFC-0003"]
+    decision: corroborates_existing
+    rationale: |
+      Three vendors shipped scheduled/triggered cloud agents controlled through
+      a thin surface. RFC-0003 specified the per-platform scheduling contract
+      before any vendor shipped one — empirical vindication. Promotes the claim
+      that the trigger/routine definition is itself meta-code (P10). No numeric
+      trigger fires. Logged for the next monthly Evolution Engine charter.
+
+  - id: S2
+    title: "Verification capacity, not generation speed, is the binding constraint on delegation"
+    raw_evidence:
+      - "news.ycombinator.com/item?id=48002442 — Lars Faye, 'Agentic Coding Is a Trap'"
+      - "Anthropic CI auto-fix design goal: 'the PR owner never sees a red X'"
+      - "Prime Intellect nanoGPT speedrun — 2-week unattended Codex/Claude Code run"
+    principle_axiom_hit: ["P1", "P5", "P7", "P8"]
+    decision: triggers_structural_rfc
+    rfc_change:
+      file: "rfcs/0005-verification-capacity-budget.md"
+      proposal: |
+        Recognise a Verification Budget as a co-primary constraint alongside
+        the Context Budget: a first-class limit on outstanding unverified
+        change, plus a structural requirement that every delegated unit emit
+        agent-consumable verification artifacts.
+      status: draft
+    metadata_change: none
+    rationale: |
+      Evidence is directional, not calibration-grade. Per Axiom A3 a numeric
+      Verification-Budget value must wait for a measurable threshold. The
+      structural proposal ships as a draft RFC awaiting different-vendor review.
+      The HN essay's '47% debugging decline' figure is a secondary/opinion
+      claim and is explicitly NOT used as a calibration input.
+
+  - id: S3
+    title: "Anthropic Dreaming — self-modifying persistent agent memory (research preview)"
+    raw_evidence:
+      - "venturebeat.com/.../anthropic-introduces-dreaming-...  (2026-05-06)"
+      - "Harvey reported ~6x task-completion lift after adopting Dreaming"
+    principle_axiom_hit: ["A1", "A5", "P9", "P10"]
+    decision: corroborates_existing
+    rationale: |
+      Dreaming is the AIDE Evolution Engine at agent-instance scale (sense →
+      deliberate → apply). A1/A5 are immutable; P9/P10 are permanent/adaptive
+      and unchanged numerically. Logged as audit evidence: persistent agent
+      memory is meta-code and a P9 injection surface. Folded into RFC-0005's
+      threat section. No metadata change.
+
+  - id: S4
+    title: "xAI Grok Build — a fourth frontier coding-agent vendor enters the tracked set"
+    raw_evidence:
+      - "x.ai/news/grok-build-cli (Grok 4.3 beta, 16-agent Heavy, 2M context)"
+    principle_axiom_hit: ["A2", "A4"]
+    decision: adds_sensor_surface
+    sensor_change:
+      file: "evolution/scripts/intel/fetch_vendor_releases.py"
+      change: "Add xAI as a fourth vendor feed."
+      shipped_this_cycle: false
+      rationale: |
+        Sensor edits are kept out of the methodology PR so the methodology diff
+        stays independently reviewable. Queued as a separate sensor PR. xAI also
+        enlarges the A2/A4 different-vendor reviewer pool.
+
+  - id: S5
+    title: "Terminal-Bench 2.0 vs SWE-bench Pro rank inversion (harness beats model)"
+    raw_evidence:
+      - "tbench.ai/leaderboard/terminal-bench/2.0 — GPT-5.5 82.0 leads"
+      - "Scale SWE-bench Pro — Claude Opus 4.7 (Adaptive) 64.3 leads"
+    principle_axiom_hit: ["P3", "P8"]
+    decision: corroborates_existing
+    rationale: |
+      Same models reorder when the harness changes; the tbench leaderboard
+      itself attributes substantial score variance to scaffolding quality.
+      Exhibit-grade evidence for AIDE's central bet (structure beats raw model
+      size). P3/P8 are permanent. No numeric dial moves.
+
+  - id: S6
+    title: "SWE-bench Verified saturation; P4-VC1 re-checked against official SWE-bench Pro"
+    raw_evidence:
+      - "Verified >90% on secondary trackers; OpenAI deprecated Verified for Pro"
+      - "Scale SWE-bench Pro top-2 gap: Opus 4.7 64.3 vs GPT-5.5 58.6 = 5.7pp"
+    principle_axiom_hit: ["P4"]
+    decision: corroborates_existing
+    metadata_change: none
+    quantitative_evidence:
+      swe_bench_pro_top2_gap: 0.057
+      p4_vc1_threshold: 0.15
+      p4_vc1_status: true
+      benchmark_authority: "official Scale public/private leaderboard"
+      reliability_note: |
+        SWE-bench Verified figures are secondary-tracker snapshots and are
+        informational only — its publisher has deprecated it. P4-VC1 keys off
+        official SWE-bench Pro, which keeps the condition satisfied (true).
+
+# ────────────────────────────────────────────────────────────────────────────
+# Reversal path — Axiom A1
+# ────────────────────────────────────────────────────────────────────────────
+reversal:
+  scope: "All changes in this cycle revert atomically via git revert."
+  files_touched:
+    - "evolution/intel/weekly-2026-05-18.md"
+    - "research/en/2026-05-18-weekly-synthesis.md"
+    - "research/ko/2026-05-18-weekly-synthesis.md"
+    - "evolution/history/2026-05-18-weekly-synthesis.yaml"
+    - "rfcs/0005-verification-capacity-budget.md"
+    - "rfcs/README.md"
+    - "tasks/todo.md"
+  rollback_command: "git revert <merge_commit_sha>"
+  rollback_smoke_test: |
+    After revert, confirm:
+      test ! -e rfcs/0005-verification-capacity-budget.md && \
+      test ! -e research/en/2026-05-18-weekly-synthesis.md && \
+      python3 -c "import yaml; yaml.safe_load(open('principle-metadata.yaml'))"
+  rollback_note: |
+    principle-metadata.yaml is NOT touched this cycle, so no metadata smoke
+    test is required. The revert only removes additive files plus two table
+    rows (rfcs/README.md, tasks/todo.md).
+
+# ────────────────────────────────────────────────────────────────────────────
+# Self-observability — Axiom A5
+# ────────────────────────────────────────────────────────────────────────────
+observability:
+  measured_at: "2026-05-18T00:00:00Z"
+  digest_source_health:
+    machine_fetched_signals: 0
+    curator_verified_signals: 9
+    fetch_failures: 1
+    degraded_sensors:
+      - "vendor:anthropic/news — https://www.anthropic.com/news/rss.xml returns 404"
+    untracked_surfaces:
+      - "xai — Grok Build; not yet in fetch_vendor_releases.py"
+  sensor_remediation_queued:
+    - "Repair/replace vendor:anthropic/news feed URL (curator would not guess a URL into the fetcher)"
+    - "Add xAI as a fourth vendor in fetch_vendor_releases.py"
+  next_calibration_targets:
+    - "Define a measurable verification-throughput metric so RFC-0005 can carry a calibrated number"
+    - "Migrate benchmark-history.yaml cross-week comparison off SWE-bench Verified onto SWE-bench Pro (official) + Terminal-Bench 2.0"
+    - "Re-check P4-VC1 when official SWE-bench Pro top-3 spread rises above 15pp"
