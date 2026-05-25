@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## [Unreleased]
+
+### Added
+- Weekly intel synthesis for 2026-05-25 drafted (en + ko); quiet cycle — no RFC drafted.
+
 ## [1.0.0] - 2026-02-18
 
 ### Added
