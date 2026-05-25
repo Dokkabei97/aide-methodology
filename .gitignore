@@ -21,6 +21,7 @@ evolution/intel/social-signals.yaml
 evolution/intel/benchmarks.yaml
 evolution/intel/weekly-digest.yaml
 evolution/intel/dispatch.json
+evolution/intel/rfc-decision.json
 
 # Flag files
 *.flag

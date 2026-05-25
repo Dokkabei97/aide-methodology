@@ -26,7 +26,7 @@ its hand when the outside world actually moved, which is aligned with:
 ```
 Monday 00:00 UTC
       │
-      ▼
+      ▼  job: collect (sensor pass — commits to running branch)
 ┌──────────────────────────────┐
 │ Phase A: Vendor releases     │  Anthropic / OpenAI / Google RSS + changelogs
 ├──────────────────────────────┤
@@ -38,8 +38,40 @@ Monday 00:00 UTC
 └──────────────────────────────┘
       │
       ├── if signal: → Evolution Engine (multi-agent deliberation)
-      └── else:       → quiet, just the weekly MD gets committed
+      │
+      ▼  job: synthesize (judgement pass — opens a PR for reviewer)
+┌──────────────────────────────┐
+│ Phase E: Research synthesis  │  Draft research/{en,ko}/{date}-weekly-synthesis.md
+├──────────────────────────────┤
+│ Phase F: RFC draft           │  If thresholds firmly crossed → rfcs/NNNN-…
+├──────────────────────────────┤
+│ Phase G: CHANGELOG entry     │  Append under [Unreleased]
+└──────────────────────────────┘
+      │
+      └── opens draft PR to running branch (so axiom-gate runs and
+          a different-vendor reviewer can co-sign per A2 / A4)
 ```
+
+### Why two jobs?
+
+`collect` produces **signal** — what the sensors saw. It is reversible,
+fully deterministic, and safe to push directly to the branch.
+
+`synthesize` produces **judgement** — candidate architectural claims and
+RFC stubs. Judgement requires adversarial separation: it goes through a
+PR so the axiom-gate runs and a different-vendor reviewer can sign or
+reject before any of it lands.
+
+### What `synthesize` will and will not touch
+
+| Path | Editable by Phase E–G? | Rationale |
+|---|:---:|---|
+| `research/{en,ko}/{date}-weekly-synthesis.md` | ✔ | Draft surface; awaits reviewer |
+| `rfcs/NNNN-weekly-intel-{date}.md` | ✔ (when thresholds fire) | Draft RFC; status remains `Draft` |
+| `CHANGELOG.md` (`[Unreleased]` only) | ✔ | Idempotent — same-day re-run does not duplicate |
+| `principle-metadata.yaml` | ✘ | Requires multi-vendor consensus (A4) |
+| `axioms.yaml` | ✘ | Immutable by construction |
+| `docs/{en,ko}/AIDE-METHODOLOGY.md` | ✘ | Body changes require co-signed RFC |
 
 ## Dispatch thresholds
 
@@ -65,6 +97,10 @@ Evolution Engine cycle. Adjust in `compile_weekly_digest.py`.
 | `evolution/intel/benchmarks.yaml`            |    ✘    | Raw leaderboard dump (volatile)  |
 | `evolution/intel/weekly-digest.yaml`         |    ✘    | Machine-readable digest          |
 | `evolution/intel/dispatch.json`              |    ✘    | Transient dispatch decision flag |
+| `evolution/intel/rfc-decision.json`          |    ✘    | Phase F decision: did we draft an RFC, and why |
+| `research/{en,ko}/{date}-weekly-synthesis.md`|    ✔    | Phase E synthesis draft (via PR)                |
+| `rfcs/NNNN-weekly-intel-{date}.md`           |    ✔    | Phase F RFC stub (via PR, when thresholds fire) |
+| `CHANGELOG.md` `[Unreleased]`                |    ✔    | Phase G entry (via PR)                          |
 
 ## Running manually
 
@@ -72,12 +108,17 @@ Evolution Engine cycle. Adjust in `compile_weekly_digest.py`.
 # GitHub Actions
 gh workflow run aide-weekly-intel.yml -f lookback_days=14
 
-# Locally
+# Locally — sensor pass only
 export PYTHONPATH=evolution/scripts/intel
 python evolution/scripts/intel/fetch_vendor_releases.py
 python evolution/scripts/intel/fetch_social_signals.py
 python evolution/scripts/intel/fetch_benchmarks.py
 python evolution/scripts/intel/compile_weekly_digest.py
+
+# Locally — judgement pass (Phase E–G)
+python evolution/scripts/intel/synthesize_research.py
+python evolution/scripts/intel/draft_rfc.py
+python evolution/scripts/intel/update_changelog.py
 ```
 
 ## Graceful degradation
