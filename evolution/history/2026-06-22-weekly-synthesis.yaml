@@ -1,0 +1,234 @@
+# AIDE Evolution History — 2026-06-22 Weekly Synthesis
+#
+# Records the week of 2026-06-16 → 2026-06-22. No principle-metadata
+# numeric changes this cycle: CI sense pass failed (0/32 sources reached,
+# HTTP 403 from runner egress) and curator pass relied on WebSearch
+# excerpts only. Per A3 (Empiricism) such evidence does not meet the
+# calibration bar; per A1 (Reversibility) every artifact below names its
+# revert.
+
+schema_version: "1.0"
+entry_kind: weekly_synthesis
+entry_date: "2026-06-22"
+lookback_window: "2026-06-16..2026-06-22"
+
+source_artifacts:
+  weekly_intel_digest: "evolution/intel/weekly-2026-06-22.md"
+  preceding_digest: "evolution/intel/weekly-2026-06-15.md"
+  governing_rfc: "rfcs/0003-distributed-agent-native-scheduling.md"
+  benchmark_history: "evolution/intel/benchmark-history.yaml"
+  prior_synthesis: "evolution/history/2026-05-04-weekly-synthesis.yaml"
+
+participating_agent:
+  role: author
+  vendor: anthropic
+  product: "Claude Code on web"
+  model: claude-opus-4-7
+  session_kind: scheduled_weekly_curator
+  authority_scope: |
+    Per RFC-0003 §4 (per-platform scheduling contract), this agent may open a
+    draft PR carrying a curator-amended weekly digest, a synthesis note, and
+    an audit entry. It MAY NOT (a) modify axioms.yaml, (b) modify numeric
+    values in principle-metadata.yaml, or (c) edit docs/en/AIDE-METHODOLOGY.md
+    / docs/ko/AIDE-METHODOLOGY.md bodies without a different-vendor reviewer
+    co-sign per Axioms A2 and A4. This cycle does NONE of (a)/(b)/(c).
+
+required_reviewer:
+  policy: "A2 + A4 — at least one reviewer from a different vendor before merge."
+  preferred_vendors: ["openai", "google"]
+  preferred_products:
+    - "Codex (OpenAI scheduled session)"
+    - "Antigravity CLI scheduled session (when scheduler ships, replacing Gemini CLI per Google 2026-06-18 transition)"
+  fallback: |
+    If no different-vendor scheduled agent has reviewed within 7 days, the PR
+    remains draft. RFC-0003 §3 explicitly forbids resolving the gap with a
+    human-in-the-loop bridge.
+
+source_health:
+  ci_sense_pass:
+    sources_attempted: 32
+    sources_reached: 0
+    failure_mode: "HTTP 403 from runner egress on all vendor RSS / blog / changelog endpoints"
+    suppressed_dispatch: true
+  curator_pass:
+    websearch_queries: 7
+    webfetch_attempts: 3
+    webfetch_successes: 0
+    failure_mode: "HTTP 403 on developers.openai.com, anthropic.com/engineering, tbench.ai"
+    evidence_grade: "secondary (WebSearch result excerpts) — NOT calibration-grade for principle-metadata changes"
+  remediation_queued:
+    - "Add User-Agent header to evolution/scripts/intel/fetch_vendor_releases.py"
+    - "Add sitemap fallback when RSS returns 403"
+    - "File as follow-on PR; track success on 2026-06-29 sense pass"
+
+# ────────────────────────────────────────────────────────────────────────────
+# Signal scoring — every signal in weekly-2026-06-22.md scored against
+# AIDE's 10 principles + 5 axioms. Survival rule: a signal becomes a
+# principle-metadata change only if it has a defensible quantitative metric
+# AND the metric came from a calibration-grade source.
+# ────────────────────────────────────────────────────────────────────────────
+signals_considered:
+  - id: S1
+    title: "Claude Fable 5 GA + dynamic multi-agent workflows (16 concurrent / 1000 per run)"
+    raw_evidence:
+      - "platform.claude.com/docs/en/about-claude/models/introducing-claude-fable-5-and-claude-mythos-5"
+      - "code.claude.com/docs/en/agent-teams"
+      - "platform.claude.com/docs/en/managed-agents/multi-agent"
+    principle_axiom_hit: ["P2", "P6", "P10"]
+    decision: corroborates_existing
+    rationale: |
+      Third frontier vendor in two months to ship orchestrator + parallel-specialist
+      as the default topology. Reinforces P2 in a direction P2 was not originally
+      sized for (parallel narrow loops). Recorded as graduation candidate for an
+      "Orchestration Topology" surface in next monthly cycle; no metadata change
+      this week. The 16/1000 caps are vendor-specific implementation details, not
+      AIDE-portable numbers.
+
+  - id: S2
+    title: "Google ADK long-running agents — pause/resume via DatabaseSessionService + webhook"
+    raw_evidence:
+      - "developers.googleblog.com/build-long-running-ai-agents-that-pause-resume-and-never-lose-context-with-adk/"
+      - "google.github.io/adk-docs/runtime/resume/"
+    principle_axiom_hit: ["P8", "A1"]
+    decision: doc_body_candidate
+    rationale: |
+      Second vendor (after Anthropic managed-agent sandbox) describing the same
+      pattern: durable session state at every observable pause; resume hydrates
+      committed state, not prompt tail. Two-vendor convergence is the bar for a
+      structural pattern in docs/en/02-ARCHITECTURE-PATTERNS.md. Proposed wording
+      is in research/en/2026-06-22-weekly-synthesis.md Claim 2. Doc-body edit
+      deferred until different-vendor reviewer co-signs (RFC-0003 §4.3).
+
+  - id: S3
+    title: "Gemini CLI sunset 2026-06-18 → Antigravity CLI (closed-source Go; CI/CD breakage observed)"
+    raw_evidence:
+      - "developers.googleblog.com/an-important-update-transitioning-gemini-cli-to-antigravity-cli/"
+      - "techtimes.com/articles/318660/20260618/gemini-cli-shutdown-takes-effect-ci-cd-pipelines-break-go-based-antigravity-cli-arrives.htm"
+    principle_axiom_hit: ["RFC-0004", "A2"]
+    decision: doc_body_candidate
+    rationale: |
+      First post-RFC-0004 incident where a vendor-owned load-bearing CLI was
+      deprecated on the vendor's schedule and broke downstream CI/CD. Confirms
+      RFC-0004's portability thesis at the infrastructure layer, not just at the
+      model-output layer. Proposed addition to docs/en/06-ADOPTION-GUIDE.md
+      (vendor-portability checklist) deferred until different-vendor reviewer
+      co-signs (RFC-0003 §4.3). No principle-metadata.yaml change — RFC-0004 is
+      still in Draft status and has its own merge path.
+
+  - id: S4
+    title: "OpenAI Codex Record & Replay (macOS, 2026-06-18) — natural-language skill generation"
+    raw_evidence:
+      - "developers.openai.com/codex/changelog"
+      - "techtimes.com/articles/318759/20260620/openai-codex-automation-gains-record-replay-show-it-once-skip-script.htm"
+    principle_axiom_hit: ["P10", "P4"]
+    decision: corroborates_existing
+    rationale: |
+      Strongest weekly exhibit for "skills beat prompts" — demonstrate once,
+      reasoning model generalizes to a natural-language skill description rather
+      than a click-replay log. Single vendor + macOS-only this week. AIDE has no
+      symmetric capability to record yet (Claude Code on web has Skills but
+      record-from-demonstration is not the same surface). Defer to next cycle;
+      revisit when a second vendor ships symmetric capability.
+
+  - id: S5
+    title: "Anthropic engineering — Demystifying evals for AI agents"
+    raw_evidence:
+      - "anthropic.com/engineering/demystifying-evals-for-ai-agents"
+    principle_axiom_hit: ["P5", "P8"]
+    decision: corroborates_existing
+    rationale: |
+      Reinforces P5 v2 adaptation (Eval Flywheel) and the v2.0 Sense → Deliberate
+      → Validate pipeline. Specific recommendation — embed evaluation probes in
+      the live workflow rather than offline-only — is already implied by P8
+      (Observability as Structure). No metadata change; logged as supporting
+      evidence.
+
+  - id: S6
+    title: "OpenCode #1 HN (167k stars, MIT, 75+ providers) + OpenHands (70k stars, US$ 18.8M)"
+    raw_evidence:
+      - "github.com/sst/opencode"
+      - "github.com/All-Hands-AI/OpenHands"
+    principle_axiom_hit: ["P5", "P8", "P10"]
+    decision: corroborates_existing
+    rationale: |
+      Community converging on the same vector AIDE encodes: workflows over
+      demos, verification as bottleneck, skills > prompts, orchestration >
+      raw autonomy. Exhibit-grade for the methodology's external validity,
+      not metadata-moving.
+
+# ────────────────────────────────────────────────────────────────────────────
+# Trigger-watch — quantitative thresholds that were APPROACHED but did not
+# fire this cycle. Next week's curator must re-check these.
+# ────────────────────────────────────────────────────────────────────────────
+trigger_watch:
+  - principle: P2
+    trigger_id: P2-T1
+    condition: "multi_file_resolution_rate > 0.90"
+    current_value: 0.955
+    source_grade: "vendor_reported (Claude Mythos 5 SWE-bench Verified)"
+    blocker: |
+      P2-T1 fires only on calibration-grade evidence. SWE-bench Verified is
+      single-issue, not multi-file specifically, and the 95.5% number is
+      vendor-reported (Mythos 5 is limited-availability so independent
+      verification is gated). When official swebench.com confirms or
+      SWE-bench Verified-v2 with explicit multi-file partition publishes,
+      re-evaluate the trigger denominator.
+    re_check_at: "2026-06-29"
+
+  - principle: P4
+    trigger_id: P4-T2
+    condition: "swe_bench_pro_top3_spread > 0.15"
+    current_value: 0.0
+    source_grade: "official Scale public leaderboard (does not yet include Fable 5 / Mythos 5)"
+    blocker: |
+      Fable 5's vendor-reported 80.0% on SWE-bench Pro is the highest vendor
+      claim, but P4-VC1 monitors the top-3 spread on Scale's contamination-
+      resistant set, not the intra-Anthropic spread. Re-check when Fable 5
+      and a peer GPT-5.5/Gemini-3.x are scored on the public leaderboard.
+    re_check_at: "2026-06-29"
+
+# ────────────────────────────────────────────────────────────────────────────
+# Doc-body candidates queued for different-vendor reviewer co-sign
+# (RFC-0003 §4.3 forbids single-vendor body edits)
+# ────────────────────────────────────────────────────────────────────────────
+doc_body_candidates:
+  - target_file: "docs/en/02-ARCHITECTURE-PATTERNS.md"
+    target_section: "(new) Resumability of long-running agents"
+    proposed_wording_source: "research/en/2026-06-22-weekly-synthesis.md Claim 2"
+    supporting_vendors: ["google", "anthropic"]
+    blocking_axiom: "A2 (different-vendor reviewer required)"
+    blocking_axiom_status: "awaiting Codex or Antigravity scheduled session review"
+
+  - target_file: "docs/en/06-ADOPTION-GUIDE.md"
+    target_section: "(new) Agent-vendor portability checklist"
+    proposed_wording_source: "research/en/2026-06-22-weekly-synthesis.md Claim 3"
+    supporting_vendors: ["google"]
+    blocking_axiom: "A2 (different-vendor reviewer required)"
+    blocking_axiom_status: "awaiting Codex or Antigravity scheduled session review"
+
+  - target_file: "docs/ko/AIDE-METHODOLOGY.md"
+    target_section: "(mirror of the two above, once they land)"
+    proposed_wording_source: "research/ko/2026-06-22-weekly-synthesis.md"
+    supporting_vendors: ["bilingual_sync"]
+    blocking_axiom: "CLAUDE.md bilingual sync rule — mirrors only AFTER en/ lands"
+    blocking_axiom_status: "blocked on the two above"
+
+# ────────────────────────────────────────────────────────────────────────────
+# Files this cycle modifies
+# ────────────────────────────────────────────────────────────────────────────
+changes_applied:
+  - path: "evolution/intel/weekly-2026-06-22.md"
+    nature: "rewrite (replace CI-suppressed placeholder with curator-amended digest)"
+    reverse_path: "git revert <commit_sha>; restores 0/32-failure placeholder"
+  - path: "research/en/2026-06-22-weekly-synthesis.md"
+    nature: "new file (synthesis note per RFC-0003 §4)"
+    reverse_path: "git revert <commit_sha>; removes the synthesis"
+  - path: "research/ko/2026-06-22-weekly-synthesis.md"
+    nature: "new file (Korean mirror per CLAUDE.md bilingual sync rule)"
+    reverse_path: "git revert <commit_sha>; removes the mirror"
+  - path: "evolution/history/2026-06-22-weekly-synthesis.yaml"
+    nature: "new audit entry (this file)"
+    reverse_path: "git revert <commit_sha>; removes the audit entry"
+
+decided_by: "single_agent_draft"  # awaits different-vendor reviewer per A2/A4
+weekly_intel_source: "evolution/intel/weekly-2026-06-22.md"
