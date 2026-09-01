@@ -1,0 +1,54 @@
+schema_version: "1.0"
+scan_timestamp: "2026-04-22T00:00:00Z"
+scan_mode: "dry_run_single_session_claude"
+reference_calibration: "2026-02-20T00:00:00Z"  # principle-metadata last_global_calibration
+
+providers:
+  anthropic:
+    new_release_detected: true
+    releases_since_last_calibration:
+      - name: "Claude Opus 4.7"
+        notes: |
+          Headline release with new tokenizer (up to ~35% more tokens for the
+          same input). Same $5/$25-per-M pricing as Opus 4.6. 1M context.
+          87.6% on SWE-bench Verified.
+      - name: "Claude Mythos Preview"
+        notes: |
+          Research preview sitting at 93.9% on SWE-bench Verified
+          (current public SOTA as of 2026-04-20).
+    released_before_calibration_but_relevant: []
+
+  openai:
+    new_release_detected: true
+    releases_since_last_calibration:
+      - name: "GPT-5.4"
+        released_on: "2026-03-early"
+        notes: |
+          Unifies Codex + GPT lines. 272K default context, 1.05M experimental.
+          $2.50/$15 per M tokens. Configurable reasoning effort + tool-search.
+      - name: "GPT-5.3 Codex"
+        notes: |
+          Predecessor codex-tuned model still widely used. 400K context.
+          $1.75/$14 per M tokens. 85% on SWE-bench Verified.
+
+  google:
+    new_release_detected: true
+    releases_since_last_calibration:
+      - name: "Gemini 3.1 Pro Preview"
+        released_on: "2026-02-19"
+        notes: |
+          Released the day before AIDE's last global calibration; treated as
+          post-calibration since measurements were captured with Gemini 3.0.
+          1M context, $2/$12 per M under 200K and $4/$18 above.
+          MRCR/RULER retrieval drops to ~26% at 1M tokens — wide advertised
+          window, narrower effective window.
+
+summary:
+  new_major_releases_count: 4
+  all_three_vendors_released: true
+  effective_context_window_trend: "1M tokens mainstream, effective retention still ~60-70%"
+  pricing_trend: "Stable to slightly down; frontier input median around $2-3/M"
+  headline_signal_for_evolution_engine: |
+    Multiple frontier releases since last calibration, but none of
+    principle-metadata.yaml's invalidation triggers fire against real
+    benchmarks — see trigger-report.yaml.

@@ -1,0 +1,33 @@
+schema_version: "1.0"
+report_type: "sense"
+generated_at: "2026-04-22T00:00:00Z"
+cycle_id: "2026-04-22-dryrun"
+mode: "dry_run_single_session_claude"
+compliance_note: |
+  This sense report is produced by a single Claude session replacing the
+  benchmark-collection + trigger-check scripts that normally run without
+  API keys. It is compatible with the rest of the pipeline but the
+  downstream deliberation phase violates Axioms A2 and A4 in this run
+  (see evolution/deliberation/final-proposal.yaml).
+
+benchmarks:
+  ref: "evolution/benchmarks/latest.yaml"
+
+model_landscape:
+  ref: "evolution/benchmarks/models.yaml"
+
+trigger_analysis:
+  ref: "evolution/benchmarks/trigger-report.yaml"
+  triggers_activated: 0
+
+summary:
+  triggers_activated: 0
+  new_model_releases: 4
+  soft_signals_count: 3
+  recommendation: "no_action_needed_via_triggers_but_proceed_with_measured_at_refresh_for_transparency"
+  rationale: |
+    Zero invalidation triggers fire. Four major frontier releases since
+    last calibration (Claude Opus 4.7, Claude Mythos Preview, GPT-5.4,
+    Gemini 3.1 Pro) justify a measured_at refresh on adaptive principles,
+    but no numeric values need to change beyond-bounds. A proper run
+    would proceed to a low-risk, conservative deliberation cycle.

@@ -1,0 +1,116 @@
+schema_version: "1.0"
+check_timestamp: "2026-04-22T00:00:00Z"
+check_mode: "dry_run_single_session_claude"
+check_note: |
+  Manual evaluation of principle-metadata.yaml invalidation_triggers
+  against evolution/benchmarks/latest.yaml. This replaces the
+  hard-coded `activated: False` in check_triggers.py.
+
+total_triggers_checked: 7
+triggers_activated: 0
+
+activated_triggers: []
+
+all_checks:
+  - principle: context-budget
+    trigger_id: P1-T1
+    type: benchmark
+    condition: "effective_context_at_95_accuracy > 5000000"
+    observed_value: 1000000
+    activated: false
+    rationale: |
+      Frontier models now ship 1M windows but only retain ~60-70% of
+      advertised capacity under multi-hop loads. Not close to 5M.
+
+  - principle: context-budget
+    trigger_id: P1-T2
+    type: market
+    condition: "average_token_cost_per_million_input < 0.10"
+    observed_value: 2.85
+    activated: false
+    rationale: |
+      Frontier input pricing sits at $1.75-$5/M. Not close to $0.10/M.
+
+  - principle: context-budget
+    trigger_id: P1-T3
+    type: benchmark
+    condition: "litm_severity_index < 0.1"
+    observed_value: 0.35
+    activated: false
+    rationale: |
+      Gemini 3.1 Pro drops to 26% retrieval at 1M, Llama 4 Scout degrades
+      past 1.4M of a claimed 10M. Lost-in-the-middle still significant.
+
+  - principle: locality-of-behavior
+    trigger_id: P2-T1
+    type: benchmark
+    condition: "multi_file_resolution_rate > 0.90"
+    observed_value: 0.233
+    activated: false
+    rationale: |
+      SWE-bench Pro (harder multi-file signal) caps at ~23% public and
+      ~15-18% private for frontier models. Far below 0.90.
+
+  - principle: locality-of-behavior
+    trigger_id: P2-T2
+    type: benchmark
+    condition: "multi_hop_reasoning_accuracy > 0.80"
+    observed_value: 0.25
+    activated: false
+    rationale: |
+      Using SWE-bench Pro public rate as proxy. ~0.23-0.25, well below 0.80.
+
+  - principle: knowledge-dry
+    trigger_id: P4-T1
+    type: metric
+    condition: "context_budget_utilization < 0.3"
+    observed_value: null
+    activated: false
+    rationale: |
+      Not measurable from external benchmarks; requires project-level
+      telemetry AIDE does not currently collect.
+
+  - principle: progressive-disclosure
+    trigger_id: P6-T1
+    type: benchmark
+    condition: "attention_diffusion_in_long_context < 0.1"
+    observed_value: 0.35
+    activated: false
+    rationale: |
+      Attention diffusion remains clearly above 0.1 on RULER/MRCR at 1M.
+
+soft_signals:
+  - id: "SS-1"
+    principle: context-budget
+    field: effective_context_tokens
+    current_variable_value: 800000
+    suggested_variable_value: 1000000
+    would_formula_change: true
+    note: |
+      Variable can be refreshed from 0.8M to ~1.0M to reflect 2026
+      frontier RULER/MRCR capacity. This alone does not trip any
+      invalidation trigger but is a routine measured_at refresh.
+  - id: "SS-2"
+    principle: locality-of-behavior
+    field: multi_hop_reasoning_accuracy
+    current_variable_value: 0.15
+    suggested_variable_value: 0.23
+    would_formula_change: true
+    note: |
+      SWE-bench Pro public rate suggests multi-hop accuracy has edged
+      up since the 0.15 baseline; still far from triggering P2-T1/T2.
+  - id: "SS-3"
+    principle: context-budget
+    field: self_observability_gap
+    note: |
+      Currently max_file_lines.value = 500 but
+      round(800000 / 18 * 0.03) = 1333.
+      Stored value diverges from formula — an Axiom A5 gap worth
+      logging even though no trigger fires.
+
+recommendation: |
+  No invalidation_triggers activated. Soft signals suggest a routine
+  measured_at refresh on P1/P2 variables and flagging the formula-vs-value
+  gap in P1.max_file_lines. In a full Evolution Engine cycle with A2/A4
+  compliance, this would proceed to deliberation on a low-risk
+  measured_at refresh only.
