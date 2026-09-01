@@ -1,0 +1,217 @@
+# AIDE Evolution History — 2026-06-08 Weekly Synthesis
+#
+# Second entry in evolution/history/. Records the back-catalog window
+# 2026-05-05 → 2026-06-08 (4 unattended weekly digests + 2026-06-08).
+# Per Axiom A1 (Reversibility), every change below names the exact
+# git revert that undoes it; per A3 (Empiricism), every change carries
+# quantitative evidence (cross-week persistence count); per A4 (No
+# Single Authority), every change is marked single_agent_draft until a
+# different-vendor reviewer countersigns.
+
+schema_version: "1.0"
+entry_kind: weekly_synthesis
+entry_date: "2026-06-08"
+lookback_window: "2026-05-05..2026-06-08"
+back_catalog_note: |
+  No curator session opened between 2026-05-04 (the previous synthesis) and
+  this entry. The four intervening weekly digests (2026-05-11, 2026-05-18,
+  2026-05-25, 2026-06-01) each fired Evolution Engine dispatch but had no
+  consumer. This entry treats them as one continuous signal stream.
+
+source_artifacts:
+  weekly_intel_digests:
+    - "evolution/intel/weekly-2026-05-11.md"
+    - "evolution/intel/weekly-2026-05-18.md"
+    - "evolution/intel/weekly-2026-05-25.md"
+    - "evolution/intel/weekly-2026-06-01.md"
+    - "evolution/intel/weekly-2026-06-08.md"  # canonical run by production GitHub Actions
+  preceding_synthesis: "research/en/2026-05-04-weekly-synthesis.md"
+  governing_rfc: "rfcs/0003-distributed-agent-native-scheduling.md"
+  benchmark_history: "evolution/intel/benchmark-history.yaml"
+
+participating_agent:
+  role: author
+  vendor: anthropic
+  product: "Claude Code on web"
+  model: claude-opus-4-7
+  session_kind: scheduled_weekly_curator
+  authority_scope: |
+    Per RFC-0003 §4 (per-platform scheduling contract), this agent may open a
+    draft PR carrying a research synthesis, an RFC draft, and an audit entry.
+    It MAY NOT mark the PR ready-for-review, and MAY NOT modify axioms.yaml
+    or principle-metadata.yaml numeric current_values without a different-
+    vendor reviewer's countersignature per Axioms A2 and A4.
+
+required_reviewer:
+  policy: "A2 + A4 — at least one reviewer from a different vendor before merge."
+  preferred_vendors: ["openai", "google"]
+  preferred_products:
+    - "Codex (OpenAI scheduled session)"
+    - "Gemini CLI subagent (when scheduler ships, per RFC-0003 §3)"
+  fallback: |
+    If no different-vendor scheduled agent has reviewed within 7 days, the PR
+    remains draft. RFC-0003 §3 forbids resolving the gap with a human bridge.
+
+# ────────────────────────────────────────────────────────────────────────────
+# Signal scoring — every persistent signal across the 4 unattended digests +
+# 2026-06-08 scored against AIDE's 10 principles + 5 axioms. Survival rule:
+# a signal becomes a structural-surface change only if it persists in 3+
+# weekly digests OR is corroborated by 2+ vendors.
+# ────────────────────────────────────────────────────────────────────────────
+signals_considered:
+  - id: S1
+    title: "Durable agent context — pause/resume + long-running webhooks"
+    raw_evidence:
+      - url: "https://developers.googleblog.com/build-long-running-ai-agents-that-pause-resume-and-never-lose-context-with-adk/"
+        appearances: ["weekly-2026-05-18.md", "weekly-2026-05-25.md", "weekly-2026-06-01.md"]
+      - url: "https://blog.google/innovation-and-ai/technology/developers-tools/event-driven-webhooks/"
+        appearances: ["weekly-2026-05-11.md"]
+      - description: "OpenAI enterprise Codex case studies describing multi-session workflows"
+        appearances: ["weekly-2026-05-11.md", "weekly-2026-05-18.md", "weekly-2026-05-25.md", "weekly-2026-06-01.md"]
+        count: 14
+    principle_axiom_hit: ["P3", "P10", "A1"]
+    persistence: 4_weeks
+    vendor_corroboration: 2  # Google explicit + OpenAI implicit through deployment surface
+    decision: triggers_structural_surface_change
+    structural_change:
+      file: "principle-metadata.yaml"
+      principle_options: ["P10 (preferred, lighter-touch)", "P3 v2_adaptations (alternative)"]
+      changes_proposed:
+        - "P10 new validity_condition VC1 (vendors_with_first_class_pause_resume <= 1; status=false)"
+        - "P10 new invalidation_trigger T1 (>= 2 vendors → widen meta-code surface to runtime_state schema; severity=major)"
+        - "OR: P3 new v2_adaptations block (structural_shell + durability_invariant)"
+      vehicle: "rfcs/0005-durable-agent-context-as-first-class-surface.md (Draft; awaits different-vendor review)"
+    quantitative_evidence:
+      cross_week_persistence_count: 4
+      distinct_vendor_count: 2
+      enterprise_case_study_count: 14
+
+  - id: S2
+    title: "Middleware / interception as P8 + P9 structural locus"
+    raw_evidence:
+      - url: "https://developers.googleblog.com/announcing-genkit-middleware-intercept-extend-and-harden-your-agentic-apps/"
+        appearances: ["weekly-2026-05-18.md", "weekly-2026-05-25.md", "weekly-2026-06-01.md"]
+      - description: "OpenAI 'Building a safe, effective sandbox to enable Codex on Windows'"
+        appearances: ["weekly-2026-05-18.md"]
+    principle_axiom_hit: ["P8", "P9"]
+    persistence: 3_weeks
+    vendor_corroboration: 2
+    decision: defers_to_next_charter
+    rationale: |
+      P8 and P9 are permanent principles. Structural refinement of their
+      v2_adaptations is justified by the signal but is too large a surface
+      change for a single curator pass. Logged as the leading deliberation
+      surface for the next monthly Evolution Engine charter.
+    next_step: "Open Question 2 in research/en/2026-06-08-weekly-synthesis.md"
+
+  - id: S3
+    title: "CLI-as-meta-interface convergence — Antigravity, Agents CLI, Codex CLI, Subagents"
+    raw_evidence:
+      - url: "https://developers.googleblog.com/agents-cli-in-agent-platform-create-to-production-in-one-cli/"
+        appearances: ["weekly-2026-05-11.md", "weekly-2026-05-18.md", "weekly-2026-05-25.md", "weekly-2026-06-01.md"]
+      - url: "https://developers.googleblog.com/an-important-update-transitioning-gemini-cli-to-antigravity-cli/"
+        appearances: ["weekly-2026-05-25.md", "weekly-2026-06-01.md"]
+      - url: "https://developers.googleblog.com/subagents-have-arrived-in-gemini-cli/"
+        appearances: ["weekly-2026-05-11.md", "weekly-2026-05-18.md"]
+      - url: "https://openai.com/index/work-with-codex-from-anywhere"
+        appearances: ["weekly-2026-05-18.md"]
+    principle_axiom_hit: ["P10"]
+    persistence: 4_weeks
+    vendor_corroboration: 2
+    decision: corroborates_existing
+    rationale: |
+      Reinforces P10 (Meta-Code as First-Class). The CLI binary is now a
+      product surface, not a wrapper. No numeric calibration on P10
+      (max_meta_file_lines = 300) moves; the signal is structural and feeds
+      Open Question 3 for the reviewer.
+    next_step: "Open Question 3 in research/en/2026-06-08-weekly-synthesis.md"
+
+  - id: S4
+    title: "GPT-5.5 + Gemini 3.5 + Gemini Omni frontier wave"
+    raw_evidence:
+      - url: "https://openai.com/index/gpt-5-5-instant"
+        appearances: ["weekly-2026-05-11.md"]
+      - url: "https://blog.google/innovation-and-ai/sundar-pichai-io-2026/"
+        appearances: ["weekly-2026-05-25.md"]
+      - url: "https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-omni-3-5-videos/"
+        appearances: ["weekly-2026-06-01.md"]
+    principle_axiom_hit: ["P1", "P4"]
+    persistence: 4_weeks
+    vendor_corroboration: 2
+    decision: deferred_pending_benchmark
+    rationale: |
+      Frontier capability moves; this would normally re-open P4-VC1 (SWE-bench
+      Pro top-3 spread) and re-check P1-VC4 (premium request multiplier). The
+      2026-06-08 curator-sandbox network policy blocked all benchmark sources
+      (0/32 reached). The production aide-weekly-intel.yml run on GitHub
+      Actions is the canonical source for this cycle; if its benchmark phase
+      succeeded, the next cycle can re-evaluate. No metadata change ships this
+      cycle on the absence-of-data principle.
+    next_step: "Re-evaluate P1-VC4 and P4-VC1 on 2026-06-15 curator pass"
+
+  - id: S5
+    title: "OpenAI Gartner Leader + Codex enterprise saturation"
+    raw_evidence:
+      - url: "https://openai.com/index/gartner-2026-agentic-coding-leader"
+        appearances: ["weekly-2026-05-25.md"]
+      - description: "14 enterprise case studies across 4 weeks"
+        appearances: ["weekly-2026-05-11.md", "weekly-2026-05-18.md", "weekly-2026-05-25.md", "weekly-2026-06-01.md"]
+    principle_axiom_hit: ["autonomy_levels"]
+    persistence: 4_weeks
+    vendor_corroboration: 1  # OpenAI dominates this category in the window
+    decision: corroborates_existing
+    rationale: |
+      Exhibit-grade evidence that the L3 / L4 autonomy levels in
+      principle-metadata.yaml::autonomy_levels are now market-normalized.
+      Does not move a numeric dial. Reinforces S1's claim that L4/L5 will
+      eventually require durable runtime-state schema (see RFC-0005 §3).
+
+# ────────────────────────────────────────────────────────────────────────────
+# Reversal path — Axiom A1
+# ────────────────────────────────────────────────────────────────────────────
+reversal:
+  scope: "All changes in this cycle revert atomically via git revert."
+  files_touched:
+    - "research/en/2026-06-08-weekly-synthesis.md"
+    - "research/ko/2026-06-08-weekly-synthesis.md"
+    - "rfcs/0005-durable-agent-context-as-first-class-surface.md"
+    - "rfcs/README.md"
+    - "evolution/history/2026-06-08-weekly-synthesis.yaml"
+  files_NOT_touched:
+    - "axioms.yaml"
+    - "principle-metadata.yaml"
+    - "docs/en/AIDE-METHODOLOGY.md"
+    - "docs/ko/AIDE-METHODOLOGY.md"
+  rollback_command: "git revert <merge_commit_sha>"
+  rollback_smoke_test: |
+    After revert, confirm:
+      test ! -f research/en/2026-06-08-weekly-synthesis.md
+      test ! -f research/ko/2026-06-08-weekly-synthesis.md
+      test ! -f rfcs/0005-durable-agent-context-as-first-class-surface.md
+      test ! -f evolution/history/2026-06-08-weekly-synthesis.yaml
+      grep -q '0004' rfcs/README.md
+      ! grep -q '0005' rfcs/README.md
+
+# ────────────────────────────────────────────────────────────────────────────
+# Self-observability — Axiom A5
+# ────────────────────────────────────────────────────────────────────────────
+observability:
+  measured_at: "2026-06-08T00:00:00Z"
+  digest_source_health:
+    weekly-2026-05-11: { reached: 28, failed: 4 }
+    weekly-2026-05-18: { reached: 28, failed: 4 }
+    weekly-2026-05-25: { reached: 28, failed: 4 }
+    weekly-2026-06-01: { reached: 28, failed: 4 }
+    weekly-2026-06-08_curator_sandbox: { reached: 0, failed: 32, note: "Sandbox network policy blocked all outbound; production runner is canonical." }
+  chronic_endpoint_failures:
+    - "vendor:anthropic/news (404, persistent 5+ weeks)"
+    - "vendor:anthropic/release_notes (XML parse error, persistent 5+ weeks)"
+    - "vendor:anthropic/eng (404, persistent 5+ weeks)"
+    - "vendor:openai/api_changelog (404, persistent 5+ weeks)"
+  sensor_remediation_queued:
+    - "Separate maintenance PR to re-discover canonical RSS / changelog URLs for the 4 chronic endpoints"
+  next_calibration_targets:
+    - "Re-check P1-VC4 and P4-VC1 on 2026-06-15 once GPT-5.5 / Gemini 3.5 SWE-bench Pro deltas are reachable"
+    - "Codex / Gemini scheduled reviewer to land verdict on RFC-0005 within 7 days"
+    - "If reviewer accepts Proposal A: open follow-up PR applying P10-VC1 + P10-T1 to principle-metadata.yaml"
+    - "If reviewer accepts Proposal B: open follow-up PR applying P3 v2_adaptations block to principle-metadata.yaml"
