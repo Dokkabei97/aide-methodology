@@ -14,6 +14,21 @@ An RFC is a design document that describes a proposed change to the AIDE methodo
 4. **Discussion** — The community has a minimum 2-week window to provide feedback.
 5. **Decision** — Maintainers will accept, reject, or request revisions.
 
+### Auto-drafts from the Weekly Intel pipeline
+
+The Weekly Intel pipeline (`.github/workflows/aide-weekly-intel.yml`) may
+auto-generate a draft RFC under the filename
+`NNNN-weekly-intel-<slug>-YYYY-MM-DD.md` when the external sensor crosses a
+high-signal threshold (new model/runtime + ≥2 vendor releases, ≥1 benchmark
+SOTA shift ≥ 2.0pp, or ≥3 viral HN stories on tracked queries).
+
+Auto-drafts are explicitly marked **single-vendor draft, awaits
+different-vendor co-sign**. They do not propose body changes; they request
+that a different-vendor reviewing agent perform the deliberation and either
+promote the draft to a concrete change or close it with a written rejection
+reason. This keeps Axioms A2 (Adversarial Separation) and A4 (No Single
+Authority) honest even when the originating signal is automated.
+
 ## RFC Lifecycle
 
 ```

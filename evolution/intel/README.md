@@ -35,11 +35,35 @@ Monday 00:00 UTC
 │ Phase C: Benchmark snapshot  │  SWE-bench, Terminal-bench, WebArena, SWE-rebench
 ├──────────────────────────────┤
 │ Phase D: Digest + dispatch   │  Merge → commit MD digest → repository_dispatch if signal
+├──────────────────────────────┤
+│ Phase E: Synthesis writer    │  AIDE-relevance filter → research/intel/YYYY-MM-DD-weekly-synthesis.md
+├──────────────────────────────┤
+│ Phase F: Conditional RFC     │  High-signal threshold → rfcs/NNNN-weekly-intel-*.md (draft)
+├──────────────────────────────┤
+│ Phase G: Docs catalog        │  Append entry to docs/{en,ko}/recent-intel.md
 └──────────────────────────────┘
       │
       ├── if signal: → Evolution Engine (multi-agent deliberation)
-      └── else:       → quiet, just the weekly MD gets committed
+      └── else:       → quiet, weekly MD + (maybe) synthesis + (rarely) RFC committed
 ```
+
+### Why Phases E/F/G are isolated
+
+Phase E onward writes outside `evolution/intel/`, so each new file path is
+constrained to a safe surface:
+
+| Phase | Writes to                                          | Touches methodology body? |
+|-------|----------------------------------------------------|---------------------------|
+| E     | `research/intel/YYYY-MM-DD-weekly-synthesis.md`    | No (research catalog)     |
+| F     | `rfcs/NNNN-weekly-intel-*.md` (draft only)         | No (RFC is a *proposal*)  |
+| G     | `docs/en/recent-intel.md`, `docs/ko/recent-intel.md` | No (catalog page, not body) |
+
+The protected body files — `docs/en/AIDE-METHODOLOGY.md`,
+`principle-metadata.yaml`, `axioms.yaml` — are **never** modified by the
+weekly pipeline. That power belongs only to the monthly Evolution Engine,
+which the same digest dispatches in parallel when signal thresholds fire.
+This preserves A2 (Adversarial Separation) and A4 (No Single Authority) for
+the body while still letting the weekly loop produce concrete artifacts.
 
 ## Dispatch thresholds
 
@@ -60,11 +84,16 @@ Evolution Engine cycle. Adjust in `compile_weekly_digest.py`.
 |----------------------------------------------|:--------:|--------------------------------|
 | `evolution/intel/weekly-YYYY-MM-DD.md`       |    ✔    | Permanent human-readable digest |
 | `evolution/intel/benchmark-history.yaml`     |    ✔    | Cross-week SOTA comparison state |
+| `research/intel/YYYY-MM-DD-weekly-synthesis.md` | ✔  | Phase E AIDE-filtered synthesis |
+| `rfcs/NNNN-weekly-intel-*.md`                |    ✔    | Phase F auto-draft (rare)        |
+| `docs/{en,ko}/recent-intel.md`               |    ✔    | Phase G catalog (append-only)    |
 | `evolution/intel/vendor-releases.yaml`       |    ✘    | Raw vendor feed dump (volatile)  |
 | `evolution/intel/social-signals.yaml`        |    ✘    | Raw HN/blog/X dump (volatile)    |
 | `evolution/intel/benchmarks.yaml`            |    ✘    | Raw leaderboard dump (volatile)  |
 | `evolution/intel/weekly-digest.yaml`         |    ✘    | Machine-readable digest          |
 | `evolution/intel/dispatch.json`              |    ✘    | Transient dispatch decision flag |
+| `evolution/intel/synthesis-summary.json`     |    ✘    | Phase E summary handoff to F/G   |
+| `evolution/intel/rfc-draft-report.json`      |    ✘    | Phase F decision handoff to G    |
 
 ## Running manually
 
@@ -78,6 +107,9 @@ python evolution/scripts/intel/fetch_vendor_releases.py
 python evolution/scripts/intel/fetch_social_signals.py
 python evolution/scripts/intel/fetch_benchmarks.py
 python evolution/scripts/intel/compile_weekly_digest.py
+python evolution/scripts/intel/synthesize_research_note.py
+python evolution/scripts/intel/draft_rfc_if_threshold.py
+python evolution/scripts/intel/update_docs_recent_intel.py
 ```
 
 ## Graceful degradation
