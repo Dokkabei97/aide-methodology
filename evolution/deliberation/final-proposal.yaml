@@ -1,0 +1,79 @@
+schema_version: "1.0"
+agent: "synthesis"
+tool: "claude-code-session (dry-run simulation, not gemini-cli)"
+vendor: "anthropic"
+model_hint: "Same Opus 4.7 session impersonating a synthesis agent"
+generated_at: "2026-04-22T00:00:00Z"
+cycle_id: "2026-04-22-dryrun"
+
+compliance_note: |
+  This run VIOLATES Axioms A2 (adversarial separation) and A4 (no single
+  authority): research, adversary, and synthesis are all the same
+  Anthropic session. Therefore proceed_to_validation is FALSE regardless
+  of the technical merits of the proposals below. This file is a shape
+  demonstration, not an authoritative synthesis.
+
+inputs:
+  research_proposal: "evolution/deliberation/research-proposal.yaml"
+  adversary_critique: "evolution/deliberation/adversary-critique.yaml"
+
+decisions:
+  - proposal_index: 0
+    proposal_id: "PROP-1"
+    verdict: "defer"
+    final_value: null
+    rationale: |
+      Adversary correctly flagged a naming/threshold mismatch. The
+      variable claims a 95%-accuracy capacity but the cited evidence
+      (MRCR@1M = 0.76) is not at 95%. Defer until a clean 95%-accuracy
+      measurement is available or the variable is renamed.
+    evidence_cited: "adversary-critique.yaml PROP-1 counterargument"
+
+  - proposal_index: 1
+    proposal_id: "PROP-2"
+    verdict: "modify"
+    modification: "Use SWE-bench Pro PRIVATE subset value (0.15) instead of public (0.23)."
+    final_value:
+      variable: "multi_hop_reasoning_accuracy"
+      proposed: 0.15
+      note: "Equal to current value — effectively a measured_at refresh with no derived-value change."
+    rationale: |
+      Private-subset resists memorization, making it a stronger signal
+      than public. At 0.15 the refresh becomes a true no-op on stored
+      values, which is the right outcome for this cycle given axiom
+      non-compliance.
+    evidence_cited: "SWE-bench Pro private 14.9%-17.8%"
+
+  - proposal_index: 2
+    proposal_id: "PROP-3"
+    verdict: "accept"
+    final_value:
+      action: "log observability gap; open follow-up RFC"
+    rationale: |
+      Stored max_file_lines (500) diverges from formula output (1333 at
+      current inputs, 1667 if PROP-1 were accepted). A5 transparency
+      requires this be recorded even without changing the stored value.
+    evidence_cited: "principle-metadata.yaml P1 current_values.max_file_lines"
+
+consensus_agents:
+  - "claude-code-session (research) — anthropic"
+  - "claude-code-session (adversary) — anthropic  [A2 VIOLATION]"
+  - "claude-code-session (synthesis) — anthropic  [A2 VIOLATION]"
+consensus_agent_count: 1
+consensus_vendor_count: 1
+axiom_compliance:
+  A1_reversibility: "pass"
+  A2_adversarial_separation: "FAIL"
+  A3_empiricism: "partial (real evidence; some cited metrics misaligned)"
+  A4_no_single_authority: "FAIL"
+  A5_observability: "pass (all artifacts committed with timestamps)"
+
+summary: |
+  Net outcome of the deliberation: one defer (PROP-1), one no-op
+  refresh (PROP-2 at private rate), one accepted observability log
+  (PROP-3). In a compliant run this would proceed to empirical
+  validation with a low-risk change set. This run does NOT proceed
+  because A2 and A4 fail by construction.
+
+proceed_to_validation: false
+block_reason: "axiom_noncompliance_A2_A4_single_vendor_dry_run"

@@ -1,0 +1,103 @@
+schema_version: "1.0"
+collection_timestamp: "2026-04-22T00:00:00Z"
+collection_mode: "dry_run_single_session_claude"
+collection_note: |
+  Collected by a single Claude Code session using WebSearch against public
+  leaderboards and vendor pricing pages. This replaces the API calls that
+  collect_benchmarks.py would normally make. Figures are point-in-time
+  snapshots; re-run for a fresh capture before acting on any proposal.
+
+benchmarks:
+  swe_bench:
+    source: "SWE-bench Verified leaderboard (consolidated)"
+    urls:
+      - "https://www.swebench.com"
+      - "https://llm-stats.com/benchmarks/swe-bench-verified"
+      - "https://benchlm.ai/benchmarks/sweVerified"
+    collected_at: "2026-04-22T00:00:00Z"
+    metrics:
+      resolution_rate_top: 0.939
+      resolution_rate_top_model: "Claude Mythos Preview"
+      resolution_rate_claude_opus_4_7: 0.876
+      resolution_rate_gpt_5_3_codex: 0.85
+      resolution_rate_avg_86_models: 0.64
+      multi_file_resolution_rate:
+        note: |
+          SWE-bench Verified is mostly single-file. Hard multi-file signal
+          is best read from SWE-bench Pro, where the private subset caps at
+          ~14.9%-23.3% even for frontier models.
+        swe_bench_pro_public_gpt5: 0.233
+        swe_bench_pro_public_claude_opus_4_1: 0.231
+        swe_bench_pro_private_gpt5: 0.149
+        swe_bench_pro_private_claude_opus_4_1: 0.178
+
+  humaneval:
+    source: "Consolidated public reporting"
+    collected_at: "2026-04-22T00:00:00Z"
+    metrics:
+      pass_at_1:
+        note: |
+          HumanEval is effectively saturated for frontier models in 2026.
+          Public tracking has largely shifted to BigCodeBench and SWE-bench.
+        claude_opus_4_7_estimate: 0.96
+        gpt_5_4_estimate: 0.95
+      multi_step_reasoning_depth:
+        note: "No single authoritative public metric; left as estimate."
+        estimate: 80
+
+  ruler:
+    source: "RULER + MRCR v2 consolidated reporting"
+    urls:
+      - "https://awesomeagents.ai/leaderboards/long-context-benchmarks-leaderboard/"
+      - "https://claude5.com/news/context-window-race-2026-how-claude-gemini-gpt-transform-lon"
+    collected_at: "2026-04-22T00:00:00Z"
+    metrics:
+      effective_context_at_95_accuracy:
+        note: |
+          Frontier models ship 1M-token context windows but only retain
+          ~60-70% of advertised capacity under RULER-style multi-hop loads.
+          A 95% accuracy threshold currently lands near ~1.0M tokens for
+          the best-performing model on multi-needle retrieval.
+        claude_opus_4_6_mrcr_at_1m: 0.76
+        gpt_5_4_single_needle_at_1m: "near-perfect"
+        gemini_3_1_pro_retrieval_at_1m: 0.26
+        llama_4_scout_claimed: 10000000
+        llama_4_scout_effective: 1400000
+        frontier_effective_at_95_accuracy_estimate: 1000000
+      lost_in_the_middle_severity_index:
+        note: "Still clearly > 0.1; Gemini-class 2M windows degrade sharply."
+        estimate: 0.35
+
+  pricing:
+    source: "Vendor pricing pages + 2026 pricing trackers"
+    collected_at: "2026-04-22T00:00:00Z"
+    models:
+      claude-opus-4-7:
+        input_per_million: 5.00
+        output_per_million: 25.00
+        context_window: 1000000
+        notes: "New tokenizer can produce up to ~35% more tokens than 4.6 for same input."
+      claude-sonnet-4-6:
+        input_per_million: 3.00
+        output_per_million: 15.00
+        context_window: 1000000
+        notes: "No long-context premium."
+      gpt-5-4:
+        input_per_million: 2.50
+        output_per_million: 15.00
+        context_window_default: 272000
+        context_window_experimental: 1050000
+      gpt-5-3-codex:
+        input_per_million: 1.75
+        output_per_million: 14.00
+        context_window: 400000
+      gemini-3-1-pro-preview:
+        input_per_million_under_200k: 2.00
+        output_per_million_under_200k: 12.00
+        input_per_million_over_200k: 4.00
+        output_per_million_over_200k: 18.00
+        context_window: 1000000
+    derived:
+      avg_token_cost_per_million_input_frontier: 2.85
+      min_token_cost_per_million_input_frontier: 1.75
+      comment: "Well above P1-T2's $0.10/M threshold; cost constraint still active."

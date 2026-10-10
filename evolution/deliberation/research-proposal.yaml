@@ -1,0 +1,97 @@
+schema_version: "1.0"
+agent: "research"
+tool: "claude-code-session (dry-run, not claude-code-cli)"
+vendor: "anthropic"
+model_hint: "Opus 4.7 (1M) — same session as adversary and synthesis"
+generated_at: "2026-04-22T00:00:00Z"
+cycle_id: "2026-04-22-dryrun"
+
+compliance_note: |
+  Dry-run. In a production cycle, this file would be authored by Claude
+  Code CLI driving a vendor-Anthropic model, then challenged by a
+  different-vendor model (A2). Here all three roles share one session.
+
+inputs:
+  sense_report: "evolution/benchmarks/sense-report.yaml"
+  principle_metadata: "principle-metadata.yaml"
+
+gap_analysis: |
+  Zero invalidation_triggers fire. Three soft signals warrant a routine
+  measured_at refresh:
+  - SS-1: P1.effective_context_tokens 800k → ~1.0M (frontier RULER effective capacity)
+  - SS-2: P2.multi_hop_reasoning_accuracy 0.15 → ~0.23 (SWE-bench Pro public)
+  - SS-3: P1.max_file_lines stored 500 vs formula-derived 1333 (A5 observability gap)
+
+  Proposed action: refresh variables + measured_at only. Do NOT change any
+  current_values beyond existing bounds. Do NOT touch permanent-tier
+  principles (P3, P5, P7, P8, P9). Axiom compliance preserved by design.
+
+proposals:
+  - id: "PROP-1"
+    principle_id: "P1"
+    field: "current_values.max_file_lines.variables.effective_context_tokens"
+    change_type: "measured_at_refresh"
+    current_value: 800000
+    proposed_value: 1000000
+    formula_with_new_inputs: "round(1000000 / 18 * 0.03) = 1667"
+    evidence:
+      benchmark: "RULER / MRCR v2"
+      source_urls:
+        - "https://awesomeagents.ai/leaderboards/long-context-benchmarks-leaderboard/"
+        - "https://claude5.com/news/context-window-race-2026-how-claude-gemini-gpt-transform-lon"
+      old_value: 800000
+      new_value: 1000000
+      basis: "Claude Opus 4.6 MRCR@1M = 0.76; GPT-5.4 near-perfect single-needle@1M"
+    side_effects_considered:
+      - "Derived max_file_lines formula would increase 1333 → 1667, but stored value stays 500 for policy headroom."
+      - "No permanent principle affected."
+    risk_level: "low"
+    rationale: |
+      Refreshes a stale measured_at timestamp without changing recommended
+      file-size policy. Keeps A5 observability current.
+
+  - id: "PROP-2"
+    principle_id: "P2"
+    field: "current_values.enforcement_strength.variables.multi_hop_reasoning_accuracy"
+    change_type: "measured_at_refresh"
+    current_value: 0.15
+    proposed_value: 0.23
+    formula_with_new_inputs: "max(0.0, 1.0 - 0.23) = 0.77"
+    evidence:
+      benchmark: "SWE-bench Pro public"
+      source_urls:
+        - "https://labs.scale.com/leaderboard/swe_bench_pro_public"
+      old_value: 0.15
+      new_value: 0.23
+      basis: "GPT-5 23.3% and Claude Opus 4.1 23.1% on SWE-bench Pro public."
+    side_effects_considered:
+      - "enforcement_strength would drop from 0.85 to 0.77 — small relaxation."
+      - "max_files_per_feature_change formula yields max(2, ceil(5*(1-0.23))) = 4, up from 3."
+      - "max_indirection_depth formula yields max(1, ceil(3*(1-0.23))) = 3, up from 2."
+    risk_level: "medium"
+    rationale: |
+      Movement is small but does nudge three derived values upward. Given
+      that multi-file SWE-bench Pro private subset is lower (~15-18%),
+      this figure may be optimistic. Flagged for adversarial challenge.
+
+  - id: "PROP-3"
+    principle_id: "P1"
+    field: "current_values.max_file_lines (observability gap)"
+    change_type: "observability_log_only"
+    current_value: 500
+    proposed_value: 500
+    formula_with_new_inputs: "unchanged"
+    evidence:
+      source: "Internal audit"
+      basis: "Stored value 500 does not equal formula output 1333."
+    risk_level: "none"
+    rationale: |
+      Not a value change. Logs an Axiom A5 observability gap: the stored
+      value diverges from the self-calibrating formula. Left to the
+      Adversary agent to decide whether to reconcile formula or value.
+
+summary: |
+  Three low-risk proposals: two measured_at refreshes and one observability
+  log entry. No change to permanent principles. No change to stored
+  current_values beyond PROP-2's derived variables. Full deliberation
+  requires A2/A4 compliance which this run does not satisfy.

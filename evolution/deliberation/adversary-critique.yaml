@@ -1,0 +1,78 @@
+schema_version: "1.0"
+agent: "adversary"
+tool: "claude-code-session (dry-run simulation, not codex-cli)"
+vendor: "anthropic"
+model_hint: "Same Opus 4.7 session impersonating an adversarial reviewer"
+generated_at: "2026-04-22T00:00:00Z"
+cycle_id: "2026-04-22-dryrun"
+
+compliance_note: |
+  Axiom A2 VIOLATION IN THIS RUN. The Adversary Agent must come from a
+  different vendor (normally Codex / GPT). Here it is the same Anthropic
+  session impersonating an adversarial role. Do NOT treat this as a
+  legitimate adversarial review. Included solely so the pipeline shape
+  is executed end-to-end for demonstration.
+
+inputs:
+  research_proposal: "evolution/deliberation/research-proposal.yaml"
+
+critiques:
+  - proposal_index: 0
+    proposal_id: "PROP-1"
+    verdict: "accept"
+    evidence_quality: "moderate"
+    side_effects:
+      - "Raising effective_context_tokens feeds max_utility_duplication's headroom calculation indirectly."
+    counterarguments:
+      - "MRCR v2 at 1M = 0.76 is NOT a 95% accuracy threshold; the variable name implies 95%. Using 0.76 as evidence for 1.0M conflates two thresholds."
+    risk_assessment: "low"
+    suggested_modification: |
+      Keep variable name honest: either lower proposed_value to the
+      actual 95% point (likely closer to 400-600k tokens) or rename the
+      variable to 'effective_context_at_~70pct_accuracy'. Pick one; don't
+      leave an ambiguous refresh.
+
+  - proposal_index: 1
+    proposal_id: "PROP-2"
+    verdict: "modify"
+    evidence_quality: "weak"
+    side_effects:
+      - "Three derived values (enforcement_strength, max_files_per_feature_change, max_indirection_depth) all move together — a cascading change dressed as a 'refresh'."
+    counterarguments:
+      - "SWE-bench Pro public rate (0.233) is optimistic vs the private subset (0.149-0.178). Public sets are memorized more easily by frontier models."
+      - "SWE-bench Pro is not the same metric P2's formula targets. 'Multi-hop reasoning accuracy' is broader than 'multi-file bug fix resolution rate'."
+      - "Labelling a change that moves three derived guideline values as 'measured_at_refresh' is misleading."
+    risk_assessment: "medium"
+    suggested_modification: |
+      Either (a) defer PROP-2 until a dedicated multi-hop reasoning
+      benchmark is tracked, or (b) use the private-subset figure (0.15)
+      which leaves current_values unchanged and is a genuine no-op
+      refresh. Option (b) preferred.
+
+  - proposal_index: 2
+    proposal_id: "PROP-3"
+    verdict: "accept"
+    evidence_quality: "strong"
+    side_effects: []
+    counterarguments:
+      - "The gap is real but not urgent — the stored value (500) is the enforced policy; the formula is a calibration tool. Either reconcile or accept the split intentionally."
+    risk_assessment: "none"
+    suggested_modification: |
+      Log the gap, open a follow-up RFC to decide whether stored values
+      should always equal formula outputs, or whether current_values
+      should continue to act as policy caps independent of formulas.
+
+axiom_risk_review:
+  A1_reversibility: "PASS — all proposals are single-line YAML edits, trivially revertable."
+  A2_adversarial_separation: "FAIL — same-vendor reviewer impersonation; not a real adversarial check."
+  A3_empiricism: "PARTIAL — evidence cited but PROP-2's metric does not match the variable's intent."
+  A4_no_single_authority: "FAIL — single agent playing all three roles."
+  A5_observability: "PASS — measured_at refreshes strengthen A5; PROP-3 explicitly addresses an A5 gap."
+
+overall_assessment: |
+  PROP-1 accept with rename, PROP-2 downgrade to private-subset value so
+  it becomes a true no-op refresh, PROP-3 accept. Overall the proposal
+  set is defensible but would benefit from a real second-vendor reviewer
+  and from tracking dedicated multi-hop benchmarks (e.g., SWE-bench Pro
+  private, Terminal-bench multi-step) instead of repurposing SWE-bench Pro
+  public as a proxy.

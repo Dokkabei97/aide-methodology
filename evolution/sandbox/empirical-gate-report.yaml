@@ -1,0 +1,18 @@
+schema_version: "1.0"
+gate_type: "empirical"
+evaluated_at: "2026-04-22T00:00:00Z"
+cycle_id: "2026-04-22-dryrun"
+
+baseline_source: null
+modified_source: null
+
+gate_result: "NOT_RUN"
+gate_not_run_reason: "synthesis_set_proceed_to_validation_false_due_to_A2_A4_failure"
+
+checks: []
+
+axiom_A3_note: |
+  A3 (Empiricism) would normally require this gate to pass before any
+  auto-apply. Because it did not run in this cycle, no apply step is
+  permitted. The PR attached to this cycle MUST remain draft and
+  MUST NOT modify principle-metadata.yaml.

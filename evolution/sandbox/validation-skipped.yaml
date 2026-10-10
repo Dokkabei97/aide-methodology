@@ -1,0 +1,36 @@
+schema_version: "1.0"
+phase: "validate"
+status: "SKIPPED"
+evaluated_at: "2026-04-22T00:00:00Z"
+cycle_id: "2026-04-22-dryrun"
+
+reason: |
+  The Evolution Engine's Phase 3 (VALIDATE) runs the same standardized
+  tasks with current principles (baseline) and proposed principles
+  (modified), then compares:
+    - test_pass_rate   (must not decrease)
+    - code_quality     (must not decrease)
+    - security_vulns   (must not increase)
+  This run cannot execute that gate because:
+    (1) Synthesis set proceed_to_validation=false due to A2/A4 failure.
+    (2) No sandbox project exists in the repository yet.
+    (3) validate_baseline.py / validate_modified.py require a sandbox
+        harness that is not wired up (they have no task set to run).
+
+baseline_source: null
+modified_source: null
+gate_result: "NOT_RUN"
+checks: []
+
+what_a_real_run_would_need:
+  - "A sandbox project with a representative AIDE-structured codebase."
+  - "A task set (N refactor/bugfix tasks) reproducibly runnable."
+  - "A harness that applies current vs proposed principle-metadata and re-runs tasks."
+  - "A way to score test_pass_rate, code_quality, security_vuln_count objectively."
+  - "Time/cost budget for empirical validation of each proposal."
+
+followup_issues_to_open:
+  - title: "Bootstrap empirical validation sandbox"
+    labels: ["evolution-engine", "sandbox", "help-wanted"]
+  - title: "Wire validate_baseline.py / validate_modified.py to a real task set"
+    labels: ["evolution-engine", "validation"]
