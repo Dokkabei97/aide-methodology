@@ -72,27 +72,53 @@ jobs:
           SHOULD=$(python -c "import json; print(json.load(open('evolution/intel/dispatch.json'))['should_dispatch'])")
           echo "should_dispatch=${SHOULD,,}" >> "$GITHUB_OUTPUT"
 
+      - name: Phase E — Synthesize research note (AIDE-relevance filtered)
+        run: python evolution/scripts/intel/synthesize_research_note.py
+        continue-on-error: true
+
+      - name: Phase F — Conditional RFC draft
+        run: python evolution/scripts/intel/draft_rfc_if_threshold.py
+        continue-on-error: true
+
+      - name: Phase G — Append entry to docs/recent-intel
+        run: python evolution/scripts/intel/update_docs_recent_intel.py
+        continue-on-error: true
+
       - name: Upload intel artifacts
         uses: actions/upload-artifact@v4
         with:
           name: weekly-intel
           path: evolution/intel/
 
-      - name: Commit weekly digest
+      - name: Commit weekly digest + synthesis + RFC draft (if any)
         run: |
           git config user.name "AIDE Weekly Intel"
           git config user.email "aide-intel@noreply.github.com"
-          git add evolution/intel/
+          git add evolution/intel/ research/intel/ rfcs/ docs/en/recent-intel.md docs/ko/recent-intel.md 2>/dev/null || true
           if git diff --cached --quiet; then
             echo "No intel changes this week."
             exit 0
           fi
           TODAY=$(date -u +"%Y-%m-%d")
+          SYNTH_LINE=""
+          if [ -f evolution/intel/synthesis-summary.json ]; then
+            WROTE=$(python -c "import json; print(json.load(open('evolution/intel/synthesis-summary.json'))['wrote_synthesis'])")
+            SYNTH_LINE="Synthesis written: ${WROTE}"
+          fi
+          RFC_LINE=""
+          if [ -f evolution/intel/rfc-draft-report.json ]; then
+            RFC_NUM=$(python -c "import json; r=json.load(open('evolution/intel/rfc-draft-report.json')); print(r.get('rfc_number') or 'none')")
+            RFC_LINE="RFC draft: ${RFC_NUM}"
+          fi
           git commit -m "intel(weekly): external signal scan ${TODAY}
 
           Sources: Anthropic/OpenAI/Google releases, HN, tech blogs, SWE-bench.
           Dispatch: ${{ steps.digest.outputs.should_dispatch }}
-          See evolution/intel/weekly-${TODAY}.md for the human-readable digest."
+          ${SYNTH_LINE}
+          ${RFC_LINE}
+          See evolution/intel/weekly-${TODAY}.md for the raw digest and
+          research/intel/${TODAY}-weekly-synthesis.md for the AIDE-filtered
+          architectural reading (when present)."
           git push origin HEAD:${GITHUB_REF_NAME}
 
   dispatch_evolution:
